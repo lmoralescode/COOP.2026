@@ -1,41 +1,75 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="COOPERATIVA.V2.Views.LoginViewsPage">
+             x:Class="COOPERATIVA.V2.Views.LoginViewsPage"
+>
     <VerticalStackLayout>
+        <StackLayout>
+            <Image Source="logocoopv2.png">
+                
+            </Image>
+        </StackLayout>
 
-        <Label Margin="50"
-               Text="Login"
-               TextColor="DarkGreen"
-               FontSize="40"
+        <StackLayout  Padding="0,10,0,0" >
+            <Label Text="Usuario" Padding="85,10,0,10"
                FontAttributes="Bold"
-               VerticalOptions="Center" 
-               HorizontalOptions="Center" />
+               FontSize="Medium"
+               TextColor="Black"/>
+
+            <Border
+              Stroke="DarkGreen"
+              StrokeThickness="3"
+              BackgroundColor="White"
+              StrokeShape="RoundRectangle 5"
+              HeightRequest="50"
+              WidthRequest="250">
+
+                <Entry x:Name="TxtEmail"
+                   Placeholder="Ingrese su email"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   Keyboard="Email"
+                   MaxLength="20"
+                   />
+            </Border>
+        </StackLayout>
+
+        <StackLayout  Padding="0,10,0,0" >
+            <Label Text="Contraseña" Padding="85,10,0,10"
+               FontAttributes="Bold"
+               FontSize="Medium"
+               TextColor="Black"/>
+
+            <Border
+              Stroke="DarkGreen"
+              StrokeThickness="3"
+              BackgroundColor="White"
+              StrokeShape="RoundRectangle 5"
+              HeightRequest="50"
+              WidthRequest="250">
+
+                <Entry x:Name="TxtClave"
+                   Placeholder="Ingrese su contraseña"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   Keyboard="Password"
+                   IsPassword="True"
+                   MaxLength="20"
+                   />
+            </Border>
+        </StackLayout>
 
         <StackLayout>
-
-            <Entry Margin="10"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"
-                   HeightRequest="20"
-                   WidthRequest="250"
-                   Placeholder="Usuario"
-                   TextColor="White"
-                   FontAttributes="Bold"
-                   BackgroundColor="DarkGreen">
-            </Entry>
-
-            <Entry Margin="10"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"
-                   HeightRequest="50"
-                   WidthRequest="250"
-                   Placeholder="Clave"
-                   TextColor="White"
-                   FontAttributes="Bold"
-                   BackgroundColor="DarkGreen">
-            </Entry>
-
+            
+            <Border WidthRequest="500"
+                    HeightRequest="400"
+                    Margin="40"
+                    StrokeShape="RoundRectangle 100"
+                    BackgroundColor="LightGreen">
+            </Border>
+            
         </StackLayout>
+
     </VerticalStackLayout>
+
 </ContentPage>
