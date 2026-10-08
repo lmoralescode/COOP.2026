@@ -12,7 +12,7 @@ namespace COOPERATIVA.V2
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new LoginViewsPage());
+            return new Window(new NavigationPage(new InicioViewsPage()));
         }
     }
 }
