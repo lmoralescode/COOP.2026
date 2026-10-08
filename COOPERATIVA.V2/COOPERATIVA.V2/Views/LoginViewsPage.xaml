@@ -4,9 +4,11 @@
              x:Class="COOPERATIVA.V2.Views.LoginViewsPage"
              Title="LoginViewsPage">
     <VerticalStackLayout>
+        
         <Label 
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        
     </VerticalStackLayout>
 </ContentPage>

@@ -4,6 +4,7 @@ public partial class InicioViewsPage : ContentPage
 {
 	public InicioViewsPage()
 	{
-		InitializeComponent();
+        InitializeComponent();
 	}
+    
 }

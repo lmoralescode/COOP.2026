@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using COOPERATIVA.V2.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace COOPERATIVA.V2
 {
@@ -11,7 +12,7 @@ namespace COOPERATIVA.V2
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new AppShell());
+            return new Window(new InicioViewsPage());
         }
     }
 }
