@@ -1,11 +1,170 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="COOPERATIVA.V2.Views.SingUpViewsPage"
-             BackgroundColor="LightGreen">
-    
-    <VerticalStackLayout>
-       
-        
+             x:Class="COOPERATIVA.V2.Views.SingUpViewsPage">
+
+    <VerticalStackLayout HorizontalOptions="Center"
+                         Padding="5">
+<!-- =======================Encabezado======================================-->
+        <StackLayout Padding="20">
+            <Border BackgroundColor="DarkGreen"
+                    StrokeThickness="4"
+                    Stroke="LightGreen"
+                    StrokeShape="RoundRectangle 15"
+                    WidthRequest="300"
+                    HeightRequest="70"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Start">
+
+                <Label Text="Registro de Usuario"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   FontSize="30"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"/>
+            </Border>
+        </StackLayout>
+<!-- =========================Label====================================-->
+        <StackLayout HorizontalOptions="Start" Padding="55,10">
+            <Label Text="Email"
+                   TextColor="DarkGreen"
+                   FontAttributes="Bold"/>
+        </StackLayout>
+ <!--=======================Entry======================================-->
+        <StackLayout WidthRequest="250"
+                     HeightRequest="50">
+            <Border
+                Stroke="DarkGreen"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 2"
+                >
+                <Entry
+                Placeholder="Usuario"
+                TextColor="Black"
+                FontAttributes="Bold"
+                Keyboard="Email"
+                MaxLength="15"/>
+            </Border>
+        </StackLayout>
+
+        <!-- =========================Label====================================-->
+        <StackLayout HorizontalOptions="Start" Padding="55,10">
+            <Label Text="Contraseña"
+                   TextColor="DarkGreen"
+                   FontAttributes="Bold"/>
+        </StackLayout>
+        <!--=======================Entry======================================-->
+        <StackLayout WidthRequest="250"
+                     HeightRequest="50">
+            <Border
+                Stroke="DarkGreen"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 2"
+                >
+                <Entry
+                Placeholder="Contraseña"
+                TextColor="Black"
+                FontAttributes="Bold"
+                Keyboard="Password"
+                IsPassword="True"
+                MaxLength="15"/>
+            </Border>
+        </StackLayout>
+
+        <!-- =========================Label====================================-->
+        <StackLayout HorizontalOptions="Start" Padding="55,10">
+            <Label Text="Nombre"
+                   TextColor="DarkGreen"
+                   FontAttributes="Bold"/>
+        </StackLayout>
+        <!--=======================Entry======================================-->
+        <StackLayout WidthRequest="250"
+                     HeightRequest="50">
+            <Border
+                Stroke="DarkGreen"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 2"
+                >
+                <Entry
+                Placeholder="Nombre"
+                TextColor="Black"
+                FontAttributes="Bold"
+                Keyboard="Text"
+                MaxLength="10"/>
+            </Border>
+        </StackLayout>
+
+        <!-- =========================Label====================================-->
+        <StackLayout HorizontalOptions="Start" Padding="55,10">
+            <Label Text="Apellido"
+                   TextColor="DarkGreen"
+                   FontAttributes="Bold"/>
+        </StackLayout>
+        <!--=======================Entry======================================-->
+        <StackLayout WidthRequest="250"
+                     HeightRequest="50">
+            <Border
+                Stroke="DarkGreen"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 2"
+                >
+                <Entry
+                Placeholder="Apellido"
+                TextColor="Black"
+                FontAttributes="Bold"
+                Keyboard="Text"
+                MaxLength="10"/>
+            </Border>
+        </StackLayout>
+
+        <!-- =========================Label====================================-->
+        <StackLayout HorizontalOptions="Start" Padding="55,10">
+            <Label Text="Edad"
+                   TextColor="DarkGreen"
+                   FontAttributes="Bold"/>
+        </StackLayout>
+        <!--=======================Entry======================================-->
+        <StackLayout WidthRequest="250"
+                     HeightRequest="50">
+            <Border
+                Stroke="DarkGreen"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 2"
+                >
+                <Entry
+                Placeholder="Edad"
+                TextColor="Black"
+                FontAttributes="Bold"
+                Keyboard="Text"
+                MaxLength="3"/>
+            </Border>
+        </StackLayout>
+        <!--==================================Buton=====================================-->
+        <StackLayout VerticalOptions="Center"
+                     HorizontalOptions="Center"
+                     Padding="10,20"
+                     WidthRequest="250">
+
+            <Button BackgroundColor="DarkGreen"
+                        Text="Registrar"
+                        FontAttributes="Bold"
+                        FontSize="Medium">
+            </Button>
+        </StackLayout>
+
+        <!--==================================Buton=====================================-->
+        <StackLayout VerticalOptions="Center"
+                     HorizontalOptions="Center"
+                     Padding="10,-10"
+                     WidthRequest="250">
+
+            <Button BackgroundColor="DarkGreen"
+                        Text="Cancelar"
+                        FontAttributes="Bold"
+                        FontSize="Medium">
+            </Button>
+        </StackLayout>
+        <!-- ======================Footer=======================================-->
+
     </VerticalStackLayout>
 </ContentPage>
