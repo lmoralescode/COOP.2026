@@ -6,4 +6,5 @@ public partial class LoginViewsPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
 }

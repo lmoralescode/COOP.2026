@@ -37,7 +37,7 @@
             </StackLayout>
 
             <Label 
-            Text="Bienvenidos"
+            Text="Bienvenid@s"
             TextColor="DarkGreen"
             FontSize="40"
             FontAttributes="Bold"

@@ -4,14 +4,18 @@
              x:Class="COOPERATIVA.V2.Views.LoginViewsPage"
              Title="Login">
     
-    <VerticalStackLayout>
+    <VerticalStackLayout Padding="0,-10">
+        
+        <!--=========logo==cabecera===========-->
         <StackLayout>
             <Image Source="logocoopv2.png">
                 
             </Image>
         </StackLayout>
+        
+        <!--=====label & entry=====-->
 
-        <StackLayout  Padding="0,10,0,0" >
+        <StackLayout  Padding="0,0,0,0" >
             <Label Text="Usuario" Padding="85,10,0,10"
                FontAttributes="Bold"
                FontSize="Medium"
@@ -26,7 +30,7 @@
               WidthRequest="250">
 
                 <Entry x:Name="TxtEmail"
-                   Placeholder="Ingrese su email"
+                   Placeholder="Email"
                    FontAttributes="Bold"
                    TextColor="Black"
                    Keyboard="Email"
@@ -35,6 +39,8 @@
             </Border>
         </StackLayout>
 
+        <!--=====label & entry=====-->
+        
         <StackLayout  Padding="0,10,0,0" >
             <Label Text="Contraseña" Padding="85,10,0,10"
                FontAttributes="Bold"
@@ -50,7 +56,7 @@
               WidthRequest="250">
 
                 <Entry x:Name="TxtClave"
-                   Placeholder="Ingrese su contraseña"
+                   Placeholder="Contraseña"
                    FontAttributes="Bold"
                    TextColor="Black"
                    Keyboard="Password"
@@ -59,6 +65,22 @@
                    />
             </Border>
         </StackLayout>
+
+        <!--=====button=====-->
+
+        <StackLayout Padding="10,20" HorizontalOptions="Center">
+            <Button
+                Text="Ingresar" x:Name="txtIngresaLogin"
+                FontAttributes="Bold"
+                BackgroundColor="DarkGreen"
+                WidthRequest="200"
+                HeightRequest="10"
+                FontSize="Medium">
+                
+            </Button>
+        </StackLayout>
+
+        <!--=====borde=====-->
 
         <StackLayout>
             

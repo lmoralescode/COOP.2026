@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="COOPERATIVA.V2.Views.SingUpViewsPage">
 
-    <VerticalStackLayout HorizontalOptions="Center"
-                         Padding="5">
-<!-- =======================Encabezado======================================-->
+    <VerticalStackLayout HorizontalOptions="Center">
+
+        <!-- =======================Encabezado======================================-->
         <StackLayout Padding="20">
             <Border BackgroundColor="DarkGreen"
                     StrokeThickness="4"
