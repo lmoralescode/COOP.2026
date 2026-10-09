@@ -9,12 +9,14 @@
           ColumnDefinitions="*,*,Auto, Auto, Auto">
 
         <Button x:Name="Socios"
+                Text="Socios"
                 Margin="5" Grid.Row="1"
                 Grid.Column="0"
                 BackgroundColor="DarkGreen"
                 FontAttributes="Bold"/>
 
-        <Button x:Name="Ahorros" 
+        <Button x:Name="Ahorros"
+                Text="Ahorros"
                 Margin="5"
                 Grid.Row="1"
                 Grid.Column="1"
