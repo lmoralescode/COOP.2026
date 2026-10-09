@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             x:Class="COOPERATIVA.V2.MenuViewsPage">
+
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,*,*"
+          ColumnDefinitions="*,*,Auto, Auto, Auto">
+
+        <Button x:Name="Socios"
+                Margin="5" Grid.Row="1"
+                Grid.Column="0"
+                BackgroundColor="DarkGreen"
+                FontAttributes="Bold"/>
+
+        <Button x:Name="Ahorros" 
+                Margin="5"
+                Grid.Row="1"
+                Grid.Column="1"
+                BackgroundColor="DarkGreen"
+                FontAttributes="Bold"/>
+
+        <Button x:Name="Prestamos" 
+                Margin="5" 
+                Text="Prestamos" 
+                Grid.Row="2" 
+                Grid.Column="0"
+                BackgroundColor="DarkGreen"
+                FontAttributes="Bold"/>
+
+        <Button x:Name="Pagos"
+                Margin="5"
+                Text="Pagos"
+                Grid.Row="2" 
+                Grid.Column="1"
+                BackgroundColor="DarkGreen"
+                FontAttributes="Bold"/>
+
+        <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+              Padding="-20">
+
+            <RoundRectangle CornerRadius="50"
+                            Stroke="DarkGreen"
+                            StrokeThickness="10"
+                            BackgroundColor="LightGreen"
+                            HeightRequest="800"
+                            Rotation="100">
+                
+            </RoundRectangle>
+            
+        </Grid>
+        
+        <StackLayout Grid.Row="6" Grid.ColumnSpan="2" >
+            <Label TextColor="White"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+            <Image Aspect="AspectFill" Source="logocoopv2.png"
+                   Margin="-100"/>
+        </StackLayout>
+
+    </Grid>
+
+
+</ContentPage>
