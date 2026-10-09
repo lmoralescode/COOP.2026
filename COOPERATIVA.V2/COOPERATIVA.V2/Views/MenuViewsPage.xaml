@@ -40,24 +40,13 @@
                 FontAttributes="Bold"/>
 
         <Grid Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"
-              Padding="0,0,0,-1000">
-
-            <RoundRectangle CornerRadius="50"
-                            Stroke="DarkGreen"
-                            StrokeThickness="10"
-                            BackgroundColor="LightGreen"
-                            HeightRequest="400"
-                            WidthRequest="900"
-                            Rotation="60">
-                
-            </RoundRectangle>
-            
+              Padding="-20">
         </Grid>
 
         <StackLayout Grid.Row="6" Grid.ColumnSpan="2" >
             
             <Image Aspect="AspectFill" Source="logocoopv2.png"
-                   Margin="-60"/>
+                   Margin="-100"/>
             
         </StackLayout>
 
