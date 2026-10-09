@@ -1,4 +1,4 @@
-namespace COOPERATIVA.V2.Views;
+namespace COOPERATIVA.V2;
 
 public partial class MenuViewsPage : ContentPage
 {
