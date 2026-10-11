@@ -1,9 +1,9 @@
 namespace COOPERATIVA.V2.Views;
 
-public partial class SingUpViewsPage : ContentPage
+public partial class RegistroViewsPage : ContentPage
 {
-	public SingUpViewsPage()
+	public RegistroViewsPage()
 	{
 		InitializeComponent();
-	}
+    }
 }
