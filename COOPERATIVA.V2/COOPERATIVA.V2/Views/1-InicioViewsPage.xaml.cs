@@ -13,7 +13,7 @@ public partial class InicioViewsPage : ContentPage
     }
     private async void CrearNav_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new SingUpViewsPage());
+        await Navigation.PushAsync(new RegistroViewsPage());
     }
 
 }

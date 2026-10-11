@@ -4,6 +4,6 @@ public partial class RegistroViewsPage : ContentPage
 {
 	public RegistroViewsPage()
 	{
-		InitializeComponent();
+        InitializeComponent();
     }
 }
