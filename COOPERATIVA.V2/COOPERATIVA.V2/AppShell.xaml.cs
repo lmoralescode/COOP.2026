@@ -9,6 +9,7 @@ namespace COOPERATIVA.V2
             InitializeComponent();
 
             // Registrando rutas para navegación
+
             Routing.RegisterRoute(nameof(InicioViewsPage), typeof(InicioViewsPage));
             Routing.RegisterRoute(nameof(LoginViewsPage), typeof(LoginViewsPage));
             Routing.RegisterRoute(nameof(RegistroViewsPage), typeof(RegistroViewsPage));
