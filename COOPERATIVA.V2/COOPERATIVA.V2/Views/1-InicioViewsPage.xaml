@@ -32,7 +32,7 @@
                 Text="Cooperativa"
                 FontSize="32"
                 FontAttributes="Bold"
-                TextColor="#064A9B"
+                TextColor="DarkGreen"
                 HorizontalOptions="Center"/>
 
             <Label

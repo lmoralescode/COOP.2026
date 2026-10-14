@@ -27,7 +27,7 @@
             Text="Iniciar sesión"
             FontSize="40"
             FontAttributes="Bold"
-            TextColor="#064A9B"
+            TextColor="DarkGreen"
             HorizontalOptions="Center"/>
 
         <Label
@@ -38,13 +38,15 @@
         <Entry
             x:Name="UsuarioEntry"
             Placeholder="Nombre de usuario"
-            Keyboard="Email"/>
+            Keyboard="Email"
+            MaxLength="20"/>
 
         <Entry
             x:Name="ContrasenaEntry"
             Placeholder="Contraseña"
             Keyboard="Password"
-            IsPassword="True"/>
+            IsPassword="True"
+            MaxLength="15"/>
 
         <Button
             Text="Ingresar"
