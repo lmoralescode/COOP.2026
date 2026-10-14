@@ -19,17 +19,17 @@
                 FontAttributes="Bold"
                 TextColor="DarkGreen"/>
             
-            <Entry Placeholder="Nombre" MaxLength="15"/>
-            <Entry Placeholder="Apellidos" MaxLength="15"/>
-            <Entry Placeholder="Cédula de identidad" MaxLength="11"/>
-            <Entry Placeholder="Teléfono" MaxLength="10"/>
-            <Entry Placeholder="Dirección" MaxLength="25"/>
+            <Entry Placeholder="Nombre" Keyboard="Text" MaxLength="20"/>
+            <Entry Placeholder="Apellidos" Keyboard="Text" MaxLength="30"/>
+            <Entry Placeholder="Cédula de identidad" Keyboard="Numeric" MaxLength="11"/>
+            <Entry Placeholder="Teléfono" Keyboard="Telephone" MaxLength="10"/>
+            <Entry Placeholder="Dirección" Keyboard="Text" MaxLength="50"/>
             <DatePicker/>
 
             <Entry
                 Placeholder="Correo electrónico"
                 Keyboard="Email"
-                MaxLength="20"/>
+                MaxLength="25"/>
 
             <Entry
                 Placeholder="Contraseña"

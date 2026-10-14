@@ -28,5 +28,16 @@ namespace COOPERATIVA.V2.Views
         {
             await Navigation.PushAsync(new RegistroViewsPage());
         }
+
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            UsuarioEntry.Text = string.Empty;
+            ContrasenaEntry.Text = string.Empty;
+        }
     }
 }
+
+
+
