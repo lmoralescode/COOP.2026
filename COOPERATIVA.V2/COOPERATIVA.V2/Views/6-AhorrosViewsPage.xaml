@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="COOPERATIVA.V2.Views.AhorrosViewsPage">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="18" Spacing="15">
+
+            <Label
+                Text="Ahorros y aportaciones"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="Blue"/>
+
+            <Label Text="Seleccionar socio"/>
+
+            <Picker
+                x:Name="SocioPicker"
+                Title="Seleccione un socio"
+                BackgroundColor="White"/>
+
+            <!-- Balance -->
+            <Border
+                BackgroundColor="Blue"
+                StrokeThickness="0"
+                Padding="20"
+                StrokeShape="RoundRectangle 15">
+
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="Balance disponible"
+                        TextColor="White"
+                        FontSize="16"/>
+
+                    <Label
+                        x:Name="BalanceLabel"
+                        Text="RD$ 0.00"
+                        TextColor="White"
+                        FontSize="30"
+                        FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Tipo de operación -->
+            <Label
+                Text="Tipo de movimiento"
+                FontAttributes="Bold"/>
+
+            <Picker
+                x:Name="TipoMovimientoPicker"
+                Title="Seleccione una operación"
+                BackgroundColor="White">
+                <Picker.Items>
+                    <x:String>Depósito</x:String>
+                    <x:String>Retiro</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="Monto (RD$)"/>
+
+            <Entry
+                x:Name="MontoEntry"
+                Placeholder="0.00"
+                Keyboard="Numeric"
+                BackgroundColor="White"/>
+
+            <Label Text="Fecha del movimiento"/>
+
+            <DatePicker
+                x:Name="FechaMovimientoPicker"
+                Format="dd/MM/yyyy"
+                BackgroundColor="White"/>
+
+            <Button
+                Text="Registrar movimiento"
+                BackgroundColor="DarkGreen"
+                TextColor="White"
+                HeightRequest="50"
+                CornerRadius="10"/>
+            <!--Clicked="OnRegistrarMovimientoClicked"/>-->
+
+            <Label
+                Text="Últimos movimientos"
+                FontSize="20"
+                FontAttributes="Bold"
+                TextColor="Blue"
+                Margin="0,10,0,0"/>
+
+            <CollectionView
+                x:Name="ListaMovimientos"
+                HeightRequest="250"
+                SelectionMode="None">
+
+                <CollectionView.EmptyView>
+                    <Label
+                        Text="No hay movimientos registrados."
+                        TextColor="Gray"
+                        Padding="10"/>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            BackgroundColor="White"
+                            Stroke="Gray"
+                            Padding="12"
+                            Margin="0,3"
+                            StrokeShape="RoundRectangle 10">
+
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label
+                                        Text="{Binding Tipo}"
+                                        FontAttributes="Bold"
+                                        TextColor="Blue"/>
+
+                                    <Label
+                                        Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}"
+                                        FontSize="12"
+                                        TextColor="Gray"/>
+                                </VerticalStackLayout>
+
+                                <Label
+                                    Grid.Column="1"
+                                    Text="{Binding Monto, StringFormat='RD$ {0:N2}'}"
+                                    FontAttributes="Bold"
+                                    VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

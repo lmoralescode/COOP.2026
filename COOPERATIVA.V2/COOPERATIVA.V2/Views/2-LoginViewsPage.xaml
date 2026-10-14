@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="COOPERATIVA.V2.Views.LoginViewsPage">
+
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="DarkGreen"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout
+        Padding="30"
+        Spacing="18"
+        VerticalOptions="Start">
+
+        <!--=========logo==cabecera===========-->
+        <StackLayout>
+            <Image Source="logocoopv2.png">
+
+            </Image>
+        </StackLayout>
+
+        <!--=====label // entry // Button =====-->
+
+        <Label
+            Text="Iniciar sesión"
+            FontSize="40"
+            FontAttributes="Bold"
+            TextColor="DarkGreen"
+            HorizontalOptions="Center"/>
+
+        <Label
+            Text="Ingresa tus credenciales"
+            FontSize="Medium"
+            HorizontalOptions="Center"/>
+
+        <Entry
+            x:Name="UsuarioEntry"
+            Placeholder="Nombre de usuario"
+            Keyboard="Email"
+            MaxLength="20"/>
+
+        <Entry
+            x:Name="ContrasenaEntry"
+            Placeholder="Contraseña"
+            Keyboard="Password"
+            IsPassword="True"
+            MaxLength="15"/>
+
+        <Button
+            Text="Ingresar"
+            TextColor="White"
+            FontSize="Medium"
+            WidthRequest="250"
+            Clicked="OnIngresarClicked"/>
+
+        <Button
+            Text="Crear una cuenta"
+            BackgroundColor="LightGray"
+            TextColor="Black"
+            FontSize="Medium"
+            WidthRequest="250"
+            Clicked="OnRegistroClicked"/>
+
+    </VerticalStackLayout>
+    
+</ContentPage>
