@@ -14,7 +14,7 @@
                 Text="Gestión de socios"
                 FontSize="26"
                 FontAttributes="Bold"
-                TextColor="#064A9B"/>
+                TextColor="Blue"/>
 
             <Label
                 Text="Registra y consulta los miembros"
@@ -71,7 +71,7 @@
                                 Text="{Binding NombreCompleto}"
                                 FontAttributes="Bold"
                                 FontSize="16"
-                                TextColor="#064A9B"/>
+                                TextColor="RoyalBlue"/>
 
                             <Label
                                 Grid.Row="1"
@@ -104,18 +104,18 @@
             <Button
                 Grid.Column="0"
                 Text="+ Nuevo socio"
-                BackgroundColor="#0759B5"
+                BackgroundColor="Blue"
                 TextColor="White"
-                CornerRadius="10"
-                Clicked="OnNuevoSocioClicked"/>
+                CornerRadius="10"/>
+            <!--Clicked="OnNuevoSocioClicked"/>-->
 
             <Button
                 Grid.Column="1"
                 Text="Editar / consultar"
-                BackgroundColor="#168344"
+                BackgroundColor="DarkGreen"
                 TextColor="White"
-                CornerRadius="10"
-                Clicked="OnEditarSocioClicked"/>
+                CornerRadius="10"/>
+            <!--Clicked="OnEditarSocioClicked"/>-->
         </Grid>
     </Grid>
 </ContentPage>
