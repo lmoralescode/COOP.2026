@@ -2,71 +2,71 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="COOPERATIVA.V2.Views.InicioViewsPage"
-             BackgroundColor="White">
+             BackgroundColor="White"
+             Title="Inicio">
 
-    <VerticalStackLayout Margin="10" Padding="10">
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="DarkGreen"/>
+        </Style>
+    </ContentPage.Resources>
 
-        <StackLayout Margin="10" Padding="10">
-
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="25"
+            Spacing="5"
+            VerticalOptions="Center">
+            
             <Image Source="logocoopv2.png"
                    HeightRequest="300"
                    WidthRequest="800"
-                       Aspect="AspectFit"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center" />
-        </StackLayout>
+                   Aspect="AspectFit"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
 
-        <StackLayout>
-                <Border
-                    StrokeThickness="2"
-                    Stroke="White"
-                    BackgroundColor="DarkGreen"
-                    Padding="10">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="20" />
-                    </Border.StrokeShape>
+            <Label
+                Text="🤝"
+                FontSize="70"
+                HorizontalOptions="Center"/>
 
-                    <Label 
-                        Text="COOPERATIVA DE AHORRO Y CREDITO"
-                        TextColor="White"
-                        FontSize="Medium"
-                        FontAttributes="Bold"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Center" />
-                </Border>
-            </StackLayout>
+            <Label
+                Text="Cooperativa"
+                FontSize="32"
+                FontAttributes="Bold"
+                TextColor="#064A9B"
+                HorizontalOptions="Center"/>
 
-            <Label 
-            Text="Bienvenid@s"
-            TextColor="DarkGreen"
-            FontSize="40"
-            FontAttributes="Bold"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-            
-            <Button Margin="10" Padding="10"
-            WidthRequest="150"
-            HeightRequest="5"
-            Text="Crear Cuenta"
-            TextColor="White"
-            FontAttributes="Bold"
-            BackgroundColor="DarkGreen"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            x:Name="TxtCreaeCuenta"
-            Clicked="CrearNav_Clicked"/>
+            <Label
+                Text="Juntos por un mejor futuro"
+                FontSize="16"
+                HorizontalOptions="Center"/>
 
-        <Button Margin="10" Padding="10"
-            WidthRequest="150"
-            HeightRequest="5"
-            Text="Iniciar Seccion"
-            TextColor="White"
-            FontAttributes="Bold"
-            BackgroundColor="DarkGreen"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            x:Name="TxtIniciarSesion"
-            Clicked="IniciarSesion_Clicked"/>
+            <Label
+                Text="Tu esfuerzo, nuestra mayor riqueza"
+                FontSize="20"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Margin="0,25,0,20"/>
 
-    </VerticalStackLayout>
+            <Button
+                Text="Comenzar"
+                TextColor="White"
+                FontSize="Medium"
+                CornerRadius="12"
+                HeightRequest="55"
+                WidthRequest="200"
+                Clicked="OnComenzarClicked"/>
+
+            <Button
+                Text="Registrarme"
+                TextColor="White"
+                FontSize="Medium"
+                CornerRadius="12"
+                HeightRequest="50"
+                WidthRequest="200"
+                Clicked="OnRegistroClicked"/>
+
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

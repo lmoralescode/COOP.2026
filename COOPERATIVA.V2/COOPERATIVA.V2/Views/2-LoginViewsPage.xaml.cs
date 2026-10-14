@@ -15,7 +15,7 @@ namespace COOPERATIVA.V2.Views
             if (usuario != "lmorales@gmail.com" || clave != "1234")
             {
 
-                await DisplayAlert("Error", "Por favor, ingrese usuario y contraseña.", "OK");
+                await DisplayAlertAsync("Error", "Por favor, ingrese usuario y contraseña.", "OK");
             }
             else
             {
