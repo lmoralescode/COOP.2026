@@ -3,10 +3,144 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="COOPERATIVA.V2.Views.PrestamosViewsPage"
              Title="PrestamosViewsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="18" Spacing="14">
+
+            <Label
+                Text="Gestión de préstamos"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="Blue"/>
+
+            <Label Text="Socio solicitante"/>
+
+            <Picker
+                x:Name="SocioPrestamoPicker"
+                Title="Seleccione un socio"
+                BackgroundColor="White"/>
+
+            <Label Text="Monto solicitado (RD$)"/>
+
+            <Entry
+                x:Name="MontoPrestamoEntry"
+                Placeholder="Ej. 30000"
+                Keyboard="Numeric"
+                BackgroundColor="White"/>
+
+            <Label Text="Tasa de interés anual (%)"/>
+
+            <Entry
+                x:Name="TasaInteresEntry"
+                Placeholder="Ej. 12"
+                Keyboard="Numeric"
+                BackgroundColor="White"/>
+
+            <Label Text="Plazo del préstamo"/>
+
+            <Picker
+                x:Name="PlazoPicker"
+                Title="Seleccione el plazo"
+                BackgroundColor="White">
+                <Picker.Items>
+                    <x:String>6 meses</x:String>
+                    <x:String>12 meses</x:String>
+                    <x:String>18 meses</x:String>
+                    <x:String>24 meses</x:String>
+                    <x:String>36 meses</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Button
+                Text="Calcular cuota estimada"
+                BackgroundColor="#0876D9"
+                TextColor="White"
+                CornerRadius="10"
+                Clicked="OnCalcularCuotaClicked"/>
+
+            <Border
+                BackgroundColor="White"
+                Stroke="WhiteSmoke"
+                Padding="16"
+                StrokeShape="RoundRectangle 12">
+
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="Cuota mensual estimada"
+                        TextColor="Gray"/>
+
+                    <Label
+                        x:Name="CuotaLabel"
+                        Text="RD$ 0.00"
+                        FontSize="26"
+                        FontAttributes="Bold"
+                        TextColor="Blue"/>
+
+                    <Label
+                        x:Name="ResumenPrestamoLabel"
+                        Text="Complete los datos para calcular."
+                        FontSize="13"
+                        TextColor="Gray"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button
+                Text="Registrar solicitud"
+                BackgroundColor="DarkGreen"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="50"
+                Clicked="OnRegistrarPrestamoClicked"/>
+
+            <Label
+                Text="Préstamos registrados"
+                FontSize="20"
+                FontAttributes="Bold"
+                TextColor="Blue"
+                Margin="0,10,0,0"/>
+
+            <CollectionView
+                x:Name="ListaPrestamos"
+                HeightRequest="260"
+                SelectionMode="None">
+
+                <CollectionView.EmptyView>
+                    <Label
+                        Text="No hay préstamos registrados."
+                        TextColor="Gray"
+                        Padding="10"/>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            BackgroundColor="White"
+                            Stroke="WhiteSmoke"
+                            Padding="12"
+                            Margin="0,3"
+                            StrokeShape="RoundRectangle 10">
+
+                            <VerticalStackLayout Spacing="5">
+                                <Label
+                                    Text="{Binding NumeroPrestamo}"
+                                    FontAttributes="Bold"
+                                    TextColor="#064A9B"/>
+
+                                <Label
+                                    Text="{Binding Monto, StringFormat='Monto: RD$ {0:N2}'}"/>
+
+                                <Label
+                                    Text="{Binding SaldoPendiente, StringFormat='Saldo pendiente: RD$ {0:N2}'}"/>
+
+                                <Label
+                                    Text="{Binding Estado}"
+                                    TextColor="DarkGreen"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
