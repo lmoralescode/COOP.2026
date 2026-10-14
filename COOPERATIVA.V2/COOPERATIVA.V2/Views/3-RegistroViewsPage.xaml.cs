@@ -6,4 +6,9 @@ public partial class RegistroViewsPage : ContentPage
 	{
         InitializeComponent();
     }
+
+    private void Entry_Focused(object sender, FocusEventArgs e)
+    {
+
+    }
 }
