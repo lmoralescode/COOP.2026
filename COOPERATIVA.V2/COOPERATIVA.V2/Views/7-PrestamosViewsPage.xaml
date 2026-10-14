@@ -53,10 +53,10 @@
 
             <Button
                 Text="Calcular cuota estimada"
-                BackgroundColor="#0876D9"
+                BackgroundColor="Blue"
                 TextColor="White"
-                CornerRadius="10"
-                Clicked="OnCalcularCuotaClicked"/>
+                CornerRadius="10"/>
+            <!--Clicked="OnCalcularCuotaClicked"/>-->
 
             <Border
                 BackgroundColor="White"
@@ -124,7 +124,7 @@
                                 <Label
                                     Text="{Binding NumeroPrestamo}"
                                     FontAttributes="Bold"
-                                    TextColor="#064A9B"/>
+                                    TextColor="Blue"/>
 
                                 <Label
                                     Text="{Binding Monto, StringFormat='Monto: RD$ {0:N2}'}"/>
