@@ -11,4 +11,19 @@ public partial class RegistroViewsPage : ContentPage
     {
 
     }
+
+    private void Entry_Unfocused(object sender, FocusEventArgs e)
+    {
+
+    }
+
+    private void Entry_Unfocused_1(object sender, FocusEventArgs e)
+    {
+
+    }
+
+    private void Button_Focused(object sender, FocusEventArgs e)
+    {
+
+    }
 }

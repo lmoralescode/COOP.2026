@@ -4,53 +4,47 @@
              xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
              x:Class="COOPERATIVA.V2.MenuViewsPage">
 
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
 
-    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,*,*"
-          ColumnDefinitions="*,*,Auto, Auto, Auto">
+            <Label
+                Text="Cooperativa"
+                FontSize="30"
+                FontAttributes="Bold"
+                TextColor="#064A9B"/>
 
-        <Button x:Name="Socios"
-                Text="Socios"
-                Margin="5" Grid.Row="1"
-                Grid.Column="0"
-                BackgroundColor="DarkGreen"
-                FontAttributes="Bold"/>
+            <Label
+                Text="Bienvenido al sistema"
+                FontSize="17"/>
 
-        <Button x:Name="Ahorros"
-                Text="Ahorros"
-                Margin="5"
-                Grid.Row="1"
-                Grid.Column="1"
-                BackgroundColor="DarkGreen"
-                FontAttributes="Bold"/>
+            <Button
+                Text="👥  Socios"
+                HeightRequest="65"
+                BackgroundColor="#0759B5"
+                TextColor="White"/>
+            <!--Clicked="OnSociosClicked"/>-->
 
-        <Button x:Name="Prestamos" 
-                Margin="5" 
-                Text="Prestamos" 
-                Grid.Row="2" 
-                Grid.Column="0"
-                BackgroundColor="DarkGreen"
-                FontAttributes="Bold"/>
+            <Button
+                Text="💰  Ahorros"
+                HeightRequest="65"
+                BackgroundColor="#159447"
+                TextColor="White"/>
+            <!--Clicked="OnAhorrosClicked"/>-->
 
-        <Button x:Name="Pagos"
-                Margin="5"
-                Text="Pagos"
-                Grid.Row="2" 
-                Grid.Column="1"
-                BackgroundColor="DarkGreen"
-                FontAttributes="Bold"/>
+            <Button
+                Text="🤝  Préstamos"
+                HeightRequest="65"
+                BackgroundColor="#E99519"
+                TextColor="White"/>
+            <!--Clicked="OnPrestamosClicked"/>-->
 
-        <Grid Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"
-              Padding="-20">
-        </Grid>
+            <Button
+                Text="💳  Pagos"
+                HeightRequest="65"
+                BackgroundColor="#7046C8"
+                TextColor="White"/>
+            <!--Clicked="OnPagosClicked"/>-->
 
-        <StackLayout Grid.Row="6" Grid.ColumnSpan="2" >
-            
-            <Image Aspect="AspectFill" Source="logocoopv2.png"
-                   Margin="-100"/>
-            
-        </StackLayout>
-
-    </Grid>
-
-
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
