@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="COOPERATIVA.V2.Views.PrestamosViewsPage"
-             Title="PrestamosViewsPage">
+             x:Class="COOPERATIVA.V2.Views.PrestamosViewsPage">
 
     <ScrollView>
         <VerticalStackLayout Padding="18" Spacing="14">
@@ -89,8 +88,8 @@
                 BackgroundColor="DarkGreen"
                 TextColor="White"
                 CornerRadius="10"
-                HeightRequest="50"
-                Clicked="OnRegistrarPrestamoClicked"/>
+                HeightRequest="50"/>
+            <!--Clicked="OnRegistrarPrestamoClicked"/>-->
 
             <Label
                 Text="Préstamos registrados"
