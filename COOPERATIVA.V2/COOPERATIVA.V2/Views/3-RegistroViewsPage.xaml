@@ -19,23 +19,25 @@
                 FontAttributes="Bold"
                 TextColor="DarkGreen"/>
             
-            <Entry Placeholder="Nombre" Keyboard="Text" MaxLength="20"/>
-            <Entry Placeholder="Apellidos" Keyboard="Text" MaxLength="30"/>
-            <Entry Placeholder="Cédula de identidad" Keyboard="Numeric" MaxLength="11"/>
-            <Entry Placeholder="Teléfono" Keyboard="Telephone" MaxLength="10"/>
-            <Entry Placeholder="Dirección" Keyboard="Text" MaxLength="50"/>
-            <DatePicker/>
+            <Entry Placeholder="Nombre" Keyboard="Text" MaxLength="20" x:Name="NombreEntry"/>
+            <Entry Placeholder="Apellidos" Keyboard="Text" MaxLength="30" x:Name="ApellidosEntry"/>
+            <Entry Placeholder="Cédula de identidad" Keyboard="Numeric" MaxLength="11" x:Name="CedulaEntry"/>
+            <Entry Placeholder="Teléfono" Keyboard="Telephone" MaxLength="10" x:Name="TelefonoEntry"/>
+            <Entry Placeholder="Dirección" Keyboard="Text" MaxLength="50" x:Name="DireccionEntry"/>
+            <DatePicker x:Name="FechaNacimientoPicker"/>
 
             <Entry
                 Placeholder="Correo electrónico"
                 Keyboard="Email"
-                MaxLength="25"/>
+                MaxLength="25"
+                x:Name="CorreoEntry"/>
 
             <Entry
                 Placeholder="Contraseña"
                 IsPassword="True"
-                MaxLength="12"/>
-
+                MaxLength="12"
+                x:Name="ContrasenaEntry"/>
+    
             <Button
                 Text="Registrar socio"
                 TextColor="White"

@@ -7,23 +7,18 @@ public partial class RegistroViewsPage : ContentPage
         InitializeComponent();
     }
 
-    private void Entry_Focused(object sender, FocusEventArgs e)
+    protected override void OnAppearing()
     {
+        base.OnAppearing();
+        NombreEntry.Text = string.Empty;
+        ApellidosEntry.Text = string.Empty;
+        CedulaEntry.Text = string.Empty;
+        TelefonoEntry.Text = string.Empty;
+        DireccionEntry.Text = string.Empty;
+        FechaNacimientoPicker.Date = DateTime.Now;
+        CorreoEntry.Text = string.Empty;
+        ContrasenaEntry.Text = string.Empty;
 
     }
 
-    private void Entry_Unfocused(object sender, FocusEventArgs e)
-    {
-
-    }
-
-    private void Entry_Unfocused_1(object sender, FocusEventArgs e)
-    {
-
-    }
-
-    private void Button_Focused(object sender, FocusEventArgs e)
-    {
-
-    }
 }

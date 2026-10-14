@@ -25,8 +25,8 @@
                 FontSize="Large"
                 HeightRequest="65"
                 BackgroundColor="DarkBlue"
-                TextColor="White"/>
-            <!--Clicked="OnSociosClicked"/>-->
+                TextColor="White"
+                Clicked="OnSociosClicked"/>
 
             <Button
                 Text="💰  Ahorros"
@@ -34,8 +34,8 @@
                 FontSize="Large"
                 HeightRequest="65"
                 BackgroundColor="DarkGreen"
-                TextColor="White"/>
-            <!--Clicked="OnAhorrosClicked"/>-->
+                TextColor="White"
+                Clicked="OnAhorrosClicked"/>
 
             <Button
                 Text="🤝  Préstamos"
@@ -43,8 +43,8 @@
                 FontSize="Large"
                 HeightRequest="65"
                 BackgroundColor="DarkOrange"
-                TextColor="White"/>
-            <!--Clicked="OnPrestamosClicked"/>-->
+                TextColor="White"
+                Clicked="OnPrestamosClicked"/>
 
             <Button
                 Text="💳  Pagos"
@@ -52,8 +52,8 @@
                 FontSize="Large"
                 HeightRequest="65"
                 BackgroundColor="Purple"
-                TextColor="White"/>
-            <!--Clicked="OnPagosClicked"/>-->
+                TextColor="White"
+                Clicked="OnPagosClicked"/>
 
         </VerticalStackLayout>
     </ScrollView>
