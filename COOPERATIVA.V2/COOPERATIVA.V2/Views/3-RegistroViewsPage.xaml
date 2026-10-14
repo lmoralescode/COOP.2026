@@ -19,11 +19,11 @@
                 FontAttributes="Bold"
                 TextColor="DarkGreen"/>
             
-            <Entry Placeholder="Nombre"/>
-            <Entry Placeholder="Apellidos"/>
-            <Entry Placeholder="Cédula de identidad"/>
-            <Entry Placeholder="Teléfono"/>
-            <Entry Placeholder="Dirección"/>
+            <Entry Placeholder="Nombre" MaxLength="15"/>
+            <Entry Placeholder="Apellidos" MaxLength="15"/>
+            <Entry Placeholder="Cédula de identidad" MaxLength="11"/>
+            <Entry Placeholder="Teléfono" MaxLength="10"/>
+            <Entry Placeholder="Dirección" MaxLength="25"/>
             <DatePicker/>
 
             <Entry
@@ -34,7 +34,7 @@
             <Entry
                 Placeholder="Contraseña"
                 IsPassword="True"
-                MaxLength="15"/>
+                MaxLength="12"/>
 
             <Button
                 Text="Registrar socio"
