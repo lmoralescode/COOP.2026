@@ -9,39 +9,49 @@
 
             <Label
                 Text="Cooperativa"
-                FontSize="30"
+                FontSize="40"
                 FontAttributes="Bold"
-                TextColor="#064A9B"/>
+                HorizontalOptions="Center"  
+                TextColor="DarkGreen"/>
 
             <Label
                 Text="Bienvenido al sistema"
+                HorizontalOptions="Center"
                 FontSize="17"/>
 
             <Button
                 Text="👥  Socios"
+                FontAttributes="Bold"
+                FontSize="Large"
                 HeightRequest="65"
-                BackgroundColor="#0759B5"
+                BackgroundColor="DarkBlue"
                 TextColor="White"/>
             <!--Clicked="OnSociosClicked"/>-->
 
             <Button
                 Text="💰  Ahorros"
+                FontAttributes="Bold"
+                FontSize="Large"
                 HeightRequest="65"
-                BackgroundColor="#159447"
+                BackgroundColor="DarkGreen"
                 TextColor="White"/>
             <!--Clicked="OnAhorrosClicked"/>-->
 
             <Button
                 Text="🤝  Préstamos"
+                FontAttributes="Bold"
+                FontSize="Large"
                 HeightRequest="65"
-                BackgroundColor="#E99519"
+                BackgroundColor="DarkOrange"
                 TextColor="White"/>
             <!--Clicked="OnPrestamosClicked"/>-->
 
             <Button
                 Text="💳  Pagos"
+                FontAttributes="Bold"
+                FontSize="Large"
                 HeightRequest="65"
-                BackgroundColor="#7046C8"
+                BackgroundColor="Purple"
                 TextColor="White"/>
             <!--Clicked="OnPagosClicked"/>-->
 
