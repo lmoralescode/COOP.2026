@@ -7,10 +7,10 @@ namespace COOPERATIVA.V2.Views
             InitializeComponent();
         }
 
-        private async void LoginNav_Clicked(object sender, EventArgs e)
+        private async void OnIngresarClicked(object sender, EventArgs e)
         {
-            string usuario = TxtEmail.Text;
-            string clave = TxtClave.Text;
+            string usuario = UsuarioEntry.Text;
+            string clave = ContrasenaEntry.Text;
 
             if (usuario != "lmorales@gmail.com" || clave != "1234")
             {
@@ -22,6 +22,11 @@ namespace COOPERATIVA.V2.Views
                 await Navigation.PushAsync(new MenuViewsPage());
 
             }
+        }
+
+        private async void OnRegistroClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new RegistroViewsPage());
         }
     }
 }

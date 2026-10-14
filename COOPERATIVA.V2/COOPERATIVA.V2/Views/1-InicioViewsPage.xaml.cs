@@ -11,9 +11,6 @@ public partial class InicioViewsPage : ContentPage
     {
        await Navigation.PushAsync(new LoginViewsPage());
     }
-    private async void OnRegistroClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new RegistroViewsPage());
-    }
+
 
 }

@@ -2,98 +2,65 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="COOPERATIVA.V2.Views.LoginViewsPage">
-    
-    <VerticalStackLayout Padding="0,-10">
-        
+
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="DarkGreen"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout
+        Padding="30"
+        Spacing="18"
+        VerticalOptions="Start">
+
         <!--=========logo==cabecera===========-->
         <StackLayout>
             <Image Source="logocoopv2.png">
-                
+
             </Image>
         </StackLayout>
-        
-        <!--=====label & entry=====-->
 
-        <StackLayout  Padding="0,0,0,0" >
-            <Label Text="Usuario" Padding="85,10,0,10"
-               FontAttributes="Bold"
-               FontSize="Medium"
-               TextColor="Black"/>
+        <!--=====label // entry // Button =====-->
 
-            <Border
-              Stroke="DarkGreen"
-              StrokeThickness="3"
-              BackgroundColor="White"
-              StrokeShape="RoundRectangle 5"
-              HeightRequest="50"
-              WidthRequest="250">
+        <Label
+            Text="Iniciar sesión"
+            FontSize="40"
+            FontAttributes="Bold"
+            TextColor="#064A9B"
+            HorizontalOptions="Center"/>
 
-                <Entry x:Name="TxtEmail"
-                   Placeholder="Email"
-                   FontAttributes="Bold"
-                   TextColor="Black"
-                   Keyboard="Email"
-                   MaxLength="20"
-                   />
-            </Border>
-        </StackLayout>
+        <Label
+            Text="Ingresa tus credenciales"
+            FontSize="Medium"
+            HorizontalOptions="Center"/>
 
-        <!--=====label & entry=====-->
-        
-        <StackLayout  Padding="0,10,0,0" >
-            <Label Text="Contraseña" Padding="85,10,0,10"
-               FontAttributes="Bold"
-               FontSize="Medium"
-               TextColor="Black"/>
+        <Entry
+            x:Name="UsuarioEntry"
+            Placeholder="Nombre de usuario"
+            Keyboard="Email"/>
 
-            <Border
-              Stroke="DarkGreen"
-              StrokeThickness="3"
-              BackgroundColor="White"
-              StrokeShape="RoundRectangle 5"
-              HeightRequest="50"
-              WidthRequest="250">
+        <Entry
+            x:Name="ContrasenaEntry"
+            Placeholder="Contraseña"
+            Keyboard="Password"
+            IsPassword="True"/>
 
-                <Entry x:Name="TxtClave"
-                   Placeholder="Contraseña"
-                   FontAttributes="Bold"
-                   TextColor="Black"
-                   Keyboard="Password"
-                   IsPassword="True"
-                   MaxLength="20"
-                   />
-            </Border>
-        </StackLayout>
+        <Button
+            Text="Ingresar"
+            TextColor="White"
+            FontSize="Medium"
+            WidthRequest="250"
+            Clicked="OnIngresarClicked"/>
 
-        <!--=====button=====-->
-
-        <StackLayout Padding="10,20" HorizontalOptions="Center">
-
-            <Button Clicked="LoginNav_Clicked"
-                Text="Ingresar"
-                FontAttributes="Bold"
-                BackgroundColor="DarkGreen"
-                WidthRequest="200"
-                HeightRequest="10"
-                FontSize="Medium">
-                
-            </Button>
-            
-        </StackLayout>
-
-        <!--=====borde=====-->
-
-        <StackLayout>
-            
-            <Border WidthRequest="500"
-                    HeightRequest="400"
-                    Margin="40"
-                    StrokeShape="RoundRectangle 100"
-                    BackgroundColor="LightGreen">
-            </Border>
-            
-        </StackLayout>
+        <Button
+            Text="Crear una cuenta"
+            BackgroundColor="LightGray"
+            TextColor="Black"
+            FontSize="Medium"
+            WidthRequest="250"
+            Clicked="OnRegistroClicked"/>
 
     </VerticalStackLayout>
-
+    
 </ContentPage>
