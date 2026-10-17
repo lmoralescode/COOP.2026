@@ -4,12 +4,72 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:COOPERATIVA.V2"
-    Title="COOPERATIVA.V2"
-    NavigationPage.HasNavigationBar="False">
+    Title="COOPERATIVA.V2">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Inicio"
+        ContentTemplate="{DataTemplate local:InicioViewsPage}"
+        Route="InicioViewsPage" />
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate local:LoginViewsPage}"
+        Route="LoginViewsPage" />
+
+    <ShellContent
+        Title="Registro"
+        ContentTemplate="{DataTemplate local:RegistroViewsPage}"
+        Route="RegistroViewsPage" />
+
+    <FlyoutItem
+        x:Name="Menu"
+        Title="Menu Principal"
+        Route="MenuViewsPage"
+        IsVisible="False"
+        <ShellContent
+            ContentTemplate="{DataTemplate local:MenuViewsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem
+        x:Name="Socio"
+        Title="Socio"
+        Route="SocioViewsPage"
+        IsVisible="False"
+        <ShellContent
+            ContentTemplate="{DataTemplate local:SocioViewsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem
+        x:Name="Ahorros"
+        Title="Ahorros"
+        Route="AhorrosViewsPage"
+        IsVisible="False"
+        <ShellContent
+            ContentTemplate="{DataTemplate local:AhorrosViewsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem
+        x:Name="Prestamos"
+        Title="Prestamos"
+        Route="PrestamosViewsPage"
+        IsVisible="False"
+        <ShellContent
+            ContentTemplate="{DataTemplate local:PrestamosViewsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem
+        x:Name="Pagos"
+        Title="Pagos"
+        Route="PagosViewsPage"
+        IsVisible="False"
+        <ShellContent
+            ContentTemplate="{DataTemplate local:PagosViewsPage}" />
+    </FlyoutItem>
+    
+    <MenuItem
+        x:Name="CerrarSesion"
+        Text="Cerrar Sesión"
+        IsVisible="False"
+        Clicked="CerrarSesion_Clicked" />
 
 </Shell>
