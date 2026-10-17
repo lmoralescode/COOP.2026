@@ -1,4 +1,6 @@
 ﻿using COOPERATIVA.V2.Views;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows.Input;
 
 namespace COOPERATIVA.V2
 {
@@ -8,17 +10,33 @@ namespace COOPERATIVA.V2
         {
             InitializeComponent();
 
-            // Registrando rutas para navegación
+        }
 
-            Routing.RegisterRoute(nameof(InicioViewsPage), typeof(InicioViewsPage));
-            Routing.RegisterRoute(nameof(LoginViewsPage), typeof(LoginViewsPage));
-            Routing.RegisterRoute(nameof(RegistroViewsPage), typeof(RegistroViewsPage));
-            Routing.RegisterRoute(nameof(MenuViewsPage), typeof(MenuViewsPage));
-            Routing.RegisterRoute(nameof(SociosViewsPage), typeof(SociosViewsPage));
-            Routing.RegisterRoute(nameof(AhorrosViewsPage), typeof(AhorrosViewsPage));
-            Routing.RegisterRoute(nameof(PrestamosViewsPage), typeof(PrestamosViewsPage));
-            Routing.RegisterRoute(nameof(PagosViewsPage), typeof(PagosViewsPage));
+        public object FlexLatyuouBehavior { get; private set; }
 
+        public void ActivarMenu()
+        {
+            Menu.IsEnabled = true;
+            Socio.IsEnabled = true;
+            Ahorros.IsEnabled = true;
+            Prestamos.IsEnabled = true;
+            Pagos.IsEnabled = true;
+            CerrarSesion.IsEnabled = true;
+
+            FlyoutBehavior = FlyoutBehavior.Flyout;
+        }
+    
+
+        public void DesactivarMenu()
+        {
+            Menu.IsEnabled = false;
+            Socio.IsEnabled = false;
+            Ahorros.IsEnabled = false;
+            Prestamos.IsEnabled = false;
+            Pagos.IsEnabled = false;
+            CerrarSesion.IsEnabled = false;
+
+            FlyoutBehavior = FlyoutBehavior.Disabled;
         }
     }
 }
