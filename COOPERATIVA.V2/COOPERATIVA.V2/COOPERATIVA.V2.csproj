@@ -80,9 +80,6 @@
 	  <Compile Update="Views\3-RegistroViewsPage.xaml.cs">
 	    <DependentUpon>3-RegistroViewsPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\4-MenuViewsPage.xaml.cs">
-	    <DependentUpon>4-MenuViewsPage.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\5-SociosViewsPage.xaml.cs">
 	    <DependentUpon>5-SociosViewsPage.xaml</DependentUpon>
 	  </Compile>
@@ -95,13 +92,13 @@
 	  <Compile Update="Views\7-PrestamosViewsPage.xaml.cs">
 	    <DependentUpon>7-PrestamosViewsPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\4-MenuPage.xaml.cs">
+	    <DependentUpon>4-MenuPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\6-AhorrosViewsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\4-MenuViewsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\1-InicioViewsPage.xaml">
@@ -120,6 +117,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\5-SociosViewsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\4-MenuPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\probando.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

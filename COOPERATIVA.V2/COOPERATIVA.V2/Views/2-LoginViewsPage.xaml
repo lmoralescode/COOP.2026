@@ -54,15 +54,9 @@
             FontSize="Medium"
             WidthRequest="250"
             Clicked="OnIngresarClicked"/>
-
-        <Button
-            Text="Crear una cuenta"
-            BackgroundColor="LightGray"
-            TextColor="Black"
-            FontSize="Medium"
-            WidthRequest="250"
-            Clicked="OnRegistroClicked"/>
-
+        
+        
+        
     </VerticalStackLayout>
     
 </ContentPage>

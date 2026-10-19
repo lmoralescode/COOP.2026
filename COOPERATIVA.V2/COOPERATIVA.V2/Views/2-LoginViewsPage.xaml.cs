@@ -19,7 +19,7 @@ namespace COOPERATIVA.V2.Views
             }
             else
             {
-                await Navigation.PushAsync(new MenuViewsPage());
+                await Navigation.PushAsync(new MenuPage());
 
             }
         }
