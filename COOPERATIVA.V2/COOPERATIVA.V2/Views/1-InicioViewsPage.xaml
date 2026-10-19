@@ -56,14 +56,14 @@
                 WidthRequest="250"
                 Clicked="OnComenzarClicked"/>
 
-            <!--<Button
+            <Button
                 Text="Registrarme"
                 TextColor="White"
                 FontSize="Medium"
-                CornerRadius="12"
-                HeightRequest="50"
-                WidthRequest="200"
-                Clicked="OnRegistroClicked"/>-->
+                CornerRadius="5"
+                HeightRequest="55"
+                WidthRequest="250"
+                Clicked="OnRegistroClicked"/>
 
 
         </VerticalStackLayout>
