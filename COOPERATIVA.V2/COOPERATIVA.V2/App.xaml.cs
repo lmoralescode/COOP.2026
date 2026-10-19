@@ -1,5 +1,4 @@
 ﻿using COOPERATIVA.V2.Views;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace COOPERATIVA.V2
 {
