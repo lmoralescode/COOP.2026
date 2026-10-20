@@ -7,14 +7,4 @@
     xmlns:local="clr-namespace:COOPERATIVA.V2.Views">
 
 
-    <ShellContent
-        Route="InicioViewsPage"
-        ContentTemplate="{DataTemplate local:InicioViewsPage}"
-        Shell.FlyoutItemIsVisible="False" />
-
-    <ShellContent
-        Route="LoginViewsPage"
-        ContentTemplate="{DataTemplate local:LoginViewsPage}"
-        Shell.FlyoutItemIsVisible="False" />
-
 </Shell>

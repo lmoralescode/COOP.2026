@@ -43,6 +43,12 @@
                 TextColor="White"
                 FontSize="Medium"/>
 
+            <Button Text="Limpiar campos"
+                Clicked="OnLimpiarSocioClicked" />
+
+            <Button Text="Cancelar"
+                Clicked="OnCancelarSocioClicked" />
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

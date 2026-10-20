@@ -54,9 +54,15 @@
             FontSize="Medium"
             WidthRequest="250"
             Clicked="OnIngresarClicked"/>
-        
-        
-        
+
+        <Button Text="Limpiar"
+            Clicked="OnLimpiarLoginClicked" />
+
+        <Button Text="Regresar"
+            Clicked="OnRegresarLoginClicked" />
+
+
+
     </VerticalStackLayout>
     
 </ContentPage>

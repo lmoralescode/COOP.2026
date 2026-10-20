@@ -12,4 +12,6 @@ public class _5_SociosViewsModel : ContentPage
 			}
 		};
 	}
+
+    public int Codigo { get; internal set; }
 }

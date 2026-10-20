@@ -37,6 +37,18 @@ namespace COOPERATIVA.V2.Views
             UsuarioEntry.Text = string.Empty;
             ContrasenaEntry.Text = string.Empty;
         }
+
+        private void OnLimpiarLoginClicked(object sender, EventArgs e)
+        {
+            UsuarioEntry.Text = "";
+            ContrasenaEntry.Text = "";
+        }
+
+        private async void OnRegresarLoginClicked(
+            object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("..");
+        }
     }
 }
 
