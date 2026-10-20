@@ -22,6 +22,7 @@ namespace COOPERATIVA.V2.Views
                 await Navigation.PushAsync(new MenuPage());
 
             }
+
         }
 
         private async void OnRegistroClicked(object sender, EventArgs e)
