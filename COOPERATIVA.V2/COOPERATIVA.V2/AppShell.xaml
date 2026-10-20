@@ -1,74 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="COOPERATIVA.V2.AppShell"
+    FlyoutBehavior="Flyout"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:COOPERATIVA.V2.Views"
-    Title="COOPERATIVA.V2"
-    FlyoutBehavior="Disabled">
+    xmlns:local="clr-namespace:COOPERATIVA.V2.Views">
 
-    <ShellContent
-        ContentTemplate="{DataTemplate local:InicioViewsPage}"
-        Route="Inicio"/>
+    <ShellContent Title="Inicio"
+        Route="inicio"
+        ContentTemplate="{DataTemplate local:InicioViewsPage}"  />  
 
-    <ShellContent
-        Route="Login"
-        ContentTemplate="{DataTemplate local:LoginViewsPage}"
-        Shell.FlyoutItemIsVisible="False" />
+    <ShellContent Title="Login"
+        Route="login"
+        ContentTemplate="{DataTemplate local:LoginViewsPage}" />
 
-    <ShellContent
-        Route="Registro"
-        ContentTemplate="{DataTemplate local:RegistroViewsPage}"
-        Shell.FlyoutItemIsVisible="False" />
-
-    <FlyoutItem
-        x:Name="OpcionMenu"
-        Title="Menú principal"
-        Route="Menu"
-        IsVisible="False">
-        <ShellContent
-            ContentTemplate="{DataTemplate local:MenuPage}" />
-    </FlyoutItem>
-
-    <FlyoutItem
-        x:Name="OpcionSocios"
-        Title="Socios"
-        Route="Socios"
-        IsVisible="False">
-        <ShellContent
-            ContentTemplate="{DataTemplate local:SociosViewsPage}" />
-    </FlyoutItem>
-
-    <FlyoutItem
-        x:Name="OpcionAhorros"
-        Title="Ahorros"
-        Route="Ahorros"
-        IsVisible="False">
-        <ShellContent
-            ContentTemplate="{DataTemplate local:AhorrosViewsPage}" />
-    </FlyoutItem>
-
-    <FlyoutItem
-        x:Name="OpcionPrestamos"
-        Title="Préstamos"
-        Route="Prestamos"
-        IsVisible="False">
-        <ShellContent
-            ContentTemplate="{DataTemplate local:PrestamosViewsPage}" />
-    </FlyoutItem>
-
-    <FlyoutItem
-        x:Name="OpcionPagos"
-        Title="Pagos"
-        Route="Pagos"
-        IsVisible="False">
-        <ShellContent
-            ContentTemplate="{DataTemplate local:PagosViewsPage}" />
-    </FlyoutItem>
-
-    <MenuItem
-        x:Name="OpcionCerrarSesion"
-        Text="Cerrar sesión"/>
-
-
+    <ShellContent Title="Registro"
+        Route="registro"
+        ContentTemplate="{DataTemplate local:RegistroViewsPage}" />
+    
 </Shell>
