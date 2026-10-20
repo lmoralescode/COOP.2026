@@ -18,7 +18,4 @@ public partial class InicioViewsPage : ContentPage
         await Navigation.PushAsync(new RegistroViewsPage());
 
     }
-
-    
-
 }
