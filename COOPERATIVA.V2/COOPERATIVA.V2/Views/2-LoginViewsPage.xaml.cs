@@ -14,9 +14,11 @@ namespace COOPERATIVA.V2.Views
 
             if (usuario != "lmorales@gmail.com" || clave != "1234")
             {
+                Application.Current.MainPage = new AppShell();
 
                 await DisplayAlertAsync("Error", "Por favor, ingrese usuario y contraseña.", "OK");
             }
+
             else
             {
                 await Navigation.PushAsync(new MenuPage());

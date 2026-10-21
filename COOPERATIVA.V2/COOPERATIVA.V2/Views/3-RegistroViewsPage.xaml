@@ -47,11 +47,11 @@
             <Button 
                 Text="Limpiar campos"
                 FontSize="Medium"
-                Clicked="OnLimpiarSocioClicked" />
+                Clicked="OnLimpiarClicked" />
 
-            <Button Text="Cancelar"
+            <!--<Button Text="Cancelar"
                     FontSize="Medium"
-                    Clicked="OnCancelarSocioClicked" />
+                    Clicked="OnCancelarSocioClicked" />-->
 
         </VerticalStackLayout>
     </ScrollView>
