@@ -45,10 +45,11 @@
 
             <Button 
                 Text="Limpiar campos"
-                
+                FontSize="Medium"
                 Clicked="OnLimpiarSocioClicked" />
 
             <Button Text="Cancelar"
+                    FontSize="Medium"
                 Clicked="OnCancelarSocioClicked" />
 
         </VerticalStackLayout>

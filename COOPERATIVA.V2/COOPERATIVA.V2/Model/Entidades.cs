@@ -13,6 +13,7 @@ public class Socios
     public DateTime FechaIngreso { get; set; } = DateTime.Today;
     public string Tipo { get; set; } = "Regular";
     public string Estado { get; set; } = "Activo";
+    public string Clave { get; internal set; }
 }
 
 public class Ahorros

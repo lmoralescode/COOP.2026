@@ -4,10 +4,18 @@ namespace COOPERATIVA.V2.Model
 {
     public class _5_SociosViewsModel
     {
-        public int Codigo { get; set; }
-        public string NombreCompleto { get; set; } = string.Empty;
-        public string Cedula { get; set; } = string.Empty;
-        public string Telefono { get; set; } = string.Empty;
-        public string Estado { get; set; } = "Activo";
+        required
+        public string NombreCompleto { get; set; }
+        required
+        public string Aepllidos { get; set; }
+        required
+        public string Cedula { get; set; }
+        public string Telefono { get; set; }
+        public string Direccion { get; set; }
+        public DateTime FechaNacimiento { get; set; }
+        public string Correo { get; set; }
+        public string Clave { get; set; }
+
     }
+
 }

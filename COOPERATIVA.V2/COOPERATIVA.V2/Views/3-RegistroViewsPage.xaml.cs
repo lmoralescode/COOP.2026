@@ -1,52 +1,36 @@
+using COOPERATIVA.V2.ViewsModel;
+
 namespace COOPERATIVA.V2.Views;
 
 public partial class RegistroViewsPage : ContentPage
 {
+    private List<Socios> _Socio = new();
+
 	public RegistroViewsPage()
 	{
         InitializeComponent();
     }
 
-    private async void OnIniciarSesionClicked(
-       object sender, EventArgs e)
+    private async void OnRegistrarSocioClicked(object sender, EventArgs e)
     {
-        string usuario = CorreoEntry.Text?.Trim() ?? "";
-        string clave = ContrasenaEntry.Text ?? "";
+        var _Socio = new Socios
+        {
+            NombreCompleto = NombreEntry.Text,
+            Apellidos = ApellidosEntry.Text,
+            Cedula = CedulaEntry.Text,
+            Telefono = TelefonoEntry.Text,
+            Direccion = DireccionEntry.Text,
+            FechaNacimiento = DateTime.Today,
+            Correo = CorreoEntry.Text,
+            Clave = ContrasenaEntry.Text
+        };
 
-        if (string.IsNullOrWhiteSpace(usuario) ||
-            string.IsNullOrWhiteSpace(clave))
-        {
-            await DisplayAlertAsync(
-                "Aviso",
-                "Ingrese el usuario y la contraseña.",
-                "Aceptar");
-            return;
-        }
-
-        // Credenciales exclusivamente para pruebas.
-        if (usuario == "lmorales@gmail.com" && clave == "1234")
-        {
-            await Shell.Current.GoToAsync(
-                nameof(MenuPage));
-        }
-        else
-        {
-            await DisplayAlertAsync(
-                "Error",
-                "Usuario o contraseña incorrectos.",
-                "Aceptar");
-        }
     }
 
     private void OnLimpiarSocioClicked(object sender, EventArgs e)
     {
         CorreoEntry.Text = "";
         ContrasenaEntry.Text = "";
-    }
-
-    private async void OnRegresarLoginClicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("..");
     }
 
     private async void OnCancelarSocioClicked(object sender, EventArgs e)
