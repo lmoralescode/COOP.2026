@@ -1,9 +1,9 @@
 ﻿namespace COOPERATIVA.V2.Views;
 
-public class Socio
+public class Socios
 {
     public int Codigo { get; set; }
-    public string Nombre { get; set; } = "";
+    public string NombreCompleto { get; set; } = "";
     public string Apellidos { get; set; } = "";
     public string Cedula { get; set; } = "";
     public DateTime FechaNacimiento { get; set; }
@@ -15,7 +15,7 @@ public class Socio
     public string Estado { get; set; } = "Activo";
 }
 
-public class MovimientoAhorro
+public class Ahorros
 {
     public int CodigoSocio { get; set; }
     public string Tipo { get; set; } = "";
@@ -23,7 +23,7 @@ public class MovimientoAhorro
     public DateTime Fecha { get; set; }
 }
 
-public class Prestamo
+public class Prestamos
 {
     public int Id { get; set; }
     public int CodigoSocio { get; set; }
@@ -35,7 +35,7 @@ public class Prestamo
     public string Estado { get; set; } = "Pendiente";
 }
 
-public class Pago
+public class Pagos
 {
     public int IdPrestamo { get; set; }
     public int NumeroCuota { get; set; }

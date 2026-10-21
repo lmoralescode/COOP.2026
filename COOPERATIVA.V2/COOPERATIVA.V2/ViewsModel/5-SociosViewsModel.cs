@@ -1,17 +1,13 @@
-namespace COOPERATIVA.V2.ViewsModel;
+using COOPERATIVA.V2.Views;
 
-public class _5_SociosViewsModel : ContentPage
+namespace COOPERATIVA.V2.Model
 {
-	public _5_SociosViewsModel()
-	{
-		Content = new VerticalStackLayout
-		{
-			Children = {
-				new Label { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, Text = "Welcome to .NET MAUI!"
-				}
-			}
-		};
-	}
-
-    public int Codigo { get; internal set; }
+    public class _5_SociosViewsModel
+    {
+        public int Id { get; set; }
+        public string NombreCompleto { get; set; } = string.Empty;
+        public string Cedula { get; set; } = string.Empty;
+        public string Telefono { get; set; } = string.Empty;
+        public string Estado { get; set; } = "Activo";
+    }
 }

@@ -1,13 +1,11 @@
-﻿using COOPERATIVA.V2.Views;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace COOPERATIVA.V2.Model
 {
-    public class Socio
+    internal class _5_Socios
     {
-        public int Id { get; set; }
-        public string NombreCompleto { get; set; } = string.Empty;
-        public string Cedula { get; set; } = string.Empty;
-        public string Telefono { get; set; } = string.Empty;
-        public string Estado { get; set; } = "Activo";
+
     }
 }
