@@ -1,4 +1,5 @@
-﻿using COOPERATIVA.V2.ViewsModel;
+﻿using COOPERATIVA.V2.Model;
+using COOPERATIVA.V2.ViewsModel;
 using System.Collections.ObjectModel;
 
 namespace COOPERATIVA.V2.Servicios;
@@ -6,7 +7,7 @@ namespace COOPERATIVA.V2.Servicios;
 public static class DatosCooperativa
 {
     public static ObservableCollection<_5_SociosViewsModel> Socios { get; } = new();
-    public static ObservableCollection<_6_AhorrosViewsModel> Movimientos { get; } = new();
+    public static ObservableCollection<_6_AhorrosViewsModel> Ahorros { get; } = new();
     public static ObservableCollection<_7_PrestamosViewsModel> Prestamos { get; } = new();
     public static ObservableCollection<_8_PagosViewsModel> Pagos { get; } = new();
 

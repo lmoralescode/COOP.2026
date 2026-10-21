@@ -55,11 +55,17 @@
             WidthRequest="250"
             Clicked="OnIngresarClicked"/>
 
-        <Button Text="Limpiar"
+        <Button 
+            Text="Limpiar"
+            FontSize="Medium"
+            WidthRequest="250"
             Clicked="OnLimpiarLoginClicked" />
 
-        <Button Text="Regresar"
-            Clicked="OnRegresarLoginClicked" />
+        <!--<Button 
+            Text="Regresar"
+            FontSize="Medium"
+            WidthRequest="250"
+            Clicked="OnRegresarLoginClicked" />-->
 
 
 
