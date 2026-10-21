@@ -18,17 +18,17 @@ public partial class InicioViewsPage : ContentPage
         await Navigation.PushAsync(new RegistroViewsPage());
 
     }
-    private async void OnSalirClicked(object sender, EventArgs e)
-    {
-        bool salir = await DisplayAlertAsync(
-            "Salir",
-            "¿Desea cerrar la aplicación?",
-            "Sí",
-            "No");
+    //private async void OnSalirClicked(object sender, EventArgs e)
+    //{
+    //    bool salir = await DisplayAlertAsync(
+    //        "Salir",
+    //        "¿Desea cerrar la aplicación?",
+    //        "Sí",
+    //        "No");
 
-        if (salir)
-        {
-            Application.Current?.Quit();
-        }
-    }
+    //    if (salir)
+    //    {
+    //        Application.Current?.Quit();
+    //    }
+    //}
 }

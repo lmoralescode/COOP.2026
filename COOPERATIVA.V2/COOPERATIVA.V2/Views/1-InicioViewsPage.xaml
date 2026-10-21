@@ -64,11 +64,7 @@
                 HeightRequest="55"
                 WidthRequest="250"
                 Clicked="OnRegistroClicked"/>
-
-            <Button Text="Salir"
-                Clicked="OnSalirClicked" />
-
-
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
