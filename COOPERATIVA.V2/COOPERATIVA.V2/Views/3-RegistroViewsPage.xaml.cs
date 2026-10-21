@@ -1,40 +1,47 @@
-using COOPERATIVA.V2.ViewsModel;
+using COOPERATIVA.V2.Model;
+using COOPERATIVA.V2.Data;
 
 namespace COOPERATIVA.V2.Views;
 
 public partial class RegistroViewsPage : ContentPage
 {
-    private List<Socios> _Socio = new();
-
-	public RegistroViewsPage()
-	{
+    public RegistroViewsPage()
+    {
         InitializeComponent();
     }
 
+
     private async void OnRegistrarSocioClicked(object sender, EventArgs e)
     {
-        var _Socio = new Socios
+        RegistroModel socio = new RegistroModel
         {
-            NombreCompleto = NombreEntry.Text,
+            Nombre = NombreEntry.Text,
             Apellidos = ApellidosEntry.Text,
             Cedula = CedulaEntry.Text,
             Telefono = TelefonoEntry.Text,
             Direccion = DireccionEntry.Text,
             FechaNacimiento = DateTime.Today,
-            Correo = CorreoEntry.Text,
-            Clave = ContrasenaEntry.Text
+            Correo = CorreoEntry.Text
         };
 
+        SociosMemoria.ListaSocios.Add(socio);
+
+        await DisplayAlertAsync("Éxito",
+            "Socio registrado correctamente",
+            "Aceptar");
+
+        LimpiarCampos();
     }
 
-    private void OnLimpiarSocioClicked(object sender, EventArgs e)
+    private void LimpiarCampos()
     {
+        NombreEntry.Text = "";
+        ApellidosEntry.Text = "";
+        CedulaEntry.Text = "";
+        TelefonoEntry.Text = "";
+        DireccionEntry.Text = "";
         CorreoEntry.Text = "";
         ContrasenaEntry.Text = "";
-    }
-
-    private async void OnCancelarSocioClicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("..");
+        FechaNacimientoPicker.Date = DateTime.Today;
     }
 }

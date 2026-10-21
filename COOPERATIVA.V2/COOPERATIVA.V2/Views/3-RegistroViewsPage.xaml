@@ -41,7 +41,8 @@
             <Button
                 Text="Registrar socio"
                 TextColor="White"
-                FontSize="Medium"/>
+                FontSize="Medium"
+                Clicked="OnRegistrarSocioClicked" />
 
             <Button 
                 Text="Limpiar campos"
@@ -50,7 +51,7 @@
 
             <Button Text="Cancelar"
                     FontSize="Medium"
-                Clicked="OnCancelarSocioClicked" />
+                    Clicked="OnCancelarSocioClicked" />
 
         </VerticalStackLayout>
     </ScrollView>
