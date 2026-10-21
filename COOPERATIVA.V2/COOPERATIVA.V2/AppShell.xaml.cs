@@ -20,5 +20,6 @@ namespace COOPERATIVA.V2
             Routing.RegisterRoute(nameof(PagosViewsPage), typeof(PagosViewsPage));
 
         }
+
     }
 }

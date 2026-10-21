@@ -3,6 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Menú principal"
              x:Class="COOPERATIVA.V2.Views.MenuPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Cerrar sesión"
+            Order="Primary"
+            Priority="0"
+            Clicked="OnCerrarSesionClicked"/>
+    </ContentPage.ToolbarItems>
+
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
 

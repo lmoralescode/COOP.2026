@@ -14,14 +14,17 @@ namespace COOPERATIVA.V2.Views
 
             if (usuario != "lmorales@gmail.com" || clave != "1234")
             {
+                Application.Current.MainPage = new AppShell();
 
                 await DisplayAlertAsync("Error", "Por favor, ingrese usuario y contraseña.", "OK");
             }
+
             else
             {
                 await Navigation.PushAsync(new MenuPage());
 
             }
+
         }
 
         private async void OnRegistroClicked(object sender, EventArgs e)
@@ -36,6 +39,18 @@ namespace COOPERATIVA.V2.Views
             UsuarioEntry.Text = string.Empty;
             ContrasenaEntry.Text = string.Empty;
         }
+
+        private void OnLimpiarLoginClicked(object sender, EventArgs e)
+        {
+            UsuarioEntry.Text = "";
+            ContrasenaEntry.Text = "";
+        }
+
+        //private async void OnRegresarLoginClicked(
+        //    object sender, EventArgs e)
+        //{
+        //    await Navigation.PushAsync(new InicioViewsPage());
+        //}
     }
 }
 

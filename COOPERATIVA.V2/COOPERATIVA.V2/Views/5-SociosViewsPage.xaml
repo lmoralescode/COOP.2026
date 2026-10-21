@@ -107,16 +107,16 @@
                 Text="+ Nuevo socio"
                 BackgroundColor="Blue"
                 TextColor="White"
-                CornerRadius="10"/>
-            <!--Clicked="OnNuevoSocioClicked"/>-->
+                CornerRadius="10"
+                Clicked="OnNuevoSocioClicked"/>
 
             <Button
                 Grid.Column="1"
                 Text="Editar / consultar"
                 BackgroundColor="DarkGreen"
                 TextColor="White"
-                CornerRadius="10"/>
-            <!--Clicked="OnEditarSocioClicked"/>-->
+                CornerRadius="10"
+                Clicked="OnEditarSocioClicked"/>
         </Grid>
     </Grid>
 </ContentPage>

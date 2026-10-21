@@ -6,16 +6,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:COOPERATIVA.V2.Views">
 
-    <ShellContent Title="Inicio"
-        Route="inicio"
-        ContentTemplate="{DataTemplate local:InicioViewsPage}"  />  
+    <FlyoutItem Title="Inicio">
+        <ShellContent
+            Title="Inicio"
+            ContentTemplate="{DataTemplate local:InicioViewsPage}" />
+    </FlyoutItem>
 
-    <ShellContent Title="Login"
-        Route="login"
-        ContentTemplate="{DataTemplate local:LoginViewsPage}" />
 
-    <ShellContent Title="Registro"
-        Route="registro"
-        ContentTemplate="{DataTemplate local:RegistroViewsPage}" />
-    
 </Shell>

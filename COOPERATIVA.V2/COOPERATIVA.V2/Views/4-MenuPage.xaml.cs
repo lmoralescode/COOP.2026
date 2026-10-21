@@ -23,4 +23,8 @@ public partial class MenuPage : ContentPage
     {
         await Navigation.PushAsync(new PagosViewsPage());
     }
+    private async void OnCerrarSesionClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new LoginViewsPage());
+    }
 }
