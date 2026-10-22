@@ -77,8 +77,8 @@
                 BackgroundColor="DarkGreen"
                 TextColor="White"
                 HeightRequest="50"
-                CornerRadius="10"/>
-            <!--Clicked="OnRegistrarMovimientoClicked"/>-->
+                CornerRadius="10"
+                Clicked="OnRegistrarMovimientoClicked"/>
 
             <Label
                 Text="Últimos movimientos"

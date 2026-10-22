@@ -14,8 +14,6 @@ namespace COOPERATIVA.V2.Views
 
             if (usuario != "lmorales@gmail.com" || clave != "1234")
             {
-                Application.Current.MainPage = new AppShell();
-
                 await DisplayAlertAsync("Error", "Por favor, ingrese usuario y contraseña.", "OK");
             }
 
@@ -40,11 +38,11 @@ namespace COOPERATIVA.V2.Views
             ContrasenaEntry.Text = string.Empty;
         }
 
-        private void OnLimpiarLoginClicked(object sender, EventArgs e)
-        {
-            UsuarioEntry.Text = "";
-            ContrasenaEntry.Text = "";
-        }
+        //private void OnLimpiarLoginClicked(object sender, EventArgs e)
+        //{
+        //    UsuarioEntry.Text = "";
+        //    ContrasenaEntry.Text = "";
+        //}
 
         //private async void OnRegresarLoginClicked(
         //    object sender, EventArgs e)

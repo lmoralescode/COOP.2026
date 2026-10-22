@@ -37,17 +37,18 @@
                 IsPassword="True"
                 MaxLength="12"
                 x:Name="ContrasenaEntry"/>
-    
+
             <Button
+                x:Name="GuardarButton"
                 Text="Registrar socio"
                 TextColor="White"
                 FontSize="Medium"
                 Clicked="OnRegistrarSocioClicked" />
 
-            <Button 
+            <!--<Button 
                 Text="Limpiar campos"
                 FontSize="Medium"
-                Clicked="OnLimpiarClicked" />
+                Clicked="OnLimpiarClicked" />-->
 
             <!--<Button Text="Cancelar"
                     FontSize="Medium"
