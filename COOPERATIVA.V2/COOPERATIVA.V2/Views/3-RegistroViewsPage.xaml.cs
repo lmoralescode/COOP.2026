@@ -1,4 +1,4 @@
-
+using System.Globalization;
 using COOPERATIVA.V2.Model;
 
 namespace COOPERATIVA.V2.Views;
@@ -9,7 +9,6 @@ public partial class RegistroViewsPage : ContentPage
     {
         InitializeComponent();
 
-        
         if (SociosViewsPage.SocioEnEdicion is Socios socio)
         {
             Title = "Editar socio";
@@ -36,10 +35,19 @@ public partial class RegistroViewsPage : ContentPage
         }
     }
 
+    private string CapitalizarTexto(string texto)
+    {
+        if (string.IsNullOrWhiteSpace(texto))
+            return string.Empty;
+
+        return CultureInfo.CurrentCulture.TextInfo
+            .ToTitleCase(texto.Trim().ToLower());
+    }
+
     private async void OnRegistrarSocioClicked(object sender, EventArgs e)
     {
-        string nombre = NombreEntry.Text?.Trim() ?? "";
-        string apellidos = ApellidosEntry.Text?.Trim() ?? "";
+        string nombre = CapitalizarTexto(NombreEntry.Text);
+        string apellidos = CapitalizarTexto(ApellidosEntry.Text);
         string cedula = CedulaEntry.Text?.Trim() ?? "";
         string telefono = TelefonoEntry.Text?.Trim() ?? "";
 
@@ -90,8 +98,8 @@ public partial class RegistroViewsPage : ContentPage
             socioExistente.Apellidos = apellidos;
             socioExistente.Cedula = cedula;
             socioExistente.Telefono = telefono;
-            socioExistente.Direccion = DireccionEntry.Text?.Trim() ?? "".ToLower();
-            socioExistente.Correo = CorreoEntry.Text?.Trim() ?? "".ToLower();
+            socioExistente.Direccion = DireccionEntry.Text?.Trim() ?? "";
+            socioExistente.Correo = CorreoEntry.Text?.Trim().ToLower() ?? "";
             socioExistente.FechaNacimiento = DateTime.Today;
 
             SociosViewsPage.SocioEnEdicion = null;
@@ -110,8 +118,8 @@ public partial class RegistroViewsPage : ContentPage
                 Apellidos = apellidos,
                 Cedula = cedula,
                 Telefono = telefono,
-                Direccion = DireccionEntry.Text?.Trim() ?? "".ToLower(),
-                Correo = CorreoEntry.Text?.Trim() ?? "".ToLower(),
+                Direccion = DireccionEntry.Text?.Trim() ?? "",
+                Correo = CorreoEntry.Text?.Trim().ToLower() ?? "",
                 FechaNacimiento = DateTime.Today,
                 FechaIngreso = DateTime.Today,
                 TipoSocio = "Regular",

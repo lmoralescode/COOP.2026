@@ -61,11 +61,11 @@
             WidthRequest="250"
             Clicked="OnLimpiarLoginClicked" />-->
 
-        <!--<Button 
+        <Button 
             Text="Regresar"
             FontSize="Medium"
             WidthRequest="250"
-            Clicked="OnRegresarLoginClicked" />-->
+            Clicked="OnRegresarLoginClicked" />
 
 
 

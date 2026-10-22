@@ -44,11 +44,11 @@ namespace COOPERATIVA.V2.Views
         //    ContrasenaEntry.Text = "";
         //}
 
-        //private async void OnRegresarLoginClicked(
-        //    object sender, EventArgs e)
-        //{
-        //    await Navigation.PushAsync(new InicioViewsPage());
-        //}
+        private async void OnRegresarLoginClicked
+            (object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new InicioViewsPage());
+        }
     }
 }
 
