@@ -149,7 +149,7 @@ public partial class AhorrosViewsPage : ContentPage
 
         MontoEntry.Text = string.Empty;
         TipoMovimientoPicker.SelectedItem = null;
-        FechaMovimientoPicker.Date = DateTime.UtcNow;
+        FechaMovimientoPicker.Date = DateTime.Today;
 
         await DisplayAlertAsync(
             "Operación exitosa",
