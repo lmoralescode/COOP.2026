@@ -10,4 +10,12 @@ public class Prestamos
     public int PlazoMeses { get; set; }
     public DateTime FechaSolicitud { get; set; } = DateTime.Today;
     public string Estado { get; set; } = "Pendiente";
+    public string NumeroPrestamo { get; internal set; }
+    public string SocioNombre { get; internal set; }
+    public string SocioCedula { get; internal set; }
+    public decimal Monto { get; internal set; }
+    public decimal CuotaMensual { get; internal set; }
+    public decimal TotalPagar { get; internal set; }
+    public int TotalPagado { get; internal set; }
+    public DateTime Fecha { get; internal set; }
 }
