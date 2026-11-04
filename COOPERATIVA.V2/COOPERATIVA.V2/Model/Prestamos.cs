@@ -18,4 +18,5 @@ public class Prestamos
     public decimal TotalPagar { get; internal set; }
     public int TotalPagado { get; internal set; }
     public DateTime Fecha { get; internal set; }
+    public decimal SaldoPendiente => Math.Max(0m, TotalPagar - TotalPagado);
 }
