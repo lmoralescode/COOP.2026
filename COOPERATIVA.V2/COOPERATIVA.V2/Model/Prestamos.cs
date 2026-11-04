@@ -1,22 +1,32 @@
-﻿
-namespace COOPERATIVA.V2.Model;
+﻿namespace COOPERATIVA.V2.Model;
 
 public class Prestamos
 {
     public int Id { get; set; }
-    public int SocioId { get; set; }
-    public decimal MontoSolicitado { get; set; }
+
+    public string NumeroPrestamo { get; set; } = string.Empty;
+
+    public string SocioNombre { get; set; } = string.Empty;
+
+    public string SocioCedula { get; set; } = string.Empty;
+
+    public decimal Monto { get; set; }
+
     public decimal TasaInteres { get; set; }
+
     public int PlazoMeses { get; set; }
-    public DateTime FechaSolicitud { get; set; } = DateTime.Today;
-    public string Estado { get; set; } = "Pendiente";
-    public string NumeroPrestamo { get; internal set; }
-    public string SocioNombre { get; internal set; }
-    public string SocioCedula { get; internal set; }
-    public decimal Monto { get; internal set; }
-    public decimal CuotaMensual { get; internal set; }
-    public decimal TotalPagar { get; internal set; }
-    public int TotalPagado { get; internal set; }
-    public DateTime Fecha { get; internal set; }
-    public decimal SaldoPendiente => Math.Max(0m, TotalPagar - TotalPagado);
+
+    public decimal CuotaMensual { get; set; }
+
+    public decimal TotalPagar { get; set; }
+
+    public decimal TotalPagado { get; set; }
+
+    public decimal SaldoPendiente =>
+        Math.Max(0m, TotalPagar - TotalPagado);
+
+    public DateTime Fecha { get; set; } = DateTime.Today;
+
+    public string Estado =>
+        SaldoPendiente <= 0 ? "Pagado" : "Pendiente";
 }
