@@ -75,8 +75,8 @@
                 BackgroundColor="Blue"
                 TextColor="White"
                 HeightRequest="50"
-                CornerRadius="10"/>
-            <!--Clicked="OnRegistrarPagoClicked"/>-->
+                CornerRadius="10"
+                Clicked="OnRegistrarPagoClicked"/>
 
             <Label
                 Text="Historial de pagos"

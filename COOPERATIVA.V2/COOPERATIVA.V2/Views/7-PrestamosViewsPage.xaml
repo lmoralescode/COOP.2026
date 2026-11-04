@@ -55,8 +55,8 @@
                 Text="Calcular cuota estimada"
                 BackgroundColor="Blue"
                 TextColor="White"
-                CornerRadius="10"/>
-            <!--Clicked="OnCalcularCuotaClicked"/>-->
+                CornerRadius="10"
+                Clicked="OnCalcularCuotaClicked"/>
 
             <Border
                 BackgroundColor="White"
@@ -89,8 +89,8 @@
                 BackgroundColor="DarkGreen"
                 TextColor="White"
                 CornerRadius="10"
-                HeightRequest="50"/>
-            <!--Clicked="OnRegistrarPrestamoClicked"/>-->
+                HeightRequest="50"
+                Clicked="OnRegistrarPrestamoClicked"/>
 
             <Label
                 Text="Préstamos registrados"
