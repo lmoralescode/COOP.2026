@@ -1,4 +1,5 @@
-﻿using COOPERATIVA.V2.Model;
+﻿
+using COOPERATIVA.V2.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ public partial class SociosViewsModel : BaseViewsModel
 
     [ObservableProperty]
     public partial Socios? SocioSeleccionado { get; set; }
+
     public ObservableCollection<Socios> SociosFiltrados { get; } = new();
 
     public SociosViewsModel()
@@ -21,7 +23,8 @@ public partial class SociosViewsModel : BaseViewsModel
         CargarSocios();
     }
 
-    public void OnBusquedaChanged(string value)
+    // Detecta automáticamente los cambios en la búsqueda.
+    partial void OnBusquedaChanged(string value)
     {
         CargarSocios();
     }
@@ -30,17 +33,21 @@ public partial class SociosViewsModel : BaseViewsModel
     {
         SociosFiltrados.Clear();
 
+        string filtro = Busqueda?.Trim() ?? string.Empty;
+
         var resultados = Socios.Where(s =>
-            s.NombreCompleto.Contains(
-                Busqueda.Trim(),
+            (s.NombreCompleto ?? string.Empty).Contains(
+                filtro,
                 StringComparison.OrdinalIgnoreCase)
             ||
-            s.Cedula.Contains(
-                Busqueda.Trim(),
+            (s.Cedula ?? string.Empty).Contains(
+                filtro,
                 StringComparison.OrdinalIgnoreCase));
 
         foreach (var socio in resultados)
+        {
             SociosFiltrados.Add(socio);
+        }
     }
 
     public static void AgregarSocio(Socios socio)
