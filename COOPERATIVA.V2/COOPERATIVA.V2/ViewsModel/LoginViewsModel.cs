@@ -2,9 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using COOPERATIVA.V2.Views;
 
-namespace COOPERATIVA.V2.ViewModels;
+namespace COOPERATIVA.V2.ViewsModel;
 
-public partial class LoginViewModel : ObservableObject
+public partial class LoginViewsModel : ObservableObject
 {
     [ObservableProperty]
     private string usuario = string.Empty;
