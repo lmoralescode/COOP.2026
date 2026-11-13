@@ -1,68 +1,40 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using COOPERATIVA.V2.Model;
-using COOPERATIVA.V2.Views;
-using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Net.Mail;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text.RegularExpressions;
 
-namespace COOPERATIVA.V2.ViewModels;
+namespace COOPERATIVA.V2.ViewsModel;
 
-public partial class RegistroSocioViewModel : ObservableObject
+public partial class RegistroViewsModel : BaseViewsModel
 {
-    [ObservableProperty]
-    private string nombre = "";
-
-    [ObservableProperty]
-    private string apellidos = "";
-
-    [ObservableProperty]
-    private string cedula = "";
-
-    [ObservableProperty]
-    private string telefono = "";
-
-    [ObservableProperty]
-    private string direccion = "";
-
-    [ObservableProperty]
-    private string correo = "";
+    [ObservableProperty] private string nombre = "";
+    [ObservableProperty] private string apellidos = "";
+    [ObservableProperty] private string cedula = "";
+    [ObservableProperty] private string telefono = "";
+    [ObservableProperty] private string direccion = "";
+    [ObservableProperty] private string correo = "";
 
     [ObservableProperty]
     private DateTime fechaNacimiento = DateTime.Today;
 
-    [ObservableProperty]
-    private string nombreError = "";
+    [ObservableProperty] private string errorNombre = "";
+    [ObservableProperty] private string errorApellidos = "";
+    [ObservableProperty] private string errorCedula = "";
+    [ObservableProperty] private string errorTelefono = "";
+    [ObservableProperty] private string errorCorreo = "";
 
-    [ObservableProperty]
-    private string apellidosError = "";
+    public Socios? SocioEnEdicion { get; set; }
 
-    [ObservableProperty]
-    private string cedulaError = "";
+    public bool EsEdicion => SocioEnEdicion != null;
 
-    [ObservableProperty]
-    private string telefonoError = "";
-
-    [ObservableProperty]
-    private string correoError = "";
-
-    [ObservableProperty]
-    private bool esEdicion;
-
-    public string TextoBoton => EsEdicion
-        ? "Guardar cambios"
-        : "Registrar socio";
-
-    private Socios? socioEditar;
-
-    public RegistroSocioViewModel()
+    public RegistroViewsModel(Socios? socio = null)
     {
-        if (SociosViewsPage.SocioEnEdicion is Socios socio)
-        {
-            socioEditar = socio;
-            EsEdicion = true;
+        SocioEnEdicion = socio;
 
+        if (socio != null)
+        {
             Nombre = socio.Nombre;
             Apellidos = socio.Apellidos;
             Cedula = socio.Cedula;
@@ -73,111 +45,117 @@ public partial class RegistroSocioViewModel : ObservableObject
         }
     }
 
-    partial void OnEsEdicionChanged(bool value)
+    private string Capitalizar(string texto)
     {
-        OnPropertyChanged(nameof(TextoBoton));
+        if (string.IsNullOrWhiteSpace(texto))
+            return "";
+
+        return CultureInfo.CurrentCulture.TextInfo
+            .ToTitleCase(texto.Trim().ToLower());
+    }
+
+    private bool Validar()
+    {
+        ErrorNombre = "";
+        ErrorApellidos = "";
+        ErrorCedula = "";
+        ErrorTelefono = "";
+        ErrorCorreo = "";
+
+        bool valido = true;
+
+        if (string.IsNullOrWhiteSpace(Nombre))
+        {
+            ErrorNombre = "El nombre del socio es obligatorio.";
+            valido = false;
+        }
+
+        if (string.IsNullOrWhiteSpace(Apellidos))
+        {
+            ErrorApellidos = "Los apellidos del socio son obligatorios.";
+            valido = false;
+        }
+
+        string cedulaLimpia = Cedula.Trim();
+
+        if (cedulaLimpia.Length != 11 ||
+            !cedulaLimpia.All(char.IsDigit))
+        {
+            ErrorCedula = "La cédula debe contener exactamente 11 dígitos.";
+            valido = false;
+        }
+        else if (SociosViewsModel.Socios.Any(s =>
+            s.Cedula == cedulaLimpia && s != SocioEnEdicion))
+        {
+            ErrorCedula = "Ya existe un socio registrado con esta cédula.";
+            valido = false;
+        }
+
+        if (string.IsNullOrWhiteSpace(Telefono))
+        {
+            ErrorTelefono = "El teléfono del socio es obligatorio.";
+            valido = false;
+        }
+
+        if (!string.IsNullOrWhiteSpace(Correo) &&
+            !Regex.IsMatch(
+                Correo.Trim(),
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+        {
+            ErrorCorreo = "Introduce un correo electrónico válido.";
+            valido = false;
+        }
+
+        return valido;
     }
 
     [RelayCommand]
-    private async Task RegistrarSocio()
+    private void Guardar()
     {
-        NombreError = "";
-        ApellidosError = "";
-        CedulaError = "";
-        TelefonoError = "";
-        CorreoError = "";
-
-        Nombre = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
-            Nombre.Trim().ToLower());
-
-        Apellidos = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
-            Apellidos.Trim().ToLower());
-
-        Cedula = Cedula.Trim();
-        Telefono = Telefono.Trim();
-        Correo = Correo.Trim().ToLower();
-
-        // Validar nombre.
-        if (string.IsNullOrWhiteSpace(Nombre))
-            NombreError = "El nombre del socio es obligatorio.";
-        else if (Nombre.Length < 2)
-            NombreError = "El nombre debe tener al menos 2 caracteres.";
-
-        // Validar apellidos.
-        if (string.IsNullOrWhiteSpace(Apellidos))
-            ApellidosError = "Los apellidos son obligatorios.";
-
-        // Validar cédula.
-        if (string.IsNullOrWhiteSpace(Cedula))
-            CedulaError = "La cédula es obligatoria.";
-        else if (Cedula.Length != 11 || !Cedula.All(char.IsDigit))
-            CedulaError = "La cédula debe contener exactamente 11 dígitos.";
-        else if (SociosViewsPage.Socios.Any(s =>
-            s.Cedula == Cedula && s != socioEditar))
-            CedulaError = "Ya existe un socio registrado con esta cédula.";
-
-        // Validar teléfono.
-        if (string.IsNullOrWhiteSpace(Telefono))
-            TelefonoError = "El teléfono es obligatorio.";
-        else if (Telefono.Length != 10 || !Telefono.All(char.IsDigit))
-            TelefonoError = "El teléfono debe contener 10 dígitos.";
-
-        // Validar correo.
-        if (!string.IsNullOrWhiteSpace(Correo) &&
-            !MailAddress.TryCreate(Correo, out _))
-            CorreoError = "Introduce un correo electrónico válido.";
-
-        if (!string.IsNullOrEmpty(NombreError) ||
-            !string.IsNullOrEmpty(ApellidosError) ||
-            !string.IsNullOrEmpty(CedulaError) ||
-            !string.IsNullOrEmpty(TelefonoError) ||
-            !string.IsNullOrEmpty(CorreoError))
+        if (!Validar())
             return;
 
-        if (EsEdicion && socioEditar != null)
+        string nombreFinal = Capitalizar(Nombre);
+        string apellidosFinal = Capitalizar(Apellidos);
+
+        if (SocioEnEdicion != null)
         {
-            socioEditar.Nombre = Nombre;
-            socioEditar.Apellidos = Apellidos;
-            socioEditar.Cedula = Cedula;
-            socioEditar.Telefono = Telefono;
-            socioEditar.Direccion = Direccion.Trim();
-            socioEditar.Correo = Correo;
-            socioEditar.FechaNacimiento = FechaNacimiento;
+            SocioEnEdicion.Nombre = nombreFinal;
+            SocioEnEdicion.Apellidos = apellidosFinal;
+            SocioEnEdicion.Cedula = Cedula.Trim();
+            SocioEnEdicion.Telefono = Telefono.Trim();
+            SocioEnEdicion.Direccion = Direccion.Trim();
+            SocioEnEdicion.Correo = Correo.Trim().ToLower();
+            SocioEnEdicion.FechaNacimiento = FechaNacimiento;
 
-            SociosViewsPage.SocioEnEdicion = null;
-
-            await Shell.Current.DisplayAlertAsync(
-                "Actualización exitosa",
-                "Los datos del socio se actualizaron correctamente.",
-                "Aceptar");
+            MensajeExito = "Los datos del socio se actualizaron correctamente.";
         }
         else
         {
             var socio = new Socios
             {
-                Nombre = Nombre,
-                Apellidos = Apellidos,
-                Cedula = Cedula,
-                Telefono = Telefono,
+                Id = SociosViewsModel.Socios.Count == 0
+                    ? 1
+                    : SociosViewsModel.Socios.Max(s => s.Id) + 1,
+
+                Nombre = nombreFinal,
+                Apellidos = apellidosFinal,
+                Cedula = Cedula.Trim(),
+                Telefono = Telefono.Trim(),
                 Direccion = Direccion.Trim(),
-                Correo = Correo,
+                Correo = Correo.Trim().ToLower(),
                 FechaNacimiento = FechaNacimiento,
                 FechaIngreso = DateTime.Today,
                 TipoSocio = "Regular",
                 Estado = "Activo"
             };
 
-            SociosViewsPage.AgregarSocio(socio);
+            SociosViewsModel.AgregarSocio(socio);
 
-            await Shell.Current.DisplayAlertAsync(
-                "Registro exitoso",
-                "El socio se ha registrado correctamente.",
-                "Aceptar");
+            MensajeExito = "El socio se ha registrado correctamente.";
         }
 
         LimpiarFormulario();
-
-        await Shell.Current.GoToAsync("..");
     }
 
     [RelayCommand]
@@ -191,10 +169,10 @@ public partial class RegistroSocioViewModel : ObservableObject
         Correo = "";
         FechaNacimiento = DateTime.Today;
 
-        NombreError = "";
-        ApellidosError = "";
-        CedulaError = "";
-        TelefonoError = "";
-        CorreoError = "";
+        ErrorNombre = "";
+        ErrorApellidos = "";
+        ErrorCedula = "";
+        ErrorTelefono = "";
+        ErrorCorreo = "";
     }
 }
