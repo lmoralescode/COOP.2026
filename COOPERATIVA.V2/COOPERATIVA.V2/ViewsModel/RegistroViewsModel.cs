@@ -98,15 +98,18 @@ public partial class RegistroViewsModel : BaseViewsModel
         }
 
         if (!string.IsNullOrWhiteSpace(Correo) &&
-            !Regex.IsMatch(
-                Correo.Trim(),
-                @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            !Regex.IsMatch(Correo.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
         {
             ErrorCorreo = "Introduce un correo electrónico válido.";
             valido = false;
         }
 
         return valido;
+    }
+
+    private object CorreoRegex()
+    {
+        throw new NotImplementedException();
     }
 
     [RelayCommand]
