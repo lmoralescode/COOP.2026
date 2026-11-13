@@ -1,59 +1,134 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="COOPERATIVA.V2.Views.RegistroViewsPage">
+             x:Class="COOPERATIVA.V2.Views.RegistroViewsPage"
+             Title="{Binding TituloFormulario}"
+             BackgroundColor="White">
 
     <ContentPage.Resources>
+
         <Style TargetType="Button">
             <Setter Property="BackgroundColor" Value="DarkGreen"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="HeightRequest" Value="48"/>
         </Style>
-        
+
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="#F5F5F5"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="PlaceholderColor" Value="Gray"/>
+            <Setter Property="Margin" Value="0,2"/>
+        </Style>
+
+        <Style x:Key="ErrorStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Red"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="5,0,0,2"/>
+        </Style>
+
     </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout Padding="22" Spacing="12">
 
-            <Label
-                Text="Registro de socio"
-                FontSize="27"
-                FontAttributes="Bold"
-                TextColor="DarkGreen"/>
-            
-            <Entry Placeholder="Nombre" Keyboard="Text" MaxLength="20" x:Name="NombreEntry"/>
-            <Entry Placeholder="Apellidos" Keyboard="Text" MaxLength="30" x:Name="ApellidosEntry"/>
-            <Entry Placeholder="Cédula de identidad" Keyboard="Numeric" MaxLength="11" x:Name="CedulaEntry"/>
-            <Entry Placeholder="Teléfono" Keyboard="Telephone" MaxLength="10" x:Name="TelefonoEntry"/>
-            <Entry Placeholder="Dirección" Keyboard="Text" MaxLength="50" x:Name="DireccionEntry"/>
-            <DatePicker x:Name="FechaNacimientoPicker"/>
+            <Label Text="{Binding TituloFormulario}"
+                   FontSize="27"
+                   FontAttributes="Bold"
+                   TextColor="DarkGreen"/>
 
-            <Entry
-                Placeholder="Correo electrónico"
-                Keyboard="Email"
-                MaxLength="25"
-                x:Name="CorreoEntry"/>
+            <Label Text="Complete los datos del socio"
+                   FontSize="14"
+                   TextColor="Gray"/>
 
-            <Entry
-                Placeholder="Contraseña"
-                IsPassword="True"
-                MaxLength="12"
-                x:Name="ContrasenaEntry"/>
+            <Label Text="Nombre"/>
 
-            <Button
-                x:Name="GuardarButton"
-                Text="Registrar socio"
-                TextColor="White"
-                FontSize="Medium"
-                Clicked="OnRegistrarSocioClicked" />
+            <Entry x:Name="NombreEntry"
+                   Placeholder="Nombre"
+                   Keyboard="Text"
+                   MaxLength="20"
+                   Text="{Binding Nombre}"/>
 
-            <!--<Button 
-                Text="Limpiar campos"
-                FontSize="Medium"
-                Clicked="OnLimpiarClicked" />-->
+            <Label Text="{Binding ErrorNombre}"
+                   Style="{StaticResource ErrorStyle}"/>
 
-            <!--<Button Text="Cancelar"
-                    FontSize="Medium"
-                    Clicked="OnCancelarSocioClicked" />-->
+            <Label Text="Apellidos"/>
+
+            <Entry x:Name="ApellidosEntry"
+                   Placeholder="Apellidos"
+                   Keyboard="Text"
+                   MaxLength="30"
+                   Text="{Binding Apellidos}"/>
+
+            <Label Text="{Binding ErrorApellidos}"
+                   Style="{StaticResource ErrorStyle}"/>
+
+            <Label Text="Cédula de identidad"/>
+
+            <Entry x:Name="CedulaEntry"
+                   Placeholder="Cédula de identidad"
+                   Keyboard="Numeric"
+                   MaxLength="11"
+                   Text="{Binding Cedula}"/>
+
+            <Label Text="{Binding ErrorCedula}"
+                   Style="{StaticResource ErrorStyle}"/>
+
+            <Label Text="Teléfono"/>
+
+            <Entry x:Name="TelefonoEntry"
+                   Placeholder="Teléfono"
+                   Keyboard="Telephone"
+                   MaxLength="10"
+                   Text="{Binding Telefono}"/>
+
+            <Label Text="{Binding ErrorTelefono}"
+                   Style="{StaticResource ErrorStyle}"/>
+
+            <Label Text="Dirección"/>
+
+            <Entry x:Name="DireccionEntry"
+                   Placeholder="Dirección"
+                   Keyboard="Text"
+                   MaxLength="50"
+                   Text="{Binding Direccion}"/>
+
+            <Label Text="Fecha de nacimiento"/>
+
+            <DatePicker x:Name="FechaNacimientoPicker"
+                        Date="{Binding FechaNacimiento}"
+                        Format="dd/MM/yyyy"/>
+
+            <Label Text="Correo electrónico"/>
+
+            <Entry x:Name="CorreoEntry"
+                   Placeholder="Correo electrónico"
+                   Keyboard="Email"
+                   MaxLength="100"
+                   Text="{Binding Correo}"/>
+
+            <Label Text="{Binding ErrorCorreo}"
+                   Style="{StaticResource ErrorStyle}"/>
+
+            <!-- NUEVO CAMPO: CLAVE -->
+            <Label Text="Clave de acceso"/>
+
+            <Entry x:Name="ClaveEntry"
+                   Placeholder="Introduce tu clave"
+                   IsPassword="True"
+                   Keyboard="Text"
+                   MaxLength="30"
+                   Text="{Binding Clave}"/>
+
+            <Label Text="{Binding ErrorClave}"
+                   Style="{StaticResource ErrorStyle}"/>
+
+            <Button x:Name="GuardarButton"
+                    Text="{Binding TextoBotonGuardar}"
+                    Command="{Binding GuardarCommand}"/>
 
         </VerticalStackLayout>
     </ScrollView>
+
 </ContentPage>

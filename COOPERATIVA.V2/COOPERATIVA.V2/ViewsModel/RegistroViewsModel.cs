@@ -15,6 +15,7 @@ public partial class RegistroViewsModel : BaseViewsModel
     [ObservableProperty] private string telefono = "";
     [ObservableProperty] private string direccion = "";
     [ObservableProperty] private string correo = "";
+    [ObservableProperty] private string clave = "";
 
     [ObservableProperty]
     private DateTime fechaNacimiento = DateTime.Today;
@@ -24,10 +25,20 @@ public partial class RegistroViewsModel : BaseViewsModel
     [ObservableProperty] private string errorCedula = "";
     [ObservableProperty] private string errorTelefono = "";
     [ObservableProperty] private string errorCorreo = "";
+    [ObservableProperty] private string errorClave = "";
 
-    public Socios? SocioEnEdicion { get; set; }
+    public Socios? SocioEnEdicion { get; }
 
     public bool EsEdicion => SocioEnEdicion != null;
+
+    public string TituloFormulario =>
+        EsEdicion ? "Editar socio" : "Registrar socio";
+
+    public string TextoBotonGuardar =>
+        EsEdicion ? "Guardar cambios" : "Registrar socio";
+
+
+    public event Action<string>? SolicitarAlertaYRegreso;
 
     public RegistroViewsModel(Socios? socio = null)
     {
@@ -41,6 +52,7 @@ public partial class RegistroViewsModel : BaseViewsModel
             Telefono = socio.Telefono;
             Direccion = socio.Direccion;
             Correo = socio.Correo;
+            Clave = socio.Clave;
             FechaNacimiento = socio.FechaNacimiento;
         }
     }
@@ -48,7 +60,7 @@ public partial class RegistroViewsModel : BaseViewsModel
     private string Capitalizar(string texto)
     {
         if (string.IsNullOrWhiteSpace(texto))
-            return "";
+            return string.Empty;
 
         return CultureInfo.CurrentCulture.TextInfo
             .ToTitleCase(texto.Trim().ToLower());
@@ -61,6 +73,7 @@ public partial class RegistroViewsModel : BaseViewsModel
         ErrorCedula = "";
         ErrorTelefono = "";
         ErrorCorreo = "";
+        ErrorClave = "";
 
         bool valido = true;
 
@@ -72,22 +85,26 @@ public partial class RegistroViewsModel : BaseViewsModel
 
         if (string.IsNullOrWhiteSpace(Apellidos))
         {
-            ErrorApellidos = "Los apellidos del socio son obligatorios.";
+            ErrorApellidos = "Los apellidos son obligatorios.";
             valido = false;
         }
 
-        string cedulaLimpia = Cedula.Trim();
+        string cedulaLimpia = Cedula?.Trim() ?? "";
 
         if (cedulaLimpia.Length != 11 ||
             !cedulaLimpia.All(char.IsDigit))
         {
-            ErrorCedula = "La cédula debe contener exactamente 11 dígitos.";
+            ErrorCedula =
+                "La cédula debe contener exactamente 11 dígitos.";
+
             valido = false;
         }
         else if (SociosViewsModel.Socios.Any(s =>
             s.Cedula == cedulaLimpia && s != SocioEnEdicion))
         {
-            ErrorCedula = "Ya existe un socio registrado con esta cédula.";
+            ErrorCedula =
+                "Ya existe un socio registrado con esta cédula.";
+
             valido = false;
         }
 
@@ -98,18 +115,27 @@ public partial class RegistroViewsModel : BaseViewsModel
         }
 
         if (!string.IsNullOrWhiteSpace(Correo) &&
-            !Regex.IsMatch(Correo.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            !Regex.IsMatch(
+                Correo.Trim(),
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
         {
             ErrorCorreo = "Introduce un correo electrónico válido.";
             valido = false;
         }
 
-        return valido;
-    }
+        if (string.IsNullOrWhiteSpace(Clave))
+        {
+            ErrorClave = "La clave de acceso es obligatoria.";
+            valido = false;
+        }
+        else if (Clave.Length
+                 < 6)
+        {
+            ErrorClave = "La clave debe tener al menos 6 caracteres.";
+            valido = false;
+        }
 
-    private object CorreoRegex()
-    {
-        throw new NotImplementedException();
+        return valido;
     }
 
     [RelayCommand]
@@ -121,6 +147,8 @@ public partial class RegistroViewsModel : BaseViewsModel
         string nombreFinal = Capitalizar(Nombre);
         string apellidosFinal = Capitalizar(Apellidos);
 
+        string mensaje;
+
         if (SocioEnEdicion != null)
         {
             SocioEnEdicion.Nombre = nombreFinal;
@@ -129,9 +157,10 @@ public partial class RegistroViewsModel : BaseViewsModel
             SocioEnEdicion.Telefono = Telefono.Trim();
             SocioEnEdicion.Direccion = Direccion.Trim();
             SocioEnEdicion.Correo = Correo.Trim().ToLower();
+            SocioEnEdicion.Clave = Clave;
             SocioEnEdicion.FechaNacimiento = FechaNacimiento;
 
-            MensajeExito = "Los datos del socio se actualizaron correctamente.";
+            mensaje = "Los datos del socio se actualizaron correctamente.";
         }
         else
         {
@@ -147,6 +176,7 @@ public partial class RegistroViewsModel : BaseViewsModel
                 Telefono = Telefono.Trim(),
                 Direccion = Direccion.Trim(),
                 Correo = Correo.Trim().ToLower(),
+                Clave = Clave,
                 FechaNacimiento = FechaNacimiento,
                 FechaIngreso = DateTime.Today,
                 TipoSocio = "Regular",
@@ -155,10 +185,10 @@ public partial class RegistroViewsModel : BaseViewsModel
 
             SociosViewsModel.AgregarSocio(socio);
 
-            MensajeExito = "El socio se ha registrado correctamente.";
+            mensaje = "El socio se ha registrado correctamente.";
         }
 
-        LimpiarFormulario();
+        SolicitarAlertaYRegreso?.Invoke(mensaje);
     }
 
     [RelayCommand]
@@ -170,6 +200,8 @@ public partial class RegistroViewsModel : BaseViewsModel
         Telefono = "";
         Direccion = "";
         Correo = "";
+        Clave = "";
+
         FechaNacimiento = DateTime.Today;
 
         ErrorNombre = "";
@@ -177,5 +209,6 @@ public partial class RegistroViewsModel : BaseViewsModel
         ErrorCedula = "";
         ErrorTelefono = "";
         ErrorCorreo = "";
+        ErrorClave = "";
     }
 }
