@@ -1,7 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using COOPERATIVA.V2.Model;
-using COOPERATIVA.V2.ViewsModel;
 using System.Collections.ObjectModel;
 using System.Globalization;
 
@@ -102,6 +102,14 @@ public partial class PagosViewsModel : BaseViewsModel
         if (!valido)
             return;
 
+        if (PagosRegistrados.Any(p =>
+            p.PrestamoId == PrestamoSeleccionado!.Id &&
+            p.NumeroCuota == numeroCuota))
+        {
+            ErrorNumeroCuota = "Esta cuota ya fue registrada.";
+            return;
+        }
+
         if (PrestamoSeleccionado!.SaldoPendiente <= 0)
         {
             ErrorPrestamo = "Este préstamo ya está completamente pagado.";
@@ -147,6 +155,7 @@ public partial class PagosViewsModel : BaseViewsModel
         MontoTexto = "";
         FechaPago = DateTime.Today;
 
+        ErrorPrestamo = "";
         ErrorNumeroCuota = "";
         ErrorMonto = "";
     }
