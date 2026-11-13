@@ -20,6 +20,8 @@ public class Socios
 
     public string Correo { get; set; } = string.Empty;
 
+    public string Clave { get; set; } = string.Empty;
+
     public DateTime FechaNacimiento { get; set; }
 
     public DateTime FechaIngreso { get; set; } = DateTime.Today;

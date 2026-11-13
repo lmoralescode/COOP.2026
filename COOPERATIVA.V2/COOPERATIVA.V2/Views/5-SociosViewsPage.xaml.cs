@@ -1,69 +1,64 @@
 
 using COOPERATIVA.V2.Model;
+using COOPERATIVA.V2.ViewsModel;
 using System.Collections.ObjectModel;
 
 namespace COOPERATIVA.V2.Views;
 
 public partial class SociosViewsPage : ContentPage
 {
-    // Colección principal de socios.
-    public static ObservableCollection<Socios> Socios { get; } = new();
+    private readonly SociosViewsModel viewModel;
 
-    // Socio que se está editando.
+    // Utilizar la misma colección del ViewModel.
+    public static ObservableCollection<Socios> Socios =>
+        SociosViewsModel.Socios;
+
     public static Socios? SocioEnEdicion { get; set; }
-
-    // Colección mostrada en pantalla.
-    private readonly ObservableCollection<Socios> _sociosFiltrados = new();
 
     public SociosViewsPage()
     {
         InitializeComponent();
 
-        ListaSocios.ItemsSource = _sociosFiltrados;
+        viewModel = new SociosViewsModel();
+
+        // Mostrar los socios del ViewModel.
+        ListaSocios.ItemsSource = viewModel.SociosFiltrados;
+
+        // Conectar el buscador.
         BuscarSocio.TextChanged += BuscarSocio_TextChanged;
 
         CargarSocios();
     }
 
-    public static void AgregarSocio(Socios socio)
-    {
-        Socios.Add(socio);
-    }
-
     private void CargarSocios()
     {
-        _sociosFiltrados.Clear();
+        viewModel.Busqueda = BuscarSocio.Text ?? string.Empty;
 
-        string busqueda = BuscarSocio.Text?.Trim() ?? "";
-
-        var resultados = Socios.Where(s =>
-            ($"{s.Nombre} {s.Apellidos}")
-                .Contains(busqueda, StringComparison.OrdinalIgnoreCase)
-            || s.Cedula.Contains(
-                busqueda,
-                StringComparison.OrdinalIgnoreCase));
-
-        foreach (var socio in resultados)
-        {
-            _sociosFiltrados.Add(socio);
-        }
+        viewModel.CargarSocios();
     }
 
-    private void BuscarSocio_TextChanged(object? sender, TextChangedEventArgs e)
+    private void BuscarSocio_TextChanged(
+        object? sender,
+        TextChangedEventArgs e)
     {
-        CargarSocios();
+        viewModel.Busqueda = e.NewTextValue ?? string.Empty;
     }
 
-    // Botón Nuevo socio.
-    private async void OnNuevoSocioClicked(object sender, EventArgs e)
+    // Registrar un nuevo socio.
+    private async void OnNuevoSocioClicked(
+        object sender,
+        EventArgs e)
     {
         SocioEnEdicion = null;
 
-        await Navigation.PushAsync(new RegistroViewsPage());
+        await Navigation.PushAsync(
+            new RegistroViewsPage());
     }
 
-    // Botón Editar / consultar.
-    private async void OnEditarSocioClicked(object sender, EventArgs e)
+    // Consultar o editar un socio.
+    private async void OnEditarSocioClicked(
+        object sender,
+        EventArgs e)
     {
         if (Socios.Count == 0)
         {
@@ -98,14 +93,15 @@ public partial class SociosViewsPage : ContentPage
 
         SocioEnEdicion = Socios[indice];
 
-        await Navigation.PushAsync(new RegistroViewsPage());
+        await Navigation.PushAsync(
+            new RegistroViewsPage(SocioEnEdicion));
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        // Actualiza la lista después de registrar o editar.
+        // Actualizar la lista al regresar del formulario.
         CargarSocios();
     }
 }

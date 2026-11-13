@@ -1,10 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using COOPERATIVA.V2.Views;
 
-namespace COOPERATIVA.V2.ViewsModel
+namespace COOPERATIVA.V2.ViewsModel;
+
+public partial class InicioViewModel : ObservableObject
 {
-    internal class InicioViewsModel
+    [RelayCommand]
+    public async Task Comenzar()
     {
+        await Shell.Current.GoToAsync("//LoginViewsPage");
+    }
+
+    [RelayCommand]
+    public async Task Registro()
+    {
+        await Shell.Current.GoToAsync(nameof(RegistroViewsPage));
     }
 }
