@@ -3,132 +3,309 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="COOPERATIVA.V2.Views.RegistroViewsPage"
              Title="{Binding TituloFormulario}"
-             BackgroundColor="White">
+             BackgroundColor="#F3F8F4"
+             NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Resources>
 
-        <Style TargetType="Button">
-            <Setter Property="BackgroundColor" Value="DarkGreen"/>
-            <Setter Property="TextColor" Value="White"/>
-            <Setter Property="FontSize" Value="Medium"/>
-            <Setter Property="CornerRadius" Value="8"/>
+        <Color x:Key="VerdePrincipal">#087443</Color>
+        <Color x:Key="VerdeOscuro">#064D32</Color>
+        <Color x:Key="VerdeClaro">#E3F3E9</Color>
+        <Color x:Key="TextoOscuro">#183B2B</Color>
+
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="TextColor" Value="#183B2B"/>
+            <Setter Property="PlaceholderColor" Value="#94A49A"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="HeightRequest" Value="48"/>
         </Style>
 
-        <Style TargetType="Entry">
-            <Setter Property="BackgroundColor" Value="#F5F5F5"/>
-            <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="PlaceholderColor" Value="Gray"/>
-            <Setter Property="Margin" Value="0,2"/>
+        <Style TargetType="Label"
+               x:Key="CampoLabel">
+            <Setter Property="TextColor" Value="#183B2B"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
         </Style>
 
-        <Style x:Key="ErrorStyle" TargetType="Label">
-            <Setter Property="TextColor" Value="Red"/>
+        <Style TargetType="Label"
+               x:Key="ErrorStyle">
+            <Setter Property="TextColor" Value="#D93636"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Margin" Value="5,0,0,2"/>
         </Style>
 
     </ContentPage.Resources>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="22" Spacing="12">
+    <Grid RowDefinitions="*,Auto">
 
-            <Label Text="{Binding TituloFormulario}"
-                   FontSize="27"
-                   FontAttributes="Bold"
-                   TextColor="DarkGreen"/>
+        <ScrollView Grid.Row="0">
 
-            <Label Text="Complete los datos del socio"
-                   FontSize="14"
-                   TextColor="Gray"/>
+            <VerticalStackLayout Spacing="0">
 
-            <Label Text="Nombre"/>
+                <!-- ENCABEZADO -->
+                <Grid BackgroundColor="{StaticResource VerdeOscuro}"
+                      Padding="22,30,22,65">
 
-            <Entry x:Name="NombreEntry"
-                   Placeholder="Nombre"
-                   Keyboard="Text"
-                   MaxLength="20"
-                   Text="{Binding Nombre}"/>
+                    <VerticalStackLayout Spacing="9">
 
-            <Label Text="{Binding ErrorNombre}"
-                   Style="{StaticResource ErrorStyle}"/>
+                        <Label Text="GESTIÓN DE SOCIOS"
+                               FontSize="12"
+                               CharacterSpacing="3"
+                               FontAttributes="Bold"
+                               TextColor="#B9E5CC"
+                               HorizontalOptions="Center"/>
 
-            <Label Text="Apellidos"/>
+                        <Label Text="{Binding TituloFormulario}"
+                               FontSize="27"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"/>
 
-            <Entry x:Name="ApellidosEntry"
-                   Placeholder="Apellidos"
-                   Keyboard="Text"
-                   MaxLength="30"
-                   Text="{Binding Apellidos}"/>
+                        <Label Text="Información y datos del miembro"
+                               FontSize="14"
+                               TextColor="#D8EFE1"
+                               HorizontalOptions="Center"/>
 
-            <Label Text="{Binding ErrorApellidos}"
-                   Style="{StaticResource ErrorStyle}"/>
+                    </VerticalStackLayout>
 
-            <Label Text="Cédula de identidad"/>
+                </Grid>
 
-            <Entry x:Name="CedulaEntry"
-                   Placeholder="Cédula de identidad"
-                   Keyboard="Numeric"
-                   MaxLength="11"
-                   Text="{Binding Cedula}"/>
+                <!-- FORMULARIO -->
+                <Border BackgroundColor="White"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 26"
+                        Margin="16,-40,16,20"
+                        Padding="20">
 
-            <Label Text="{Binding ErrorCedula}"
-                   Style="{StaticResource ErrorStyle}"/>
+                    <VerticalStackLayout Spacing="15">
 
-            <Label Text="Teléfono"/>
+                        <!-- ICONO -->
+                        <Border BackgroundColor="#E5F3E9"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 50"
+                                WidthRequest="75"
+                                HeightRequest="75"
+                                HorizontalOptions="Center">
 
-            <Entry x:Name="TelefonoEntry"
-                   Placeholder="Teléfono"
-                   Keyboard="Telephone"
-                   MaxLength="10"
-                   Text="{Binding Telefono}"/>
+                            <Label Text="👤"
+                                   FontSize="37"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
 
-            <Label Text="{Binding ErrorTelefono}"
-                   Style="{StaticResource ErrorStyle}"/>
+                        </Border>
 
-            <Label Text="Dirección"/>
+                        <Label Text="Datos personales"
+                               FontSize="21"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource VerdePrincipal}"
+                               HorizontalOptions="Center"/>
 
-            <Entry x:Name="DireccionEntry"
-                   Placeholder="Dirección"
-                   Keyboard="Text"
-                   MaxLength="50"
-                   Text="{Binding Direccion}"/>
+                        <Label Text="Complete los campos para registrar la información del socio."
+                               FontSize="13"
+                               TextColor="#718078"
+                               HorizontalTextAlignment="Center"/>
 
-            <Label Text="Fecha de nacimiento"/>
+                        <BoxView HeightRequest="1"
+                                 Color="#E3EBE5"/>
 
-            <DatePicker x:Name="FechaNacimientoPicker"
-                        Date="{Binding FechaNacimiento}"
-                        Format="dd/MM/yyyy"/>
+                        <!-- NOMBRE -->
+                        <Label Text="Nombre"
+                               Style="{StaticResource CampoLabel}"/>
 
-            <Label Text="Correo electrónico"/>
+                        <Border BackgroundColor="#F3F8F4"
+                                Stroke="#DCE9DF"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="10,0">
 
-            <Entry x:Name="CorreoEntry"
-                   Placeholder="Correo electrónico"
-                   Keyboard="Email"
-                   MaxLength="100"
-                   Text="{Binding Correo}"/>
+                            <Entry x:Name="NombreEntry"
+                                   Placeholder="Ingrese el nombre"
+                                   Keyboard="Text"
+                                   MaxLength="20"
+                                   Text="{Binding Nombre}"/>
 
-            <Label Text="{Binding ErrorCorreo}"
-                   Style="{StaticResource ErrorStyle}"/>
+                        </Border>
 
-            <!-- NUEVO CAMPO: CLAVE -->
-            <Label Text="Clave de acceso"/>
+                        <Label Text="{Binding ErrorNombre}"
+                               Style="{StaticResource ErrorStyle}"/>
 
-            <Entry x:Name="ClaveEntry"
-                   Placeholder="Introduce tu clave"
-                   IsPassword="True"
-                   Keyboard="Text"
-                   MaxLength="30"
-                   Text="{Binding Clave}"/>
+                        <!-- APELLIDOS -->
+                        <Label Text="Apellidos"
+                               Style="{StaticResource CampoLabel}"/>
 
-            <Label Text="{Binding ErrorClave}"
-                   Style="{StaticResource ErrorStyle}"/>
+                        <Border BackgroundColor="#F3F8F4"
+                                Stroke="#DCE9DF"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="10,0">
 
-            <Button x:Name="GuardarButton"
-                    Text="{Binding TextoBotonGuardar}"
-                    Command="{Binding GuardarCommand}"/>
+                            <Entry x:Name="ApellidosEntry"
+                                   Placeholder="Ingrese los apellidos"
+                                   Keyboard="Text"
+                                   MaxLength="30"
+                                   Text="{Binding Apellidos}"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
+                        </Border>
+
+                        <Label Text="{Binding ErrorApellidos}"
+                               Style="{StaticResource ErrorStyle}"/>
+
+                        <!-- CEDULA -->
+                        <Label Text="Cédula de identidad"
+                               Style="{StaticResource CampoLabel}"/>
+
+                        <Border BackgroundColor="#F3F8F4"
+                                Stroke="#DCE9DF"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="10,0">
+
+                            <Entry x:Name="CedulaEntry"
+                                   Placeholder="00000000000"
+                                   Keyboard="Numeric"
+                                   MaxLength="11"
+                                   Text="{Binding Cedula}"/>
+
+                        </Border>
+
+                        <Label Text="{Binding ErrorCedula}"
+                               Style="{StaticResource ErrorStyle}"/>
+
+                        <!-- TELEFONO -->
+                        <Label Text="Teléfono"
+                               Style="{StaticResource CampoLabel}"/>
+
+                        <Border BackgroundColor="#F3F8F4"
+                                Stroke="#DCE9DF"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="10,0">
+
+                            <Entry x:Name="TelefonoEntry"
+                                   Placeholder="8090000000"
+                                   Keyboard="Telephone"
+                                   MaxLength="10"
+                                   Text="{Binding Telefono}"/>
+
+                        </Border>
+
+                        <Label Text="{Binding ErrorTelefono}"
+                               Style="{StaticResource ErrorStyle}"/>
+
+                        <!-- DIRECCION -->
+                        <Label Text="Dirección"
+                               Style="{StaticResource CampoLabel}"/>
+
+                        <Border BackgroundColor="#F3F8F4"
+                                Stroke="#DCE9DF"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="10,0">
+
+                            <Entry x:Name="DireccionEntry"
+                                   Placeholder="Ingrese la dirección"
+                                   Keyboard="Text"
+                                   MaxLength="50"
+                                   Text="{Binding Direccion}"/>
+
+                        </Border>
+
+                        <!-- FECHA -->
+                        <Label Text="Fecha de nacimiento"
+                               Style="{StaticResource CampoLabel}"/>
+
+                        <Border BackgroundColor="#F3F8F4"
+                                Stroke="#DCE9DF"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="10">
+
+                            <DatePicker x:Name="FechaNacimientoPicker"
+                                        Date="{Binding FechaNacimiento}"
+                                        Format="dd/MM/yyyy"
+                                        TextColor="{StaticResource TextoOscuro}"/>
+
+                        </Border>
+
+                        <!-- CORREO -->
+                        <Label Text="Correo electrónico"
+                               Style="{StaticResource CampoLabel}"/>
+
+                        <Border BackgroundColor="#F3F8F4"
+                                Stroke="#DCE9DF"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="10,0">
+
+                            <Entry x:Name="CorreoEntry"
+                                   Placeholder="correo@ejemplo.com"
+                                   Keyboard="Email"
+                                   MaxLength="100"
+                                   Text="{Binding Correo}"/>
+
+                        </Border>
+
+                        <Label Text="{Binding ErrorCorreo}"
+                               Style="{StaticResource ErrorStyle}"/>
+
+                        <!-- CLAVE -->
+                        <Label Text="Clave de acceso"
+                               Style="{StaticResource CampoLabel}"/>
+
+                        <Border BackgroundColor="#F3F8F4"
+                                Stroke="#DCE9DF"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="10,0">
+
+                            <Entry x:Name="ClaveEntry"
+                                   Placeholder="Mínimo 6 caracteres"
+                                   IsPassword="True"
+                                   Keyboard="Text"
+                                   MaxLength="30"
+                                   Text="{Binding Clave}"/>
+
+                        </Border>
+
+                        <Label Text="{Binding ErrorClave}"
+                               Style="{StaticResource ErrorStyle}"/>
+
+                        <BoxView HeightRequest="1"
+                                 Color="#E3EBE5"
+                                 Margin="0,5"/>
+
+                        <!-- GUARDAR -->
+                        <Button x:Name="GuardarButton"
+                                Text="{Binding TextoBotonGuardar}"
+                                Command="{Binding GuardarCommand}"
+                                BackgroundColor="{StaticResource VerdePrincipal}"
+                                TextColor="White"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                CornerRadius="15"
+                                HeightRequest="56"/>
+
+                        <Label Text="🔒  Información protegida de nuestros socios"
+                               FontSize="11"
+                               TextColor="#82958A"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,5,0,0"/>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <!-- PIE DE PAGINA -->
+        <Grid Grid.Row="1"
+              BackgroundColor="{StaticResource VerdeOscuro}"
+              Padding="15,12">
+
+            <Label Text="© 2026 Cooperativa | Todos los derechos reservados"
+                   FontSize="10"
+                   TextColor="#D8EFE1"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
+
+        </Grid>
+
+    </Grid>
 
 </ContentPage>
