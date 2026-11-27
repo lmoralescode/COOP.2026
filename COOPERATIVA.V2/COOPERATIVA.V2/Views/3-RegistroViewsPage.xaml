@@ -278,6 +278,19 @@
                                 CornerRadius="15"
                                 HeightRequest="56"/>
 
+                        <!-- ELIMINAR: SOLO EN MODO EDICIÓN -->
+                        <Button Text="🗑️  Eliminar socio"
+                                Command="{Binding EliminarCommand}"
+                                IsVisible="{Binding EsEdicion}"
+                                BackgroundColor="#FDECEC"
+                                TextColor="#B42318"
+                                BorderColor="#F2B8B5"
+                                BorderWidth="1"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                CornerRadius="15"
+                                HeightRequest="50"/>
+
                         <Label Text="🔒  Información protegida de nuestros socios"
                                FontSize="11"
                                TextColor="#82958A"
