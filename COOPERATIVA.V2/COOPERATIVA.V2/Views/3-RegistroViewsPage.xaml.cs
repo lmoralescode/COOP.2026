@@ -13,11 +13,29 @@ public partial class RegistroViewsPage : ContentPage
         InitializeComponent();
 
         viewModel = new RegistroViewsModel(socio);
+
         BindingContext = viewModel;
 
-        viewModel.SolicitarAlertaYRegreso += OnSolicitarAlertaYRegreso;
+        // CONFIRMACIÓN ANTES DE ELIMINAR
+        viewModel.SolicitarConfirmacionEliminar +=
+            OnSolicitarConfirmacionEliminar;
+
+        // MENSAJE DE RESULTADO Y REGRESO
+        viewModel.SolicitarAlertaYRegreso +=
+            OnSolicitarAlertaYRegreso;
     }
 
+    // CONFIRMAR ELIMINACIÓN
+    private Task<bool> OnSolicitarConfirmacionEliminar()
+    {
+        return DisplayAlertAsync(
+            "Confirmar eliminación",
+            $"¿Estás seguro de eliminar al socio {viewModel.Nombre} {viewModel.Apellidos}?",
+            "Eliminar",
+            "Cancelar");
+    }
+
+    // MOSTRAR RESULTADO Y REGRESAR
     private async void OnSolicitarAlertaYRegreso(string mensaje)
     {
         await DisplayAlertAsync(
@@ -28,9 +46,14 @@ public partial class RegistroViewsPage : ContentPage
         await Navigation.PopAsync();
     }
 
+    // LIBERAR EVENTOS
     protected override void OnDisappearing()
     {
-        viewModel.SolicitarAlertaYRegreso -= OnSolicitarAlertaYRegreso;
+        viewModel.SolicitarAlertaYRegreso -=
+            OnSolicitarAlertaYRegreso;
+
+        viewModel.SolicitarConfirmacionEliminar -=
+            OnSolicitarConfirmacionEliminar;
 
         base.OnDisappearing();
     }
