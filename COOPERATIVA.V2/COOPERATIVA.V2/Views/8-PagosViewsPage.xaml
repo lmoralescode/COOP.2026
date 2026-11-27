@@ -1,143 +1,352 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:COOPERATIVA.V2.ViewsModel"
              Title="Pagos"
-             x:Class="COOPERATIVA.V2.Views.PagosViewsPage">
+             x:Class="COOPERATIVA.V2.Views.PagosViewsPage"
+             BackgroundColor="#F3F8F4"
+             Shell.NavBarIsVisible="False"
+             Shell.BackgroundColor="#064D32"
+             Shell.ForegroundColor="White"
+             Shell.TitleColor="White"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="18" Spacing="14">
+    <ContentPage.Resources>
+        <Color x:Key="VerdePrincipal">#087443</Color>
+        <Color x:Key="VerdeOscuro">#064D32</Color>
+        <Color x:Key="VerdeClaro">#E3F3E9</Color>
+        <Color x:Key="TextoOscuro">#183B2B</Color>
+    </ContentPage.Resources>
 
-            <Label
-                Text="Pagos y cuotas"
-                FontSize="26"
-                FontAttributes="Bold"
-                TextColor="Blue"/>
+    <ContentPage.BindingContext>
+        <vm:PagosViewsModel />
+    </ContentPage.BindingContext>
 
-            <Label Text="Seleccionar préstamo"/>
+    <ScrollView VerticalScrollBarVisibility="Never">
 
-            <Picker
-                x:Name="PrestamoPicker"
-                Title="Seleccione un préstamo"
-                BackgroundColor="White"/>
+        <VerticalStackLayout Spacing="18">
 
-            <Border
-                BackgroundColor="White"
-                Stroke="WhiteSmoke"
-                Padding="15"
-                StrokeShape="RoundRectangle 12">
+            <!-- ENCABEZADO: MISMO DISEÑO DE PRÉSTAMOS -->
+            <Grid BackgroundColor="{StaticResource VerdeOscuro}"
+                  Padding="22,22,22,32">
 
                 <VerticalStackLayout Spacing="8">
-                    <Label
-                        Text="Resumen del préstamo"
-                        FontAttributes="Bold"
-                        FontSize="18"
-                        TextColor="Blue"/>
 
-                    <Label
-                        x:Name="NumeroPrestamoLabel"
-                        Text="Préstamo: --"/>
+                    <Label Text="PANEL FINANCIERO"
+                           FontSize="11"
+                           CharacterSpacing="2"
+                           FontAttributes="Bold"
+                           TextColor="#B9E5CC"/>
 
-                    <Label
-                        x:Name="SaldoPendienteLabel"
-                        Text="Saldo pendiente: RD$ 0.00"/>
+                    <Label Text="Gestión de pagos"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           TextColor="White"/>
 
-                    <Label
-                        x:Name="EstadoPrestamoLabel"
-                        Text="Estado: Sin seleccionar"/>
+                    <Label Text="Registra las cuotas y consulta los pagos realizados por los socios."
+                           FontSize="13"
+                           TextColor="#D8EFE1"/>
+
                 </VerticalStackLayout>
-            </Border>
+            </Grid>
 
-            <Label Text="Número de cuota"/>
+            <!-- CONTENIDO -->
+            <VerticalStackLayout Margin="18,-15,18,25"
+                                 Spacing="17">
 
-            <Entry
-                x:Name="NumeroCuotaEntry"
-                Placeholder="Ej. 1"
-                Keyboard="Numeric"
-                BackgroundColor="White"/>
+                <!-- SELECCIONAR PRÉSTAMO -->
+                <Border BackgroundColor="White"
+                        Stroke="#DCE9DF"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 20"
+                        Padding="17">
 
-            <Label Text="Monto pagado (RD$)"/>
+                    <VerticalStackLayout Spacing="13">
 
-            <Entry
-                x:Name="MontoPagoEntry"
-                Placeholder="0.00"
-                Keyboard="Numeric"
-                BackgroundColor="White"/>
+                        <Label Text="Seleccionar préstamo"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource VerdeOscuro}"/>
 
-            <Label Text="Fecha de pago"/>
+                        <Label Text="Préstamo del socio"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TextoOscuro}"/>
 
-            <DatePicker
-                x:Name="FechaPagoPicker"
-                Format="dd/MM/yyyy"
-                BackgroundColor="White"/>
+                        <Picker x:Name="PrestamoPicker"
+                                Title="Seleccione un préstamo"
+                                ItemsSource="{Binding ListaPrestamos}"
+                                SelectedItem="{Binding PrestamoSeleccionado, Mode=TwoWay}"
+                                ItemDisplayBinding="{Binding DescripcionPrestamo}"
+                                BackgroundColor="#F3F8F4"
+                                TextColor="#183B2B"
+                                TitleColor="#718078"
+                                HeightRequest="50"/>        
 
-            <Button
-                Text="Registrar pago"
-                BackgroundColor="Blue"
-                TextColor="White"
-                HeightRequest="50"
-                CornerRadius="10"
-                Clicked="OnRegistrarPagoClicked"/>
+                        <Label Text="{Binding ErrorPrestamo}"
+                               TextColor="#C62828"
+                               FontSize="12"/>
 
-            <Label
-                Text="Historial de pagos"
-                FontSize="20"
-                FontAttributes="Bold"
-                TextColor="Blue"
-                Margin="0,10,0,0"/>
+                    </VerticalStackLayout>
+                </Border>
 
-            <CollectionView
-                x:Name="ListaPagos"
-                HeightRequest="280"
-                SelectionMode="None">
+                <!-- RESUMEN DEL PRÉSTAMO -->
+                <Border BackgroundColor="{StaticResource VerdeOscuro}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 22"
+                        Padding="20">
 
-                <CollectionView.EmptyView>
-                    <Label
-                        Text="No hay pagos registrados."
-                        TextColor="Gray"
-                        Padding="10"/>
-                </CollectionView.EmptyView>
+                    <VerticalStackLayout Spacing="12">
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            BackgroundColor="White"
-                            Stroke="WhiteSmoke"
-                            Padding="12"
-                            Margin="0,3"
-                            StrokeShape="RoundRectangle 10">
+                        <Label Text="RESUMEN DEL PRÉSTAMO"
+                               FontSize="11"
+                               CharacterSpacing="1.5"
+                               FontAttributes="Bold"
+                               TextColor="#B9E5CC"/>
 
-                            <Grid
-                                ColumnDefinitions="*,Auto"
-                                RowDefinitions="Auto,Auto">
+                        <Label x:Name="NumeroPrestamoLabel"
+                               Text="{Binding NumeroPrestamoResumen}"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
 
-                                <Label
-                                    Text="{Binding NumeroCuota, StringFormat='Cuota: {0}'}"
-                                    FontAttributes="Bold"
-                                    TextColor="Blue"/>
+                        <BoxView HeightRequest="1"
+                                 Color="#438365"
+                                 Margin="0,2"/>
 
-                                <Label
-                                    Grid.Column="1"
-                                    Text="{Binding Monto, StringFormat='RD$ {0:N2}'}"
-                                    FontAttributes="Bold"/>
+                        <Label x:Name="SaldoPendienteLabel"
+                               Text="{Binding SaldoPendienteResumen}"
+                               FontSize="17"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
 
-                                <Label
-                                    Grid.Row="1"
-                                    Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}"
-                                    FontSize="12"
-                                    TextColor="Gray"/>
+                        <Label x:Name="EstadoPrestamoLabel"
+                               Text="{Binding EstadoResumen}"
+                               FontSize="13"
+                               TextColor="#D8EFE1"/>
 
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    Text="{Binding Estado}"
-                                    FontSize="12"
-                                    TextColor="DarkGreen"/>
-                            </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- REGISTRAR NUEVO PAGO -->
+                <VerticalStackLayout Spacing="4">
+
+                    <Label Text="Registrar nuevo pago"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextoOscuro}"/>
+
+                    <Label Text="Completa los datos para registrar una cuota."
+                           FontSize="12"
+                           TextColor="#718078"/>
+
+                </VerticalStackLayout>
+
+                <Border BackgroundColor="White"
+                        Stroke="#DCE9DF"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 20"
+                        Padding="17">
+
+                    <VerticalStackLayout Spacing="15">
+
+                        <!-- NÚMERO DE CUOTA -->
+                        <VerticalStackLayout Spacing="6">
+
+                            <Label Text="Número de cuota"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource TextoOscuro}"/>
+
+                            <Entry x:Name="NumeroCuotaEntry"
+                                   Text="{Binding NumeroCuotaTexto, Mode=TwoWay}"
+                                   Placeholder="Ej. 1"
+                                   PlaceholderColor="#8A9B90"
+                                   Keyboard="Numeric"
+                                   BackgroundColor="#F3F8F4"
+                                   TextColor="#183B2B"
+                                   HeightRequest="50"/>
+
+                            <Label Text="{Binding ErrorNumeroCuota}"
+                                   TextColor="#C62828"
+                                   FontSize="12"/>
+
+                        </VerticalStackLayout>
+
+                        <!-- MONTO PAGADO -->
+                        <VerticalStackLayout Spacing="6">
+
+                            <Label Text="Monto pagado (RD$)"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource TextoOscuro}"/>
+
+                            <Entry x:Name="MontoPagoEntry"
+                                   Text="{Binding MontoTexto, Mode=TwoWay}"
+                                   Placeholder="Ej. 5000.00"
+                                   PlaceholderColor="#8A9B90"
+                                   Keyboard="Numeric"
+                                   BackgroundColor="#F3F8F4"
+                                   TextColor="#183B2B"
+                                   HeightRequest="50"/>
+
+                            <Label Text="{Binding ErrorMonto}"
+                                   TextColor="#C62828"
+                                   FontSize="12"/>
+
+                        </VerticalStackLayout>
+
+                        <!-- FECHA DE PAGO -->
+                        <VerticalStackLayout Spacing="6">
+
+                            <Label Text="Fecha de pago"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource TextoOscuro}"/>
+
+                            <DatePicker x:Name="FechaPagoPicker"
+                                        Date="{Binding FechaPago, Mode=TwoWay}"
+                                        Format="dd/MM/yyyy"
+                                        BackgroundColor="#F3F8F4"
+                                        TextColor="#183B2B"
+                                        HeightRequest="50"/>
+
+                        </VerticalStackLayout>
+
+                        <!-- BOTÓN REGISTRAR -->
+                        <Button Text="Registrar pago"
+                                Command="{Binding RegistrarPagoCommand}"
+                                BackgroundColor="{StaticResource VerdePrincipal}"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                HeightRequest="52"
+                                CornerRadius="13"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- MENSAJE DE ÉXITO -->
+                <Label Text="{Binding MensajeExito}"
+                       TextColor="#087443"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"/>
+
+                <!-- HISTORIAL -->
+                <VerticalStackLayout Spacing="4">
+
+                    <Label Text="Historial de pagos"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextoOscuro}"/>
+
+                    <Label Text="Consulta los pagos registrados."
+                           FontSize="12"
+                           TextColor="#718078"/>
+
+                </VerticalStackLayout>
+
+                <CollectionView x:Name="ListaPagos"
+                                ItemsSource="{Binding HistorialPagos}"
+                                HeightRequest="300"
+                                SelectionMode="None"
+                                VerticalScrollBarVisibility="Never">
+
+                    <CollectionView.EmptyView>
+
+                        <Border BackgroundColor="White"
+                                Stroke="#DCE9DF"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 18"
+                                Padding="20">
+
+                            <VerticalStackLayout Spacing="8"
+                                                 HorizontalOptions="Center">
+
+                                <Label Text="💳"
+                                       FontSize="35"
+                                       HorizontalOptions="Center"/>
+
+                                <Label Text="No hay pagos registrados."
+                                       FontSize="14"
+                                       TextColor="#718078"
+                                       HorizontalTextAlignment="Center"/>
+
+                            </VerticalStackLayout>
+
                         </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Border BackgroundColor="White"
+                                    Stroke="#DCE9DF"
+                                    StrokeThickness="1"
+                                    Padding="15"
+                                    Margin="0,3,0,8"
+                                    StrokeShape="RoundRectangle 17">
+
+                                <VerticalStackLayout Spacing="8">
+
+                                    <Grid ColumnDefinitions="*,Auto">
+
+                                        <Label Text="{Binding NumeroCuota, StringFormat='Cuota: {0}'}"
+                                               FontAttributes="Bold"
+                                               FontSize="16"
+                                               TextColor="{StaticResource VerdeOscuro}"
+                                               VerticalOptions="Center"/>
+
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Monto, StringFormat='RD$ {0:N2}'}"
+                                               FontAttributes="Bold"
+                                               FontSize="15"
+                                               TextColor="{StaticResource VerdePrincipal}"
+                                               VerticalOptions="Center"/>
+
+                                    </Grid>
+
+                                    <BoxView HeightRequest="1"
+                                             Color="#E8F0EA"/>
+
+                                    <Grid ColumnDefinitions="*,Auto">
+
+                                        <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}"
+                                               FontSize="12"
+                                               TextColor="#718078"
+                                               VerticalOptions="Center"/>
+
+                                        <Border Grid.Column="1"
+                                                BackgroundColor="{StaticResource VerdeClaro}"
+                                                StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 10"
+                                                Padding="9,5">
+
+                                            <Label Text="{Binding Estado}"
+                                                   FontSize="12"
+                                                   FontAttributes="Bold"
+                                                   TextColor="{StaticResource VerdePrincipal}"/>
+
+                                        </Border>
+
+                                    </Grid>
+
+                                </VerticalStackLayout>
+
+                            </Border>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </VerticalStackLayout>
 
         </VerticalStackLayout>
+
     </ScrollView>
+
 </ContentPage>
