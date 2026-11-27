@@ -243,12 +243,52 @@
 
                                     </VerticalStackLayout>
 
-                                    <Label Grid.Column="1"
-                                           Text="{Binding Monto, StringFormat='RD$ {0:N2}'}"
-                                           FontAttributes="Bold"
-                                           FontSize="15"
-                                           TextColor="{StaticResource VerdePrincipal}"
-                                           VerticalOptions="Center"/>
+                                    <!-- MONTO DEL MOVIMIENTO -->
+                                    <Grid Grid.Column="1"
+                                          VerticalOptions="Center">
+
+                                        <!-- DEPÓSITO: VERDE Y POSITIVO -->
+                                        <Label Text="{Binding Monto, StringFormat='+ RD$ {0:N2}'}"
+                                               FontAttributes="Bold"
+                                               FontSize="15"
+                                               TextColor="{StaticResource VerdePrincipal}"
+                                               HorizontalTextAlignment="End">
+
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label"
+                                                             Binding="{Binding Tipo}"
+                                                             Value="Retiro">
+
+                                                    <Setter Property="IsVisible"
+                                                            Value="False"/>
+
+                                                </DataTrigger>
+                                            </Label.Triggers>
+
+                                        </Label>
+
+                                        <!-- RETIRO: ROJO Y NEGATIVO -->
+                                        <Label Text="{Binding Monto, StringFormat='- RD$ {0:N2}'}"
+                                               FontAttributes="Bold"
+                                               FontSize="15"
+                                               TextColor="#D32F2F"
+                                               HorizontalTextAlignment="End"
+                                               IsVisible="False">
+
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label"
+                                                             Binding="{Binding Tipo}"
+                                                             Value="Retiro">
+
+                                                    <Setter Property="IsVisible"
+                                                            Value="True"/>
+
+                                                </DataTrigger>
+                                            </Label.Triggers>
+
+                                        </Label>
+
+                                    </Grid>
 
                                 </Grid>
                             </Border>
