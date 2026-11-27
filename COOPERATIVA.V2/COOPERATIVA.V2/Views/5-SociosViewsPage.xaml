@@ -112,9 +112,9 @@
                                 Padding="15"
                                 Margin="0,4,0,8">
 
-                            <Grid ColumnDefinitions="*,Auto"
+                            <Grid ColumnDefinitions="*,Auto,Auto"
                                   RowDefinitions="Auto,Auto,Auto"
-                                  ColumnSpacing="12"
+                                  ColumnSpacing="10"
                                   RowSpacing="7">
 
                                 <!-- NOMBRE -->
@@ -173,6 +173,22 @@
                                            HorizontalOptions="Center"/>
 
                                 </Border>
+
+                                <!-- BOTON ELIMINAR -->
+                                <Button Grid.Column="2"
+                                        Grid.RowSpan="3"
+                                        Text="🗑️"
+                                        FontSize="17"
+                                        BackgroundColor="#FDECEC"
+                                        TextColor="#B42318"
+                                        CornerRadius="12"
+                                        WidthRequest="42"
+                                        HeightRequest="42"
+                                        Padding="0"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnEliminarSocioClicked"/>
 
                             </Grid>
                         </Border>
