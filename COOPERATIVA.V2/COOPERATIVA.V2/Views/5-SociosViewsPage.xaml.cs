@@ -1,7 +1,9 @@
 
 using COOPERATIVA.V2.Model;
 using COOPERATIVA.V2.ViewsModel;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace COOPERATIVA.V2.Views;
 
@@ -44,7 +46,7 @@ public partial class SociosViewsPage : ContentPage
         viewModel.Busqueda = e.NewTextValue ?? string.Empty;
     }
 
-    // Registrar un nuevo socio.
+    // REGISTRAR UN NUEVO SOCIO.
     private async void OnNuevoSocioClicked(
         object sender,
         EventArgs e)
@@ -55,7 +57,7 @@ public partial class SociosViewsPage : ContentPage
             new RegistroViewsPage());
     }
 
-    // Consultar o editar un socio.
+    // CONSULTAR O EDITAR UN SOCIO.
     private async void OnEditarSocioClicked(
         object sender,
         EventArgs e)
@@ -74,7 +76,7 @@ public partial class SociosViewsPage : ContentPage
             .Select(s => $"{s.Nombre} {s.Apellidos} - {s.Cedula}")
             .ToArray();
 
-        string seleccion = await DisplayActionSheet(
+        string seleccion = await DisplayActionSheetAsync(
             "Selecciona el socio que deseas editar",
             "Cancelar",
             null,
@@ -95,6 +97,38 @@ public partial class SociosViewsPage : ContentPage
 
         await Navigation.PushAsync(
             new RegistroViewsPage(SocioEnEdicion));
+    }
+
+    // ELIMINAR SOCIO DIRECTAMENTE DESDE LA LISTA.
+    private async void OnEliminarSocioClicked(
+        object sender,
+        EventArgs e)
+    {
+        if (sender is not Button boton ||
+            boton.CommandParameter is not Socios socio)
+        {
+            return;
+        }
+
+        // SOLICITAR CONFIRMACIÓN.
+        bool confirmar = await DisplayAlertAsync(
+            "Confirmar eliminación",
+            $"¿Estás seguro de eliminar al socio {socio.Nombre} {socio.Apellidos}?",
+            "Eliminar",
+            "Cancelar");
+
+        // SI CANCELA, NO SE ELIMINA.
+        if (!confirmar)
+            return;
+
+        // ELIMINAR DE LA COLECCIÓN PRINCIPAL.
+        SociosViewsModel.EliminarSocio(socio);
+
+        // MOSTRAR RESULTADO.
+        await DisplayAlertAsync(
+            "Operación exitosa",
+            "El socio se eliminó correctamente.",
+            "Aceptar");
     }
 
     protected override void OnAppearing()

@@ -2,121 +2,231 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Socios"
-             x:Class="COOPERATIVA.V2.Views.SociosViewsPage">
-    
-    
+             x:Class="COOPERATIVA.V2.Views.SociosViewsPage"
+             BackgroundColor="#F3F8F4"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <Color x:Key="VerdePrincipal">#087443</Color>
+        <Color x:Key="VerdeOscuro">#064D32</Color>
+        <Color x:Key="VerdeClaro">#E3F3E9</Color>
+        <Color x:Key="TextoOscuro">#183B2B</Color>
+    </ContentPage.Resources>
+
     <Grid RowDefinitions="Auto,*,Auto"
-          Padding="18"
-          RowSpacing="12">
+          RowSpacing="0">
 
-        <!-- Encabezado -->
-        <VerticalStackLayout Grid.Row="0" Spacing="5">
-            <Label
-                Text="Gestión de socios"
-                FontSize="26"
-                FontAttributes="Bold"
-                TextColor="Blue"/>
+        <!-- ENCABEZADO -->
+        <Grid Grid.Row="0"
+              BackgroundColor="{StaticResource VerdeOscuro}"
+              Padding="22,25,22,28">
 
-            <Label
-                Text="Registra y consulta los miembros"
-                FontSize="14"
-                TextColor="Gray"/>
+            <VerticalStackLayout Spacing="8">
 
-            <SearchBar
-                x:Name="BuscarSocio"
-                Placeholder="Buscar por nombre o cédula..."
-                BackgroundColor="White"/>
-        </VerticalStackLayout>
+                <Label Text="PANEL DE ADMINISTRACIÓN"
+                       FontSize="11"
+                       CharacterSpacing="2"
+                       FontAttributes="Bold"
+                       TextColor="#B9E5CC"/>
 
-        <!-- Lista de socios -->
-        <CollectionView
-            Grid.Row="1"
-            x:Name="ListaSocios"
-            SelectionMode="None">
+                <Label Text="Gestión de socios"
+                       FontSize="29"
+                       FontAttributes="Bold"
+                       TextColor="White"/>
 
-            <CollectionView.EmptyView>
-                <VerticalStackLayout
-                    Padding="20"
-                    Spacing="8"
-                    VerticalOptions="Center">
+                <Label Text="Registra, consulta y administra los miembros de la cooperativa."
+                       FontSize="13"
+                       TextColor="#D8EFE1"/>
 
-                    <Label
-                        Text="No hay socios registrados"
-                        FontSize="18"
-                        HorizontalOptions="Center"/>
-
-                    <Label
-                        Text="Utiliza el botón Nuevo socio para comenzar."
-                        HorizontalTextAlignment="Center"
-                        TextColor="Gray"/>
-                </VerticalStackLayout>
-            </CollectionView.EmptyView>
-
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border
-                        BackgroundColor="White"
-                        Stroke="#D8E6F5"
-                        StrokeThickness="1"
-                        Padding="12"
-                        Margin="0,4"
-                        StrokeShape="RoundRectangle 12">
-
-                        <Grid ColumnDefinitions="*,Auto"
-                              RowDefinitions="Auto,Auto,Auto"
-                              ColumnSpacing="10">
-
-                            <Label
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Text="{Binding NombreCompleto}"
-                                FontAttributes="Bold"
-                                FontSize="16"
-                                TextColor="RoyalBlue"/>
-
-                            <Label
-                                Grid.Row="1"
-                                Text="{Binding Cedula}"
-                                FontSize="13"
-                                TextColor="Gray"/>
-
-                            <Label
-                                Grid.Row="2"
-                                Text="{Binding Telefono}"
-                                FontSize="13"/>
-
-                            <Label
-                                Grid.Column="1"
-                                Grid.RowSpan="3"
-                                Text="{Binding Estado}"
-                                TextColor="#168344"
-                                VerticalOptions="Center"/>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
-        <!-- Acciones -->
-        <Grid Grid.Row="2"
-              ColumnDefinitions="*,*"
-              ColumnSpacing="10">
-
-            <Button
-                Grid.Column="0"
-                Text="+ Nuevo socio"
-                BackgroundColor="Blue"
-                TextColor="White"
-                CornerRadius="10"
-                Clicked="OnNuevoSocioClicked"/>
-
-            <Button
-                Grid.Column="1"
-                Text="Editar / consultar"
-                BackgroundColor="DarkGreen"
-                TextColor="White"
-                CornerRadius="10"
-                Clicked="OnEditarSocioClicked"/>
+            </VerticalStackLayout>
         </Grid>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <Grid Grid.Row="1"
+              RowDefinitions="Auto,*"
+              Padding="18,18,18,8"
+              RowSpacing="15">
+
+            <!-- BUSCADOR -->
+            <Border Grid.Row="0"
+                    BackgroundColor="White"
+                    Stroke="#DCE9DF"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="12,2">
+
+                <SearchBar x:Name="BuscarSocio"
+                           Placeholder="Buscar por nombre o cédula..."
+                           BackgroundColor="White"
+                           TextColor="#183B2B"
+                           PlaceholderColor="#8A9B90"
+                           CancelButtonColor="#087443"/>
+            </Border>
+
+            <!-- LISTA DE SOCIOS -->
+            <CollectionView Grid.Row="1"
+                            x:Name="ListaSocios"
+                            SelectionMode="None"
+                            VerticalScrollBarVisibility="Never">
+
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout Padding="25"
+                                         Spacing="10"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="Center">
+
+                        <Border BackgroundColor="#E3F3E9"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 25"
+                                WidthRequest="85"
+                                HeightRequest="85"
+                                HorizontalOptions="Center">
+
+                            <Label Text="👥"
+                                   FontSize="42"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Border>
+
+                        <Label Text="No hay socios registrados"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="#183B2B"
+                               HorizontalOptions="Center"/>
+
+                        <Label Text="Utiliza el botón Nuevo socio para comenzar."
+                               FontSize="13"
+                               TextColor="#718078"
+                               HorizontalTextAlignment="Center"/>
+
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Border BackgroundColor="White"
+                                Stroke="#DCE9DF"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 18"
+                                Padding="15"
+                                Margin="0,4,0,8">
+
+                            <Grid ColumnDefinitions="*,Auto,Auto"
+                                  RowDefinitions="Auto,Auto,Auto"
+                                  ColumnSpacing="10"
+                                  RowSpacing="7">
+
+                                <!-- NOMBRE -->
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="{Binding NombreCompleto}"
+                                       FontAttributes="Bold"
+                                       FontSize="16"
+                                       TextColor="#064D32"
+                                       VerticalOptions="Center"/>
+
+                                <!-- CEDULA -->
+                                <HorizontalStackLayout Grid.Row="1"
+                                                       Grid.Column="0"
+                                                       Spacing="7">
+
+                                    <Label Text="Cédula:"
+                                           FontSize="12"
+                                           TextColor="#718078"/>
+
+                                    <Label Text="{Binding Cedula}"
+                                           FontSize="12"
+                                           TextColor="#183B2B"/>
+
+                                </HorizontalStackLayout>
+
+                                <!-- TELEFONO -->
+                                <HorizontalStackLayout Grid.Row="2"
+                                                       Grid.Column="0"
+                                                       Spacing="7">
+
+                                    <Label Text="Teléfono:"
+                                           FontSize="12"
+                                           TextColor="#718078"/>
+
+                                    <Label Text="{Binding Telefono}"
+                                           FontSize="12"
+                                           TextColor="#183B2B"/>
+
+                                </HorizontalStackLayout>
+
+                                <!-- ESTADO -->
+                                <Border Grid.Column="1"
+                                        Grid.RowSpan="3"
+                                        BackgroundColor="#E3F3E9"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 12"
+                                        Padding="10,6"
+                                        VerticalOptions="Center">
+
+                                    <Label Text="{Binding Estado}"
+                                           FontSize="11"
+                                           FontAttributes="Bold"
+                                           TextColor="#087443"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center"/>
+
+                                </Border>
+
+                                <!-- BOTON ELIMINAR -->
+                                <Button Grid.Column="2"
+                                        Grid.RowSpan="3"
+                                        Text="🗑️"
+                                        FontSize="17"
+                                        BackgroundColor="#FDECEC"
+                                        TextColor="#B42318"
+                                        CornerRadius="12"
+                                        WidthRequest="42"
+                                        HeightRequest="42"
+                                        Padding="0"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnEliminarSocioClicked"/>
+
+                            </Grid>
+                        </Border>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </Grid>
+
+        <!-- BOTONES DE ACCIONES -->
+        <Grid Grid.Row="2"
+              BackgroundColor="White"
+              Padding="16,12"
+              ColumnDefinitions="*,*"
+              ColumnSpacing="12">
+
+            <Button Grid.Column="0"
+                    Text="+ Nuevo socio"
+                    BackgroundColor="#087443"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    FontSize="13"
+                    CornerRadius="13"
+                    HeightRequest="50"
+                    Clicked="OnNuevoSocioClicked"/>
+
+            <Button Grid.Column="1"
+                    Text="Editar / consultar"
+                    BackgroundColor="#064D32"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    FontSize="13"
+                    CornerRadius="13"
+                    HeightRequest="50"
+                    Clicked="OnEditarSocioClicked"/>
+
+        </Grid>
+
     </Grid>
 </ContentPage>

@@ -1,68 +1,368 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="COOPERATIVA.V2.Views.MenuPage"
              Title="Menú principal"
-             x:Class="COOPERATIVA.V2.Views.MenuPage">
+             BackgroundColor="#F3F8F4"
+             NavigationPage.HasNavigationBar="False">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem
-            Text="Cerrar sesión"
-            Order="Primary"
-            Priority="0"
-            Clicked="OnCerrarSesionClicked"/>
-    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <Color x:Key="VerdePrincipal">#087443</Color>
+        <Color x:Key="VerdeOscuro">#064D32</Color>
+        <Color x:Key="VerdeClaro">#E3F3E9</Color>
+        <Color x:Key="TextoOscuro">#183B2B</Color>
+    </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Spacing="0">
 
-            <Label
-                Text="Cooperativa"
-                FontSize="40"
-                FontAttributes="Bold"
-                HorizontalOptions="Center"  
-                TextColor="DarkGreen"/>
+            <!-- ENCABEZADO -->
+            <Grid BackgroundColor="{StaticResource VerdeOscuro}"
+                  Padding="20,20,20,65">
 
-            <Label
-                Text="Bienvenido al sistema"
-                HorizontalOptions="Center"
-                FontSize="17"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <Button
-                Text="👥  Socios"
-                FontAttributes="Bold"
-                FontSize="Large"
-                HeightRequest="65"
-                BackgroundColor="DarkBlue"
-                TextColor="White"
-                Clicked="OnSociosClicked"/>
+                <!-- CERRAR SESIÓN ARRIBA -->
+                <Grid Grid.Row="0"
+                      ColumnDefinitions="*,Auto"
+                      Margin="0,0,0,20">
 
-            <Button
-                Text="💰  Ahorros"
-                FontAttributes="Bold"
-                FontSize="Large"
-                HeightRequest="65"
-                BackgroundColor="DarkGreen"
-                TextColor="White"
-                Clicked="OnAhorrosClicked"/>
+                    <Label Text="PANEL PRINCIPAL"
+                           FontSize="12"
+                           CharacterSpacing="3"
+                           FontAttributes="Bold"
+                           TextColor="#B9E5CC"
+                           VerticalOptions="Center"/>
 
-            <Button
-                Text="🤝  Préstamos"
-                FontAttributes="Bold"
-                FontSize="Large"
-                HeightRequest="65"
-                BackgroundColor="DarkOrange"
-                TextColor="White"
-                Clicked="OnPrestamosClicked"/>
+                    <Border Grid.Column="1"
+                            BackgroundColor="#176D4B"
+                            Stroke="#4B9670"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="12,8">
 
-            <Button
-                Text="💳  Pagos"
-                FontAttributes="Bold"
-                FontSize="Large"
-                HeightRequest="65"
-                BackgroundColor="Purple"
-                TextColor="White"
-                Clicked="OnPagosClicked"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnCerrarSesionClicked"/>
+                        </Border.GestureRecognizers>
+
+                        <HorizontalStackLayout Spacing="6"
+                                               VerticalOptions="Center">
+
+                            <Label Text="↪"
+                                   FontSize="17"
+                                   TextColor="White"
+                                   VerticalOptions="Center"/>
+
+                            <Label Text="Cerrar sesión"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   VerticalOptions="Center"/>
+
+                        </HorizontalStackLayout>
+                    </Border>
+
+                </Grid>
+
+                <!-- TITULO -->
+                <VerticalStackLayout Grid.Row="1"
+                                     Spacing="10">
+
+                    <Label Text="Cooperativa"
+                           FontSize="32"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+
+                    <Label Text="Bienvenido al sistema"
+                           FontSize="15"
+                           TextColor="#D8EFE1"
+                           HorizontalOptions="Center"/>
+
+                    <Label Text="Gestiona tus operaciones desde un solo lugar"
+                           FontSize="12"
+                           TextColor="#B9E5CC"
+                           HorizontalTextAlignment="Center"/>
+
+                </VerticalStackLayout>
+
+            </Grid>
+
+            <!-- CONTENIDO -->
+            <VerticalStackLayout
+                Margin="18,-40,18,25"
+                Spacing="18">
+
+                <!-- TARJETA DE BIENVENIDA -->
+                <Border BackgroundColor="White"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 22"
+                        Padding="18">
+
+                    <Grid ColumnDefinitions="*,Auto"
+                          ColumnSpacing="10">
+
+                        <VerticalStackLayout
+                            VerticalOptions="Center"
+                            Spacing="5">
+
+                            <Label Text="¡Hola! 👋"
+                                   FontSize="21"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource VerdeOscuro}"/>
+
+                            <Label Text="Es un placer tenerte aquí."
+                                   FontSize="13"
+                                   TextColor="#718078"/>
+
+                        </VerticalStackLayout>
+
+                        <Border Grid.Column="1"
+                                BackgroundColor="#E5F3E9"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 16"
+                                WidthRequest="55"
+                                HeightRequest="55">
+
+                            <Label Text="🤝"
+                                   FontSize="29"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+
+                        </Border>
+
+                    </Grid>
+                </Border>
+
+                <!-- TITULO MODULOS -->
+                <VerticalStackLayout Spacing="4">
+
+                    <Label Text="Módulos de gestión"
+                           FontSize="23"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextoOscuro}"/>
+
+                    <Label Text="Selecciona el área que deseas administrar"
+                           FontSize="13"
+                           TextColor="#718078"/>
+
+                </VerticalStackLayout>
+
+                <!-- TARJETAS -->
+                <Grid ColumnDefinitions="*,*"
+                      RowDefinitions="Auto,Auto"
+                      ColumnSpacing="13"
+                      RowSpacing="13">
+
+                    <!-- SOCIOS -->
+                    <Border Grid.Row="0"
+                            Grid.Column="0"
+                            BackgroundColor="White"
+                            Stroke="#DCE9DF"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 20"
+                            Padding="15">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSociosClicked"/>
+                        </Border.GestureRecognizers>
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <Border BackgroundColor="#E3F3E9"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 15"
+                                    WidthRequest="58"
+                                    HeightRequest="58"
+                                    HorizontalOptions="Start">
+
+                                <Label Text="👥"
+                                       FontSize="30"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+
+                            <Label Text="Socios"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource VerdeOscuro}"/>
+
+                            <Label Text="Administración de miembros"
+                                   FontSize="11"
+                                   TextColor="#718078"/>
+
+                            <Label Text="Acceder  →"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource VerdePrincipal}"/>
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- AHORROS -->
+                    <Border Grid.Row="0"
+                            Grid.Column="1"
+                            BackgroundColor="White"
+                            Stroke="#DCE9DF"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 20"
+                            Padding="15">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAhorrosClicked"/>
+                        </Border.GestureRecognizers>
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <Border BackgroundColor="#E3F3E9"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 15"
+                                    WidthRequest="58"
+                                    HeightRequest="58"
+                                    HorizontalOptions="Start">
+
+                                <Label Text="💰"
+                                       FontSize="30"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+
+                            <Label Text="Ahorros"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource VerdeOscuro}"/>
+
+                            <Label Text="Depósitos y retiros"
+                                   FontSize="11"
+                                   TextColor="#718078"/>
+
+                            <Label Text="Acceder  →"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource VerdePrincipal}"/>
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- PRESTAMOS -->
+                    <Border Grid.Row="1"
+                            Grid.Column="0"
+                            BackgroundColor="White"
+                            Stroke="#DCE9DF"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 20"
+                            Padding="15">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPrestamosClicked"/>
+                        </Border.GestureRecognizers>
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <Border BackgroundColor="#E3F3E9"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 15"
+                                    WidthRequest="58"
+                                    HeightRequest="58"
+                                    HorizontalOptions="Start">
+
+                                <Label Text="🤝"
+                                       FontSize="30"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+
+                            <Label Text="Préstamos"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource VerdeOscuro}"/>
+
+                            <Label Text="Gestión de financiamientos"
+                                   FontSize="11"
+                                   TextColor="#718078"/>
+
+                            <Label Text="Acceder  →"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource VerdePrincipal}"/>
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- PAGOS -->
+                    <Border Grid.Row="1"
+                            Grid.Column="1"
+                            BackgroundColor="White"
+                            Stroke="#DCE9DF"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 20"
+                            Padding="15">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPagosClicked"/>
+                        </Border.GestureRecognizers>
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <Border BackgroundColor="#E3F3E9"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 15"
+                                    WidthRequest="58"
+                                    HeightRequest="58"
+                                    HorizontalOptions="Start">
+
+                                <Label Text="💳"
+                                       FontSize="30"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+
+                            <Label Text="Pagos"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource VerdeOscuro}"/>
+
+                            <Label Text="Control de pagos"
+                                   FontSize="11"
+                                   TextColor="#718078"/>
+
+                            <Label Text="Acceder  →"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource VerdePrincipal}"/>
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                </Grid>
+
+                <!-- MENSAJE INFERIOR -->
+                <Border BackgroundColor="#E5F3E9"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="16">
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label Text="🌱 Crecemos juntos"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource VerdeOscuro}"/>
+
+                        <Label Text="Trabajamos para ofrecerte una gestión financiera organizada, segura y confiable."
+                               FontSize="12"
+                               TextColor="#52705D"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>
+
 </ContentPage>

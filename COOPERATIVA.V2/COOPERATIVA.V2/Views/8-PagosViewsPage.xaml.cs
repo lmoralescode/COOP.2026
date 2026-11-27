@@ -1,30 +1,55 @@
+
 using COOPERATIVA.V2.Model;
+using COOPERATIVA.V2.ViewsModel;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace COOPERATIVA.V2.Views;
 
 public partial class PagosViewsPage : ContentPage
 {
-    public static ObservableCollection<Pagos> PagosRegistrados { get; } = new();
+    public static ObservableCollection<Pagos> PagosRegistrados =>
+        PagosViewsModel.PagosRegistrados;
 
     private Prestamos? _prestamoSeleccionado;
+
+    // Se conserva la colección, pero ahora comparte
+    // la misma instancia del ViewModel.
+    private ObservableCollection<Pagos> _historialPagos;
+
+    private readonly PagosViewsModel _vm;
 
     public PagosViewsPage()
     {
         InitializeComponent();
 
-        PrestamoPicker.ItemsSource = PrestamosViewsPage.Prestamos;
-        PrestamoPicker.ItemDisplayBinding = new Binding("NumeroPrestamo");
+        // Obtener el ViewModel definido en el XAML.
+        _vm = (PagosViewsModel)BindingContext;
 
-        ListaPagos.ItemsSource = PagosRegistrados;
+        // Utilizar la colección original del ViewModel.
+        _historialPagos = _vm.HistorialPagos;
 
-        PrestamoPicker.SelectedIndexChanged += PrestamoPicker_SelectedIndexChanged;
+        PrestamoPicker.ItemsSource = PrestamosViewsModel.Prestamos;
+
+        PrestamoPicker.ItemDisplayBinding =
+            new Binding("DescripcionPrestamo");
+
+        // Ambas referencias utilizan la misma colección observable.
+        ListaPagos.ItemsSource = _historialPagos;
+
+        PrestamoPicker.SelectedIndexChanged +=
+            PrestamoPicker_SelectedIndexChanged;
     }
 
-    // Detectar el préstamo seleccionado
-    private void PrestamoPicker_SelectedIndexChanged(object? sender, EventArgs e)
+    private void PrestamoPicker_SelectedIndexChanged(
+        object? sender,
+        EventArgs e)
     {
-        _prestamoSeleccionado = PrestamoPicker.SelectedItem as Prestamos;
+        _prestamoSeleccionado =
+            PrestamoPicker.SelectedItem as Prestamos;
+
+        // Sincronizar el préstamo seleccionado con el ViewModel.
+        _vm.PrestamoSeleccionado = _prestamoSeleccionado;
 
         if (_prestamoSeleccionado == null)
         {
@@ -36,9 +61,11 @@ public partial class PagosViewsPage : ContentPage
         CargarHistorial();
     }
 
-    // Mostrar información del préstamo
     private void ActualizarResumen()
     {
+        // El ViewModel controla los valores enlazados al XAML.
+        _vm.ActualizarPantalla();
+
         if (_prestamoSeleccionado == null)
             return;
 
@@ -52,35 +79,40 @@ public partial class PagosViewsPage : ContentPage
             $"Estado: {_prestamoSeleccionado.Estado}";
     }
 
-    // Registrar un pago
-    private async void OnRegistrarPagoClicked(object sender, EventArgs e)
+    private async void OnRegistrarPagoClicked(
+        object sender,
+        EventArgs e)
     {
         if (_prestamoSeleccionado == null)
         {
-            await DisplayAlertAsync("Validación", "Seleccione un préstamo.", "Aceptar");
+            await DisplayAlertAsync(
+                "Validación",
+                "Seleccione un préstamo.",
+                "Aceptar");
             return;
         }
 
-        if (!int.TryParse(NumeroCuotaEntry.Text, out int numeroCuota) ||
+        if (!int.TryParse(
+            NumeroCuotaEntry.Text,
+            out int numeroCuota) ||
             numeroCuota <= 0)
-        {
-            await DisplayAlertAsync("Validación", "Ingrese un número de cuota válido.", "Aceptar");
-            return;
-        }
-
-        if (!decimal.TryParse(MontoPagoEntry.Text, out decimal monto) || monto <= 0)
-        {
-            await DisplayAlertAsync("Validación", "Ingrese un monto de pago válido.", "Aceptar");
-            return;
-        }
-
-        if (monto > _prestamoSeleccionado.SaldoPendiente)
         {
             await DisplayAlertAsync(
                 "Validación",
-                "El pago no puede ser mayor que el saldo pendiente.",
+                "Ingrese un número de cuota válido.",
                 "Aceptar");
+            return;
+        }
 
+        if (!decimal.TryParse(
+            MontoPagoEntry.Text,
+            out decimal monto) ||
+            monto <= 0)
+        {
+            await DisplayAlertAsync(
+                "Validación",
+                "Ingrese un monto de pago válido.",
+                "Aceptar");
             return;
         }
 
@@ -90,29 +122,53 @@ public partial class PagosViewsPage : ContentPage
                 "Préstamo pagado",
                 "Este préstamo ya está completamente pagado.",
                 "Aceptar");
-
             return;
         }
 
-        // Crear el registro del pago
+        if (monto > _prestamoSeleccionado.SaldoPendiente)
+        {
+            await DisplayAlertAsync(
+                "Validación",
+                "El pago no puede ser mayor que el saldo pendiente.",
+                "Aceptar");
+            return;
+        }
+
+        if (PagosRegistrados.Any(p =>
+            p.PrestamoId == _prestamoSeleccionado.Id &&
+            p.NumeroCuota == numeroCuota))
+        {
+            await DisplayAlertAsync(
+                "Validación",
+                "Esta cuota ya fue registrada.",
+                "Aceptar");
+            return;
+        }
+
         Pagos nuevoPago = new()
         {
-            Id = PagosRegistrados.Count + 1,
+            Id = PagosRegistrados.Count == 0
+                ? 1
+                : PagosRegistrados.Max(p => p.Id) + 1,
+
             PrestamoId = _prestamoSeleccionado.Id,
             NumeroCuota = numeroCuota,
             SocioNombre = _prestamoSeleccionado.SocioNombre,
             Monto = monto,
-            Fecha = DateTime.Today,
+            Fecha = (DateTime)FechaPagoPicker.Date,
             Estado = "Pagado"
         };
 
-        // Actualizar el préstamo
-        _prestamoSeleccionado.TotalPagado += (int)monto;
+        // Actualizar el préstamo.
+        _prestamoSeleccionado.TotalPagado += monto;
 
-        // Guardar el pago
+        // Registrar el pago en la colección compartida.
         PagosRegistrados.Add(nuevoPago);
 
-        // Actualizar pantalla
+        // Actualizar el resumen del ViewModel y la pantalla.
+        _vm.ActualizarPantalla();
+
+        // Actualizar también el historial.
         ActualizarResumen();
         CargarHistorial();
 
@@ -124,30 +180,40 @@ public partial class PagosViewsPage : ContentPage
         LimpiarFormulario();
     }
 
-    // Mostrar historial del préstamo seleccionado
+    // Actualizar el historial sin crear otra colección.
     private void CargarHistorial()
     {
+        _historialPagos.Clear();
+
         if (_prestamoSeleccionado == null)
-        {
-            ListaPagos.ItemsSource = null;
             return;
-        }
 
         var historial = PagosRegistrados
             .Where(p => p.PrestamoId == _prestamoSeleccionado.Id)
             .OrderBy(p => p.NumeroCuota)
             .ToList();
 
-        ListaPagos.ItemsSource = historial;
+        foreach (var pago in historial)
+        {
+            _historialPagos.Add(pago);
+        }
     }
 
     private void LimpiarResumen()
     {
-        NumeroPrestamoLabel.Text = "Préstamo: --";
-        SaldoPendienteLabel.Text = "Saldo pendiente: RD$ 0.00";
-        EstadoPrestamoLabel.Text = "Estado: Sin seleccionar";
+        _vm.PrestamoSeleccionado = null;
+        _vm.ActualizarPantalla();
+        _historialPagos.Clear();
 
-        ListaPagos.ItemsSource = null;
+        NumeroPrestamoLabel.Text = "Préstamo: --";
+
+        SaldoPendienteLabel.Text =
+            "Saldo pendiente: RD$ 0.00";
+
+        EstadoPrestamoLabel.Text =
+            "Estado: Sin seleccionar";
+
+        _historialPagos.Clear();
     }
 
     private void LimpiarFormulario()
@@ -161,12 +227,16 @@ public partial class PagosViewsPage : ContentPage
     {
         base.OnAppearing();
 
-        PrestamoPicker.ItemsSource = PrestamosViewsPage.Prestamos;
+        PrestamoPicker.ItemsSource =
+            PrestamosViewsModel.Prestamos;
 
         if (_prestamoSeleccionado != null)
         {
             ActualizarResumen();
             CargarHistorial();
         }
+
+        // Sincronizar el resumen y el historial del ViewModel.
+        _vm.ActualizarPantalla();
     }
 }

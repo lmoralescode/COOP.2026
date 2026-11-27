@@ -2,43 +2,44 @@
 using COOPERATIVA.V2.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 
 namespace COOPERATIVA.V2.ViewsModel;
 
 public partial class SociosViewsModel : BaseViewsModel
 {
-
-    // Colección principal compartida en memoria.
+    // COLECCIÓN PRINCIPAL COMPARTIDA EN MEMORIA.
     public static ObservableCollection<Socios> Socios { get; } = new();
 
-    // Campo de búsqueda.
+    // CAMPO DE BÚSQUEDA.
     [ObservableProperty]
     public partial string Busqueda { get; set; } = string.Empty;
 
-    // Socio seleccionado.
+    // SOCIO SELECCIONADO.
     [ObservableProperty]
     public partial Socios? SocioSeleccionado { get; set; }
 
-    // Colección que se muestra en la pantalla.
+    // COLECCIÓN QUE SE MUESTRA EN LA PANTALLA.
     public ObservableCollection<Socios> SociosFiltrados { get; } = new();
 
     public SociosViewsModel()
     {
-        // Detectar cuando se agrega o elimina un socio.
+        // DETECTAR CUANDO SE AGREGA O ELIMINA UN SOCIO.
         Socios.CollectionChanged += OnSociosCollectionChanged;
 
         CargarSocios();
     }
 
-    // Actualizar automáticamente al cambiar la búsqueda.
+    // ACTUALIZAR AUTOMÁTICAMENTE AL CAMBIAR LA BÚSQUEDA.
     partial void OnBusquedaChanged(string value)
     {
         CargarSocios();
     }
 
-    // Detectar cambios en la colección principal.
+    // DETECTAR CAMBIOS EN LA COLECCIÓN PRINCIPAL.
     private void OnSociosCollectionChanged(
         object? sender,
         NotifyCollectionChangedEventArgs e)
@@ -46,7 +47,7 @@ public partial class SociosViewsModel : BaseViewsModel
         CargarSocios();
     }
 
-    // Cargar los socios y aplicar el filtro.
+    // CARGAR LOS SOCIOS Y APLICAR EL FILTRO.
     public void CargarSocios()
     {
         SociosFiltrados.Clear();
@@ -68,7 +69,7 @@ public partial class SociosViewsModel : BaseViewsModel
         }
     }
 
-    // Agregar un socio a la colección principal.
+    // AGREGAR UN SOCIO A LA COLECCIÓN PRINCIPAL.
     public static void AgregarSocio(Socios socio)
     {
         if (socio == null)
@@ -77,7 +78,7 @@ public partial class SociosViewsModel : BaseViewsModel
         Socios.Add(socio);
     }
 
-    // Eliminar un socio.
+    // ELIMINAR UN SOCIO DE LA COLECCIÓN PRINCIPAL.
     public static void EliminarSocio(Socios socio)
     {
         if (socio == null)
@@ -86,7 +87,7 @@ public partial class SociosViewsModel : BaseViewsModel
         Socios.Remove(socio);
     }
 
-    // Limpiar el buscador.
+    // LIMPIAR EL BUSCADOR.
     [RelayCommand]
     private void LimpiarBusqueda()
     {

@@ -2,8 +2,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using COOPERATIVA.V2.Model;
+using System;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace COOPERATIVA.V2.ViewsModel;
 
@@ -37,8 +40,11 @@ public partial class RegistroViewsModel : BaseViewsModel
     public string TextoBotonGuardar =>
         EsEdicion ? "Guardar cambios" : "Registrar socio";
 
-
+    // Evento para mostrar mensajes y regresar a la lista.
     public event Action<string>? SolicitarAlertaYRegreso;
+
+    // Evento para solicitar confirmación desde la pantalla.
+    public event Func<Task<bool>>? SolicitarConfirmacionEliminar;
 
     public RegistroViewsModel(Socios? socio = null)
     {
@@ -57,6 +63,7 @@ public partial class RegistroViewsModel : BaseViewsModel
         }
     }
 
+    // CAPITALIZAR NOMBRES Y APELLIDOS
     private string Capitalizar(string texto)
     {
         if (string.IsNullOrWhiteSpace(texto))
@@ -66,6 +73,7 @@ public partial class RegistroViewsModel : BaseViewsModel
             .ToTitleCase(texto.Trim().ToLower());
     }
 
+    // VALIDACIONES DEL FORMULARIO
     private bool Validar()
     {
         ErrorNombre = "";
@@ -128,8 +136,7 @@ public partial class RegistroViewsModel : BaseViewsModel
             ErrorClave = "La clave de acceso es obligatoria.";
             valido = false;
         }
-        else if (Clave.Length
-                 < 6)
+        else if (Clave.Length < 6)
         {
             ErrorClave = "La clave debe tener al menos 6 caracteres.";
             valido = false;
@@ -138,6 +145,7 @@ public partial class RegistroViewsModel : BaseViewsModel
         return valido;
     }
 
+    // GUARDAR O ACTUALIZAR SOCIO
     [RelayCommand]
     private void Guardar()
     {
@@ -151,6 +159,7 @@ public partial class RegistroViewsModel : BaseViewsModel
 
         if (SocioEnEdicion != null)
         {
+            // ACTUALIZAR SOCIO EXISTENTE
             SocioEnEdicion.Nombre = nombreFinal;
             SocioEnEdicion.Apellidos = apellidosFinal;
             SocioEnEdicion.Cedula = Cedula.Trim();
@@ -160,10 +169,12 @@ public partial class RegistroViewsModel : BaseViewsModel
             SocioEnEdicion.Clave = Clave;
             SocioEnEdicion.FechaNacimiento = FechaNacimiento;
 
-            mensaje = "Los datos del socio se actualizaron correctamente.";
+            mensaje =
+                "Los datos del socio se actualizaron correctamente.";
         }
         else
         {
+            // REGISTRAR NUEVO SOCIO
             var socio = new Socios
             {
                 Id = SociosViewsModel.Socios.Count == 0
@@ -191,6 +202,37 @@ public partial class RegistroViewsModel : BaseViewsModel
         SolicitarAlertaYRegreso?.Invoke(mensaje);
     }
 
+    // ELIMINAR SOCIO
+    [RelayCommand]
+    private async Task Eliminar()
+    {
+        if (SocioEnEdicion == null)
+            return;
+
+        // Solicitar confirmación desde RegistroViewsPage.
+        if (SolicitarConfirmacionEliminar == null)
+            return;
+
+        bool confirmar =
+            await SolicitarConfirmacionEliminar.Invoke();
+
+        // Si cancela, no se elimina.
+        if (!confirmar)
+            return;
+
+        // Eliminar de la colección principal.
+        bool eliminado =
+            SociosViewsModel.Socios.Remove(SocioEnEdicion);
+
+        if (!eliminado)
+            return;
+
+        // Mostrar mensaje y regresar a la lista.
+        SolicitarAlertaYRegreso?.Invoke(
+            "El socio se eliminó correctamente.");
+    }
+
+    // LIMPIAR FORMULARIO
     [RelayCommand]
     private void LimpiarFormulario()
     {

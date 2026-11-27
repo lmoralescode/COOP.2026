@@ -2,136 +2,303 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Ahorros"
-             x:Class="COOPERATIVA.V2.Views.AhorrosViewsPage">
+             x:Class="COOPERATIVA.V2.Views.AhorrosViewsPage"
+             BackgroundColor="#F3F8F4"
+             NavigationPage.HasNavigationBar="False">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="18" Spacing="15">
+    <ContentPage.Resources>
+        <Color x:Key="VerdePrincipal">#087443</Color>
+        <Color x:Key="VerdeOscuro">#064D32</Color>
+        <Color x:Key="VerdeClaro">#E3F3E9</Color>
+        <Color x:Key="TextoOscuro">#183B2B</Color>
+    </ContentPage.Resources>
 
-            <Label
-                Text="Ahorros y aportaciones"
-                FontSize="26"
-                FontAttributes="Bold"
-                TextColor="Blue"/>
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout Spacing="18">
 
-            <Label Text="Seleccionar socio"/>
-
-            <Picker
-                x:Name="SocioPicker"
-                Title="Seleccione un socio"
-                BackgroundColor="White"/>
-
-            <!-- Balance -->
-            <Border
-                BackgroundColor="Blue"
-                StrokeThickness="0"
-                Padding="20"
-                StrokeShape="RoundRectangle 15">
+            <!-- ENCABEZADO -->
+            <Grid BackgroundColor="{StaticResource VerdeOscuro}"
+                  Padding="22,25,22,35">
 
                 <VerticalStackLayout Spacing="8">
-                    <Label
-                        Text="Balance disponible"
-                        TextColor="White"
-                        FontSize="16"/>
 
-                    <Label
-                        x:Name="BalanceLabel"
-                        Text="RD$ 0.00"
-                        TextColor="White"
-                        FontSize="30"
-                        FontAttributes="Bold"/>
+                    <Label Text="PANEL FINANCIERO"
+                           FontSize="11"
+                           CharacterSpacing="2"
+                           FontAttributes="Bold"
+                           TextColor="#B9E5CC"/>
+
+                    <Label Text="Ahorros y aportaciones"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           TextColor="White"/>
+
+                    <Label Text="Administra los depósitos y retiros de los socios."
+                           FontSize="13"
+                           TextColor="#D8EFE1"/>
+
                 </VerticalStackLayout>
-            </Border>
+            </Grid>
 
-            <!-- Tipo de operación -->
-            <Label
-                Text="Tipo de movimiento"
-                FontAttributes="Bold"/>
+            <!-- CONTENIDO -->
+            <VerticalStackLayout
+                Margin="18,-18,18,25"
+                Spacing="17">
 
-            <Picker
-                x:Name="TipoMovimientoPicker"
-                Title="Seleccione una operación"
-                BackgroundColor="White">
-                <Picker.Items>
-                    <x:String>Depósito</x:String>
-                    <x:String>Retiro</x:String>
-                </Picker.Items>
-            </Picker>
+                <!-- SELECCIONAR SOCIO -->
+                <Border BackgroundColor="White"
+                        Stroke="#DCE9DF"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="16">
 
-            <Label Text="Monto (RD$)"/>
+                    <VerticalStackLayout Spacing="10">
 
-            <Entry
-                x:Name="MontoEntry"
-                Placeholder="0.00"
-                Keyboard="Numeric"
-                BackgroundColor="White"/>
+                        <Label Text="Seleccionar socio"
+                               FontSize="17"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource VerdeOscuro}"/>
 
-            <Label Text="Fecha del movimiento"/>
+                        <Picker x:Name="SocioPicker"
+                                Title="Seleccione un socio"
+                                BackgroundColor="#F3F8F4"
+                                TextColor="#183B2B"
+                                TitleColor="#718078"/>
 
-            <DatePicker
-                x:Name="FechaMovimientoPicker"
-                Format="dd/MM/yyyy"
-                BackgroundColor="White"/>
+                    </VerticalStackLayout>
+                </Border>
 
-            <Button
-                Text="Registrar movimiento"
-                BackgroundColor="DarkGreen"
-                TextColor="White"
-                HeightRequest="50"
-                CornerRadius="10"
-                Clicked="OnRegistrarMovimientoClicked"/>
+                <!-- BALANCE DISPONIBLE -->
+                <Border BackgroundColor="{StaticResource VerdeOscuro}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 22"
+                        Padding="20">
 
-            <Label
-                Text="Últimos movimientos"
-                FontSize="20"
-                FontAttributes="Bold"
-                TextColor="Blue"
-                Margin="0,10,0,0"/>
+                    <VerticalStackLayout Spacing="10">
 
-            <CollectionView
-                x:Name="ListaMovimientos"
-                HeightRequest="250"
-                SelectionMode="None">
+                        <HorizontalStackLayout Spacing="8">
 
-                <CollectionView.EmptyView>
-                    <Label
-                        Text="No hay movimientos registrados."
-                        TextColor="Gray"
-                        Padding="10"/>
-                </CollectionView.EmptyView>
+                            <Label Text="💰"
+                                   FontSize="22"
+                                   VerticalOptions="Center"/>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            BackgroundColor="White"
-                            Stroke="Gray"
-                            Padding="12"
-                            Margin="0,3"
-                            StrokeShape="RoundRectangle 10">
+                            <Label Text="BALANCE DISPONIBLE"
+                                   FontSize="12"
+                                   CharacterSpacing="1.5"
+                                   FontAttributes="Bold"
+                                   TextColor="#B9E5CC"
+                                   VerticalOptions="Center"/>
 
-                            <Grid ColumnDefinitions="*,Auto">
-                                <VerticalStackLayout Spacing="4">
-                                    <Label
-                                        Text="{Binding Tipo}"
-                                        FontAttributes="Bold"
-                                        TextColor="Blue"/>
+                        </HorizontalStackLayout>
 
-                                    <Label
-                                        Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}"
-                                        FontSize="12"
-                                        TextColor="Gray"/>
-                                </VerticalStackLayout>
+                        <Label x:Name="BalanceLabel"
+                               Text="RD$ 0.00"
+                               FontSize="32"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
 
-                                <Label
-                                    Grid.Column="1"
-                                    Text="{Binding Monto, StringFormat='RD$ {0:N2}'}"
-                                    FontAttributes="Bold"
-                                    VerticalOptions="Center"/>
-                            </Grid>
+                        <Label Text="Saldo actual del socio seleccionado"
+                               FontSize="12"
+                               TextColor="#D8EFE1"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- FORMULARIO DE MOVIMIENTO -->
+                <Border BackgroundColor="White"
+                        Stroke="#DCE9DF"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 20"
+                        Padding="17">
+
+                    <VerticalStackLayout Spacing="13">
+
+                        <Label Text="Registrar movimiento"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource VerdeOscuro}"/>
+
+                        <Label Text="Tipo de operación"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TextoOscuro}"/>
+
+                        <Picker x:Name="TipoMovimientoPicker"
+                                Title="Seleccione una operación"
+                                BackgroundColor="#F3F8F4"
+                                TextColor="#183B2B"
+                                TitleColor="#718078">
+
+                            <Picker.Items>
+                                <x:String>Depósito</x:String>
+                                <x:String>Retiro</x:String>
+                            </Picker.Items>
+
+                        </Picker>
+
+                        <Label Text="Monto (RD$)"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TextoOscuro}"/>
+
+                        <Entry x:Name="MontoEntry"
+                               Placeholder="Ingrese el monto"
+                               PlaceholderColor="#8A9B90"
+                               Keyboard="Numeric"
+                               BackgroundColor="#F3F8F4"
+                               TextColor="#183B2B"/>
+
+                        <Label Text="Fecha del movimiento"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TextoOscuro}"/>
+
+                        <DatePicker x:Name="FechaMovimientoPicker"
+                                    Format="dd/MM/yyyy"
+                                    BackgroundColor="#F3F8F4"
+                                    TextColor="#183B2B"/>
+
+                        <Button Text="Registrar movimiento"
+                                BackgroundColor="{StaticResource VerdePrincipal}"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HeightRequest="52"
+                                CornerRadius="13"
+                                Clicked="OnRegistrarMovimientoClicked"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- TITULO HISTORIAL -->
+                <VerticalStackLayout Spacing="4">
+
+                    <Label Text="Últimos movimientos"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextoOscuro}"/>
+
+                    <Label Text="Consulta el historial de operaciones del socio."
+                           FontSize="12"
+                           TextColor="#718078"/>
+
+                </VerticalStackLayout>
+
+                <!-- LISTA DE MOVIMIENTOS -->
+                <CollectionView x:Name="ListaMovimientos"
+                                HeightRequest="300"
+                                SelectionMode="None"
+                                VerticalScrollBarVisibility="Never">
+
+                    <CollectionView.EmptyView>
+
+                        <Border BackgroundColor="White"
+                                Stroke="#DCE9DF"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 18"
+                                Padding="20">
+
+                            <VerticalStackLayout Spacing="8"
+                                                 HorizontalOptions="Center">
+
+                                <Label Text="📋"
+                                       FontSize="35"
+                                       HorizontalOptions="Center"/>
+
+                                <Label Text="No hay movimientos registrados."
+                                       FontSize="14"
+                                       TextColor="#718078"
+                                       HorizontalTextAlignment="Center"/>
+
+                            </VerticalStackLayout>
+
                         </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
 
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Border BackgroundColor="White"
+                                    Stroke="#DCE9DF"
+                                    StrokeThickness="1"
+                                    Padding="15"
+                                    Margin="0,3,0,8"
+                                    StrokeShape="RoundRectangle 17">
+
+                                <Grid ColumnDefinitions="*,Auto"
+                                      ColumnSpacing="12">
+
+                                    <VerticalStackLayout Spacing="6"
+                                                         VerticalOptions="Center">
+
+                                        <Label Text="{Binding Tipo}"
+                                               FontAttributes="Bold"
+                                               FontSize="16"
+                                               TextColor="{StaticResource VerdeOscuro}"/>
+
+                                        <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}"
+                                               FontSize="12"
+                                               TextColor="#718078"/>
+
+                                    </VerticalStackLayout>
+
+                                    <!-- MONTO DEL MOVIMIENTO -->
+                                    <Grid Grid.Column="1"
+                                          VerticalOptions="Center">
+
+                                        <!-- DEPÓSITO: VERDE Y POSITIVO -->
+                                        <Label Text="{Binding Monto, StringFormat='+ RD$ {0:N2}'}"
+                                               FontAttributes="Bold"
+                                               FontSize="15"
+                                               TextColor="{StaticResource VerdePrincipal}"
+                                               HorizontalTextAlignment="End">
+
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label"
+                                                             Binding="{Binding Tipo}"
+                                                             Value="Retiro">
+
+                                                    <Setter Property="IsVisible"
+                                                            Value="False"/>
+
+                                                </DataTrigger>
+                                            </Label.Triggers>
+
+                                        </Label>
+
+                                        <!-- RETIRO: ROJO Y NEGATIVO -->
+                                        <Label Text="{Binding Monto, StringFormat='- RD$ {0:N2}'}"
+                                               FontAttributes="Bold"
+                                               FontSize="15"
+                                               TextColor="#D32F2F"
+                                               HorizontalTextAlignment="End"
+                                               IsVisible="False">
+
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label"
+                                                             Binding="{Binding Tipo}"
+                                                             Value="Retiro">
+
+                                                    <Setter Property="IsVisible"
+                                                            Value="True"/>
+
+                                                </DataTrigger>
+                                            </Label.Triggers>
+
+                                        </Label>
+
+                                    </Grid>
+
+                                </Grid>
+                            </Border>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

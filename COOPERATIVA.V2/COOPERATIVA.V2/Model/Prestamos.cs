@@ -1,6 +1,10 @@
-﻿namespace COOPERATIVA.V2.Model;
+﻿
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
-public class Prestamos
+namespace COOPERATIVA.V2.Model;
+
+public class Prestamos : INotifyPropertyChanged
 {
     public int Id { get; set; }
 
@@ -18,9 +22,41 @@ public class Prestamos
 
     public decimal CuotaMensual { get; set; }
 
-    public decimal TotalPagar { get; set; }
+    private decimal totalPagar;
 
-    public decimal TotalPagado { get; set; }
+    public decimal TotalPagar
+    {
+        get => totalPagar;
+        set
+        {
+            if (totalPagar == value)
+                return;
+
+            totalPagar = value;
+
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(SaldoPendiente));
+            OnPropertyChanged(nameof(Estado));
+        }
+    }
+
+    private decimal totalPagado;
+
+    public decimal TotalPagado
+    {
+        get => totalPagado;
+        set
+        {
+            if (totalPagado == value)
+                return;
+
+            totalPagado = value;
+
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(SaldoPendiente));
+            OnPropertyChanged(nameof(Estado));
+        }
+    }
 
     public decimal SaldoPendiente =>
         Math.Max(0m, TotalPagar - TotalPagado);
@@ -29,4 +65,18 @@ public class Prestamos
 
     public string Estado =>
         SaldoPendiente <= 0 ? "Pagado" : "Pendiente";
+
+    // Número de préstamo y nombre del socio.
+    public string DescripcionPrestamo =>
+        $"{NumeroPrestamo} - {SocioNombre}";
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged(
+        [CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(propertyName));
+    }
 }
