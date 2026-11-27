@@ -1,37 +1,68 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using COOPERATIVA.V2.Model;
-using COOPERATIVA.V2.ViewsModel;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 
 namespace COOPERATIVA.V2.ViewsModel;
 
 public partial class PrestamosViewsModel : BaseViewsModel
 {
+    // ÚNICA colección de préstamos de la aplicación.
     public static ObservableCollection<Prestamos> Prestamos { get; } = new();
 
     public ObservableCollection<Socios> ListaSocios =>
         SociosViewsModel.Socios;
 
     public ObservableCollection<string> Plazos { get; } =
-        new() { "6 meses", "12 meses", "18 meses", "24 meses", "36 meses" };
+        new()
+        {
+            "6 meses",
+            "12 meses",
+            "18 meses",
+            "24 meses",
+            "36 meses"
+        };
 
-    [ObservableProperty] private Socios? socioSeleccionado;
-    [ObservableProperty] private string montoTexto = "";
-    [ObservableProperty] private string tasaTexto = "";
-    [ObservableProperty] private string plazoSeleccionado = "";
+    [ObservableProperty]
+    private Socios? socioSeleccionado;
 
-    [ObservableProperty] private string errorSocio = "";
-    [ObservableProperty] private string errorMonto = "";
-    [ObservableProperty] private string errorTasa = "";
-    [ObservableProperty] private string errorPlazo = "";
+    [ObservableProperty]
+    private string montoTexto = "";
 
-    [ObservableProperty] private decimal cuotaMensual;
-    [ObservableProperty] private decimal totalPagar;
-    [ObservableProperty] private string resumenPrestamo = "";
+    [ObservableProperty]
+    private string tasaTexto = "";
 
-    private bool Validar(out decimal monto, out decimal tasa, out int plazo)
+    [ObservableProperty]
+    private string plazoSeleccionado = "";
+
+    [ObservableProperty]
+    private string errorSocio = "";
+
+    [ObservableProperty]
+    private string errorMonto = "";
+
+    [ObservableProperty]
+    private string errorTasa = "";
+
+    [ObservableProperty]
+    private string errorPlazo = "";
+
+    [ObservableProperty]
+    private decimal cuotaMensual;
+
+    [ObservableProperty]
+    private decimal totalPagar;
+
+    [ObservableProperty]
+    private string resumenPrestamo = "";
+
+    private bool Validar(
+        out decimal monto,
+        out decimal tasa,
+        out int plazo)
     {
         monto = 0;
         tasa = 0;
@@ -50,15 +81,21 @@ public partial class PrestamosViewsModel : BaseViewsModel
             valido = false;
         }
 
-        if (!decimal.TryParse(MontoTexto, NumberStyles.Number,
-            CultureInfo.CurrentCulture, out monto) || monto <= 0)
+        if (!decimal.TryParse(
+            MontoTexto,
+            NumberStyles.Number,
+            CultureInfo.CurrentCulture,
+            out monto) || monto <= 0)
         {
             ErrorMonto = "El monto debe ser mayor que RD$ 0.00.";
             valido = false;
         }
 
-        if (!decimal.TryParse(TasaTexto, NumberStyles.Number,
-            CultureInfo.CurrentCulture, out tasa) || tasa < 0 || tasa > 100)
+        if (!decimal.TryParse(
+            TasaTexto,
+            NumberStyles.Number,
+            CultureInfo.CurrentCulture,
+            out tasa) || tasa < 0 || tasa > 100)
         {
             ErrorTasa = "La tasa anual debe estar entre 0 y 100%.";
             valido = false;
@@ -69,15 +106,21 @@ public partial class PrestamosViewsModel : BaseViewsModel
             ErrorPlazo = "Selecciona el plazo del préstamo.";
             valido = false;
         }
-        else
+        else if (!int.TryParse(
+            PlazoSeleccionado.Split(' ')[0],
+            out plazo) || plazo <= 0)
         {
-            int.TryParse(PlazoSeleccionado.Split(' ')[0], out plazo);
+            ErrorPlazo = "Selecciona un plazo válido.";
+            valido = false;
         }
 
         return valido;
     }
 
-    private decimal CalcularCuota(decimal monto, decimal tasa, int plazo)
+    private decimal CalcularCuota(
+        decimal monto,
+        decimal tasa,
+        int plazo)
     {
         decimal tasaMensual = tasa / 100 / 12;
 
@@ -96,8 +139,13 @@ public partial class PrestamosViewsModel : BaseViewsModel
     [RelayCommand]
     private void CalcularCuota()
     {
-        if (!Validar(out decimal monto, out decimal tasa, out int plazo))
+        if (!Validar(
+            out decimal monto,
+            out decimal tasa,
+            out int plazo))
+        {
             return;
+        }
 
         CuotaMensual = CalcularCuota(monto, tasa, plazo);
         TotalPagar = CuotaMensual * plazo;
@@ -112,8 +160,13 @@ public partial class PrestamosViewsModel : BaseViewsModel
     [RelayCommand]
     private void RegistrarPrestamo()
     {
-        if (!Validar(out decimal monto, out decimal tasa, out int plazo))
+        if (!Validar(
+            out decimal monto,
+            out decimal tasa,
+            out int plazo))
+        {
             return;
+        }
 
         decimal cuota = CalcularCuota(monto, tasa, plazo);
         decimal total = cuota * plazo;
@@ -137,9 +190,11 @@ public partial class PrestamosViewsModel : BaseViewsModel
             Fecha = DateTime.Today
         };
 
+        // Registrar en la colección compartida.
         Prestamos.Add(prestamo);
 
-        MensajeExito = $"El préstamo {prestamo.NumeroPrestamo} se registró correctamente.";
+        MensajeExito =
+            $"El préstamo {prestamo.NumeroPrestamo} se registró correctamente.";
 
         LimpiarFormulario();
     }

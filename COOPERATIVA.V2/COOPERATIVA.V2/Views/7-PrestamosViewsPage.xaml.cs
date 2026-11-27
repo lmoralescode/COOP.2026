@@ -1,62 +1,83 @@
+
 using COOPERATIVA.V2.Model;
+using COOPERATIVA.V2.ViewsModel;
 using System.Collections.ObjectModel;
-using System.Globalization;
+using System.Linq;
 
 namespace COOPERATIVA.V2.Views;
 
 public partial class PrestamosViewsPage : ContentPage
 {
-    public static ObservableCollection<Prestamos> Prestamos { get; } = new();
+    // Utiliza la misma colección compartida con la pantalla de Pagos.
+    public static ObservableCollection<Prestamos> Prestamos =>
+        PrestamosViewsModel.Prestamos;
 
     public PrestamosViewsPage()
     {
         InitializeComponent();
 
-        SocioPrestamoPicker.ItemsSource = SociosViewsPage.Socios;
+        SocioPrestamoPicker.ItemsSource = SociosViewsModel.Socios;
+
         SocioPrestamoPicker.ItemDisplayBinding =
             new Binding("NombreCompleto");
 
         ListaPrestamos.ItemsSource = Prestamos;
     }
 
-    private bool ValidarDatos(out decimal monto, out decimal tasa, out int plazo)
+    // Validación síncrona: no utiliza async ni parámetros incompatibles.
+    private bool ValidarDatos(
+        out decimal monto,
+        out decimal tasa,
+        out int plazo,
+        out string mensaje)
     {
         monto = 0;
         tasa = 0;
         plazo = 0;
+        mensaje = "";
 
         if (SocioPrestamoPicker.SelectedItem == null)
         {
-            DisplayAlertAsync("Validación", "Seleccione un socio.", "Aceptar");
+            mensaje = "Seleccione un socio.";
             return false;
         }
 
-        if (!decimal.TryParse(MontoPrestamoEntry.Text, out monto) || monto <= 0)
+        if (!decimal.TryParse(MontoPrestamoEntry.Text, out monto) ||
+            monto <= 0)
         {
-            DisplayAlertAsync("Validación", "Ingrese un monto válido.", "Aceptar");
+            mensaje = "Ingrese un monto válido.";
             return false;
         }
 
         if (!decimal.TryParse(TasaInteresEntry.Text, out tasa) ||
             tasa < 0 || tasa > 100)
         {
-            DisplayAlertAsync("Validación", "Ingrese una tasa de interés válida.", "Aceptar");
+            mensaje = "Ingrese una tasa de interés válida entre 0 y 100%.";
             return false;
         }
 
         if (PlazoPicker.SelectedItem == null)
         {
-            DisplayAlertAsync("Validación", "Seleccione el plazo del préstamo.", "Aceptar");
+            mensaje = "Seleccione el plazo del préstamo.";
             return false;
         }
 
         string textoPlazo = PlazoPicker.SelectedItem.ToString()!;
-        plazo = int.Parse(textoPlazo.Split(' ')[0]);
+
+        if (!int.TryParse(textoPlazo.Split(' ')[0], out plazo) ||
+            plazo <= 0)
+        {
+            mensaje = "Seleccione un plazo válido.";
+            return false;
+        }
 
         return true;
     }
 
-    private decimal CalcularCuota(decimal monto, decimal tasa, int plazo)
+    private decimal CalcularCuota(
+        decimal monto,
+        decimal tasa,
+        int plazo)
     {
         decimal tasaMensual = tasa / 100 / 12;
 
@@ -72,15 +93,30 @@ public partial class PrestamosViewsPage : ContentPage
         return Math.Round((decimal)cuota, 2);
     }
 
-    private void OnCalcularCuotaClicked(object sender, EventArgs e)
+    // Calcular cuota mensual.
+    private async void OnCalcularCuotaClicked(
+        object sender,
+        EventArgs e)
     {
-        if (!ValidarDatos(out decimal monto, out decimal tasa, out int plazo))
+        if (!ValidarDatos(
+            out decimal monto,
+            out decimal tasa,
+            out int plazo,
+            out string mensaje))
+        {
+            await DisplayAlertAsync(
+                "Validación",
+                mensaje,
+                "Aceptar");
+
             return;
+        }
 
         decimal cuota = CalcularCuota(monto, tasa, plazo);
         decimal total = cuota * plazo;
 
-        CuotaLabel.Text = $"Cuota mensual estimada: RD$ {cuota:N2}";
+        CuotaLabel.Text =
+            $"Cuota mensual estimada: RD$ {cuota:N2}";
 
         ResumenPrestamoLabel.Text =
             $"Monto: RD$ {monto:N2}\n" +
@@ -89,17 +125,34 @@ public partial class PrestamosViewsPage : ContentPage
             $"Total a pagar: RD$ {total:N2}";
     }
 
-    private async void OnRegistrarPrestamoClicked(object sender, EventArgs e)
+    // Registrar préstamo.
+    private async void OnRegistrarPrestamoClicked(
+        object sender,
+        EventArgs e)
     {
-        if (!ValidarDatos(out decimal monto, out decimal tasa, out int plazo))
+        if (!ValidarDatos(
+            out decimal monto,
+            out decimal tasa,
+            out int plazo,
+            out string mensaje))
+        {
+            await DisplayAlertAsync(
+                "Validación",
+                mensaje,
+                "Aceptar");
+
             return;
+        }
 
         Socios socio = (Socios)SocioPrestamoPicker.SelectedItem;
 
         decimal cuota = CalcularCuota(monto, tasa, plazo);
         decimal total = cuota * plazo;
 
-        int nuevoId = Prestamos.Count + 1;
+        // Generar identificador único.
+        int nuevoId = PrestamosViewsModel.Prestamos.Count == 0
+            ? 1
+            : PrestamosViewsModel.Prestamos.Max(p => p.Id) + 1;
 
         Prestamos nuevoPrestamo = new()
         {
@@ -116,10 +169,12 @@ public partial class PrestamosViewsPage : ContentPage
             Fecha = DateTime.Today
         };
 
-        Prestamos.Add(nuevoPrestamo);
+        // Registrar en la colección única compartida.
+        PrestamosViewsModel.Prestamos.Add(nuevoPrestamo);
 
+        // Actualizar el historial.
         ListaPrestamos.ItemsSource = null;
-        ListaPrestamos.ItemsSource = Prestamos;
+        ListaPrestamos.ItemsSource = PrestamosViewsModel.Prestamos;
 
         await DisplayAlertAsync(
             "Préstamo registrado",
@@ -129,6 +184,7 @@ public partial class PrestamosViewsPage : ContentPage
         LimpiarFormulario();
     }
 
+    // Limpiar formulario.
     private void LimpiarFormulario()
     {
         SocioPrestamoPicker.SelectedItem = null;
@@ -136,15 +192,19 @@ public partial class PrestamosViewsPage : ContentPage
         TasaInteresEntry.Text = string.Empty;
         PlazoPicker.SelectedItem = null;
 
-        CuotaLabel.Text = "Cuota mensual estimada: RD$ 0.00";
-        ResumenPrestamoLabel.Text = string.Empty;
+        CuotaLabel.Text = "RD$ 0.00";
+
+        ResumenPrestamoLabel.Text =
+            "Complete los datos para calcular.";
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        SocioPrestamoPicker.ItemsSource = SociosViewsPage.Socios;
-        ListaPrestamos.ItemsSource = Prestamos;
+        SocioPrestamoPicker.ItemsSource = SociosViewsModel.Socios;
+
+        ListaPrestamos.ItemsSource =
+            PrestamosViewsModel.Prestamos;
     }
 }
